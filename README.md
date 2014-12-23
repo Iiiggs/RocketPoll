@@ -1,4 +1,4 @@
 RocketPoll
 ==========
 
-Initial commit from Igor
+Screen layouts, core data setup and facebook+parse libararies
