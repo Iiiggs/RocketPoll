@@ -18,6 +18,7 @@
 
 import UIKit
 import CoreData
+import Parse
 
 @UIApplicationMain
 class PollingAppDelegate: UIResponder, UIApplicationDelegate {
@@ -28,7 +29,16 @@ class PollingAppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
 
-//        self.setupManagedObjectContext()
+        FBAppEvents.activateApp()
+
+//        ParseCrashReporting.enable()
+
+        //    [Parse setApplicationId:@"HzV2hHIkPkjzIRyAfsVPozcB9ZemavFNurRqliYB"
+        //                  clientKey:@"BoR07Tovxpg1hpJ6Q5ypmm6YESeObx4gStaWmdnf"];
+
+        Parse.setApplicationId("HzV2hHIkPkjzIRyAfsVPozcB9ZemavFNurRqliYB", clientKey: "BoR07Tovxpg1hpJ6Q5ypmm6YESeObx4gStaWmdnf")
+
+        PFFacebookUtils.initializeFacebook()
 
         return true
     }
@@ -55,26 +65,17 @@ class PollingAppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
 
-//    func setupManagedObjectContext(){
-//
-//        self.managedObjectContext = NSManagedObjectContext(concurrencyType: .MainQueueConcurrencyType)
-//        self.managedObjectContext?.persistentStoreCoordinator = NSPersistentStoreCoordinator() // do we need to pass in the managedObjectContext?
-//
-//
-//        var url = self.applicationDocumentsDirectory.URLByAppendingPathComponent("Core_Data.sqlite")
-//
-//
-//        var error:NSError? = NSError()
-//        let store = self.managedObjectContext?.persistentStoreCoordinator?.addPersistentStoreWithType(CoreData.NSSQLiteStoreType, configuration: nil, URL: url, options: nil, error: &error)
-//
-//
-////        if (error != nil) {
-////            NSLog("Error: \(error!)")
-////        }
-//
-//        self.managedObjectContext?.undoManager = NSUndoManager()
-//    }
 
+    func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject?) -> Bool {
+        return FBAppCall.handleOpenURL(url, sourceApplication: sourceApplication)
+    }
+    // - (BOOL)application:(UIApplication *)application
+    // openURL:(NSURL *)url
+    // sourceApplication:(NSString *)sourceApplication
+    // annotation:(id)annotation {
+    // // attempt to extract a token from the url
+    // return [FBAppCall handleOpenURL:url sourceApplication:sourceApplication];
+    // }
 
     lazy var applicationDocumentsDirectory: NSURL = {
         // The directory the application uses to store the Core Data store file. This code uses a directory named "com.igorware.CoreDataTest2" in the application's documents Application Support directory.

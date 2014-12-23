@@ -33,6 +33,21 @@ class CreateQuestionViewController: PollingViewControllerBase, UITableViewDelega
     @IBAction func click(sender: AnyObject){
         self.text = questionTextField.text
 
+        // save to shared storage
+        saveOptions()
+
+        // show friends list
+        showFriendsList()
+
+        // for now, go to next page
+        showSwipeRight()        
+    }
+
+    func showFriendsList(){
+        
+    }
+
+    func saveOptions(){
         let appDelegate = UIApplication.sharedApplication().delegate as PollingAppDelegate
         let managedContext = appDelegate.managedObjectContext!
 
@@ -46,8 +61,8 @@ class CreateQuestionViewController: PollingViewControllerBase, UITableViewDelega
 
         for optionTextField in self.optionTextFields {
             var option = NSEntityDescription.insertNewObjectForEntityForName("Option",
-                                inManagedObjectContext:
-                                managedContext) as Option
+                inManagedObjectContext:
+                managedContext) as Option
             option.text = optionTextField.text
             optionsSet.addObject(option)
         }
@@ -56,15 +71,7 @@ class CreateQuestionViewController: PollingViewControllerBase, UITableViewDelega
         var error: NSError?
         if !managedContext.save(&error) {
             println("Could not save \(error), \(error?.userInfo)")
-        }  
-        //5
-
-        // save to shared storage
-
-        // show friends list
-
-        // for now, go to next page
-        showSwipeRight()        
+        }
     }
 
     override func didReceiveMemoryWarning() {

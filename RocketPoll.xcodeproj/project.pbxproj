@@ -19,7 +19,7 @@
 		2F19B7511A487A0C00E29463 /* FBAudienceNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F19B74F1A487A0C00E29463 /* FBAudienceNetwork.framework */; };
 		2F23E54E1A49DDDF00017554 /* ParseStarterProjectAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F23E5481A49DDDF00017554 /* ParseStarterProjectAppDelegate.m */; };
 		2F23E54F1A49DDDF00017554 /* ParseStarterProjectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F23E54A1A49DDDF00017554 /* ParseStarterProjectViewController.m */; };
-		2F23E5501A49DDDF00017554 /* ParseTester.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F23E54B1A49DDDF00017554 /* ParseTester.swift */; };
+		2F23E5501A49DDDF00017554 /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F23E54B1A49DDDF00017554 /* AccountViewController.swift */; };
 		2F23E5511A49DDDF00017554 /* RocketPoll-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2F23E54C1A49DDDF00017554 /* RocketPoll-Info.plist */; };
 		2F23E55E1A49DDE900017554 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F23E5521A49DDE900017554 /* Default-568h@2x.png */; };
 		2F23E55F1A49DDE900017554 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F23E5531A49DDE900017554 /* Default.png */; };
@@ -70,7 +70,7 @@
 		2F23E5481A49DDDF00017554 /* ParseStarterProjectAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ParseStarterProjectAppDelegate.m; path = RocketPoll/ParseStarterProjectAppDelegate.m; sourceTree = SOURCE_ROOT; };
 		2F23E5491A49DDDF00017554 /* ParseStarterProjectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ParseStarterProjectViewController.h; path = RocketPoll/ParseStarterProjectViewController.h; sourceTree = SOURCE_ROOT; };
 		2F23E54A1A49DDDF00017554 /* ParseStarterProjectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ParseStarterProjectViewController.m; path = RocketPoll/ParseStarterProjectViewController.m; sourceTree = SOURCE_ROOT; };
-		2F23E54B1A49DDDF00017554 /* ParseTester.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ParseTester.swift; path = RocketPoll/ParseTester.swift; sourceTree = SOURCE_ROOT; };
+		2F23E54B1A49DDDF00017554 /* AccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AccountViewController.swift; path = RocketPoll/AccountViewController.swift; sourceTree = SOURCE_ROOT; };
 		2F23E54C1A49DDDF00017554 /* RocketPoll-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "RocketPoll-Info.plist"; path = "RocketPoll/RocketPoll-Info.plist"; sourceTree = SOURCE_ROOT; };
 		2F23E54D1A49DDDF00017554 /* RocketPoll-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "RocketPoll-Prefix.pch"; path = "RocketPoll/RocketPoll-Prefix.pch"; sourceTree = SOURCE_ROOT; };
 		2F23E5521A49DDE900017554 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-568h@2x.png"; path = "RocketPoll/Default-568h@2x.png"; sourceTree = SOURCE_ROOT; };
@@ -194,7 +194,7 @@
 				2F23E5481A49DDDF00017554 /* ParseStarterProjectAppDelegate.m */,
 				2F23E5491A49DDDF00017554 /* ParseStarterProjectViewController.h */,
 				2F23E54A1A49DDDF00017554 /* ParseStarterProjectViewController.m */,
-				2F23E54B1A49DDDF00017554 /* ParseTester.swift */,
+				2F23E54B1A49DDDF00017554 /* AccountViewController.swift */,
 				2F23E54C1A49DDDF00017554 /* RocketPoll-Info.plist */,
 				2F23E54D1A49DDDF00017554 /* RocketPoll-Prefix.pch */,
 				09ABC07813A1D52D009C3FCF /* Supporting Files */,
@@ -341,7 +341,7 @@
 			files = (
 				2F84990A1A49E699008A9586 /* RootViewController.swift in Sources */,
 				2F3B0C301A49E1FB007E20A8 /* AskQuestionViewController.swift in Sources */,
-				2F23E5501A49DDDF00017554 /* ParseTester.swift in Sources */,
+				2F23E5501A49DDDF00017554 /* AccountViewController.swift in Sources */,
 				2F8498F71A49E4CC008A9586 /* PollingViewControllerBase.swift in Sources */,
 				2F23E54F1A49DDDF00017554 /* ParseStarterProjectViewController.m in Sources */,
 				2F3B0C2D1A49E1FB007E20A8 /* AnswerOptionTableViewCell.swift in Sources */,

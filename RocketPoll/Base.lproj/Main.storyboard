@@ -313,5 +313,48 @@
             </objects>
             <point key="canvasLocation" x="515" y="-908"/>
         </scene>
+        <!--Accont View Controller-->
+        <scene sceneID="hJd-w0-GhJ">
+            <objects>
+                <viewController storyboardIdentifier="AccountViewController" id="rS0-QM-tpb" customClass="AccontViewController" customModule="RocketPoll" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="SMo-lK-rZD"/>
+                        <viewControllerLayoutGuide type="bottom" id="u1j-6j-UDT"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="XxM-7g-gsY">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5NQ-zg-gfn">
+                                <rect key="frame" x="254" y="50" width="92.5" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XY2-R5-VQC">
+                                <rect key="frame" x="250" y="109" width="100" height="100"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="DLs-XJ-jzZ"/>
+                                    <constraint firstAttribute="width" constant="100" id="v1K-Gb-ipd"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.97826086960000003" green="0.91848131079999995" blue="0.73914263440000005" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="XY2-R5-VQC" firstAttribute="top" secondItem="5NQ-zg-gfn" secondAttribute="bottom" constant="50" id="kol-Nl-L0A"/>
+                            <constraint firstItem="XY2-R5-VQC" firstAttribute="centerX" secondItem="5NQ-zg-gfn" secondAttribute="centerX" constant="-0.25" id="pdi-ba-Z2e"/>
+                            <constraint firstAttribute="centerX" secondItem="5NQ-zg-gfn" secondAttribute="centerX" constant="-0.5" id="tWk-zq-2eY"/>
+                            <constraint firstItem="5NQ-zg-gfn" firstAttribute="top" secondItem="SMo-lK-rZD" secondAttribute="top" constant="30" id="zqm-eT-HOH"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="nameLabel" destination="5NQ-zg-gfn" id="gKQ-yB-P8h"/>
+                        <outlet property="profilePictureImage" destination="XY2-R5-VQC" id="tha-ZU-MZT"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Cp3-2v-Dzc" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1157" y="-927"/>
+        </scene>
     </scenes>
 </document>
