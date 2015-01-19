@@ -9,13 +9,17 @@
 import UIKit
 import CoreData
 
+protocol FriendsPickerDelegate{
+    func donePickingFriends(friends:NSArray)
+}
 
-class CreateQuestionViewController: PollingViewControllerBase, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
+
+class CreateQuestionViewController: PollingViewControllerBase, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, FriendsPickerDelegate {
 
     @IBOutlet weak var tableView: UITableView!
     let cellIdentifier = "answerOption"
 
-    var text: NSString = ""
+//    var text: NSString = ""
     var options: [NSString] = []
 
     var optionTextFields: NSMutableSet = NSMutableSet()
@@ -27,51 +31,110 @@ class CreateQuestionViewController: PollingViewControllerBase, UITableViewDelega
         // Do any additional setup after loading the view.
         self.optionTextFields = NSMutableSet()
 
-        self.displayLastQuestion()
+//        self.displayLastQuestion()
+    }
+    @IBAction func askClicked(sender: AnyObject) {
+        // show friends list to pick who to send to
+        self.showFriendsList()
+        // pass question, options and friendlist to datacontroller
+        // give user feedback
     }
 
-    @IBAction func click(sender: AnyObject){
-        self.text = questionTextField.text
+//    @IBAction func click(sender: AnyObject){
+//        self.text = questionTextField.text
+//        self.options
 
-        // save to shared storage
-        saveOptions()
+
+
+//        var question = PFObject(className: "Question")
+
+
+
+//        question.setObject(self.text, forKey: "text")
+
+//        var relation = question.relationForKey("options")
+//        for o in self.options{
+//            var option = PFObject(className: "Option")
+//            option.setObject(o, forKey: "text")
+//            option.save()
+//            relation.addObject(option)
+//        }
+//        question.save()
+
+//        var trigger =  PFObject(className: "Trigger")
+//        trigger.setObject(question, forKey: "question")
+//        trigger.save()
+        // save text and options to Parse
+
 
         // show friends list
-        showFriendsList()
+//        showFriendsList()
 
         // for now, go to next page
-        showSwipeRight()        
-    }
+//        showSwipeRight()
+
+
+//    }
 
     func showFriendsList(){
-        
+        var storyboard = self.storyboard!
+
+        var friendsListViewController = storyboard.instantiateViewControllerWithIdentifier("FriendsListViewController") as FriendsListViewController
+
+        friendsListViewController.delegate = self
+
+        self.presentViewController(friendsListViewController, animated: true, completion: nil)
     }
 
-    func saveOptions(){
-        let appDelegate = UIApplication.sharedApplication().delegate as PollingAppDelegate
-        let managedContext = appDelegate.managedObjectContext!
+    func donePickingFriends(friends: NSArray) {
+        // use the selected friends to submit a question/trigger request to the api
 
-        let question =   NSEntityDescription.insertNewObjectForEntityForName("Question",
-            inManagedObjectContext:
-            managedContext) as Question
-
-        question.text = self.text
-
-        var optionsSet = question.options.mutableCopy() as NSMutableOrderedSet
+        let text = self.questionTextField.text
+        var options:NSMutableArray = []
 
         for optionTextField in self.optionTextFields {
-            var option = NSEntityDescription.insertNewObjectForEntityForName("Option",
-                inManagedObjectContext:
-                managedContext) as Option
-            option.text = optionTextField.text
-            optionsSet.addObject(option)
+            options.addObject((optionTextField as UITextField).text)
         }
-        question.options = optionsSet.copy() as NSOrderedSet
 
-        var error: NSError?
-        if !managedContext.save(&error) {
-            println("Could not save \(error), \(error?.userInfo)")
+        for friend in friends as NSArray {
+            println("To Friend: \(friend)")
         }
+
+        DataController.sharedInstance.askQuestion(text, options: options, friends: friends)
+    }
+
+    func saveOptionsToSql(){
+//        let appDelegate = UIApplication.sharedApplication().delegate as PollingAppDelegate
+//        let managedContext = appDelegate.managedObjectContext!
+
+//        let question =   NSEntityDescription.insertNewObjectForEntityForName("Question",
+//            inManagedObjectContext:
+//            managedContext) as Question
+
+
+
+        // why do we make this copy?
+//        var optionsSet = question.options.mutableCopy() as NSMutableOrderedSet
+
+//        for optionTextField in self.optionTextFields {
+//            var option = NSEntityDescription.insertNewObjectForEntityForName("Option",
+//                inManagedObjectContext:
+//                managedContext) as Option
+//            option.text = optionTextField.text
+//            optionsSet.addObject(option)
+//        }
+//        question.options = optionsSet.copy() as NSOrderedSet
+
+//        self.options = []
+//        question.options.enumerateObjectsUsingBlock({ (option, index, stop) -> Void in
+//            var managedOption = (option as Option)
+//            self.options.append(managedOption.text)
+//        })
+//
+//        var error: NSError?
+//        if !managedContext.save(&error) {
+//            println("Could not save \(error), \(error?.userInfo)")
+//        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -105,6 +168,11 @@ class CreateQuestionViewController: PollingViewControllerBase, UITableViewDelega
         cell.backgroundColor = UIColor.clearColor()
 
         var textField = cell.viewWithTag(10) as UITextField
+//        if(indexPath.row == options.count) // the last textbox?
+//        {
+//            textField.backgroundColor = UIColor.redColor()
+//            textField.becomeFirstResponder()
+//        }
 
         var label = cell.viewWithTag(20) as UILabel
 
@@ -134,10 +202,10 @@ class CreateQuestionViewController: PollingViewControllerBase, UITableViewDelega
         {
             options = []
             for optionTextField in self.optionTextFields {
-                options.append(optionTextField.text)
+                options.append((optionTextField as UITextField).text)
             }
 
-            options.append("")
+            options.append("") // will add a new row
             tableView.reloadData()
         }
         else
@@ -151,40 +219,40 @@ class CreateQuestionViewController: PollingViewControllerBase, UITableViewDelega
         return true
     }
 
-    func displayLastQuestion(){
-        let appDelegate = UIApplication.sharedApplication().delegate as PollingAppDelegate
-        let managedContext = appDelegate.managedObjectContext!
-
-        let fetchRequest = NSFetchRequest(entityName:"Question")
-        var error: NSError?
-        let fetchedResults = managedContext.executeFetchRequest(fetchRequest,
-            error: &error) as? [Question]
-
-        if let results = fetchedResults {
-            if results.count > 0
-            {
-                let currentQuestion = results.last! as Question!
-
-                println(currentQuestion!.text)
-                self.questionTextField.text = currentQuestion!.text
-
-                let currentOptions = currentQuestion!.valueForKey("options") as NSOrderedSet!
-
-                self.options = []
-                currentOptions!.enumerateObjectsUsingBlock({ (option, index, stop) -> Void in
-                    var managedOption = (option as Option)
-                    self.options.append(managedOption.text)
-                })
-
-                self.tableView.reloadData()
-            }
-        } else {
-            println("Could not fetch \(error), \(error!.userInfo)")
-        }
-    }
+//    func displayLastQuestion(){
+//        let appDelegate = UIApplication.sharedApplication().delegate as PollingAppDelegate
+//        let managedContext = appDelegate.managedObjectContext!
+//
+//        let fetchRequest = NSFetchRequest(entityName:"Question")
+//        var error: NSError?
+//        let fetchedResults = managedContext.executeFetchRequest(fetchRequest,
+//            error: &error) as? [Question]
+//
+//        if let results = fetchedResults {
+//            if results.count > 0
+//            {
+//                let currentQuestion = results.last! as Question!
+//
+//                println(currentQuestion!.text)
+//                self.questionTextField.text = currentQuestion!.text
+//
+//                let currentOptions = currentQuestion!.valueForKey("options") as NSOrderedSet!
+//
+//                self.options = []
+//                currentOptions!.enumerateObjectsUsingBlock({ (option, index, stop) -> Void in
+//                    var managedOption = (option as Option)
+//                    self.options.append(managedOption.text)
+//                })
+//
+//                self.tableView.reloadData()
+//            }
+//        } else {
+//            println("Could not fetch \(error), \(error!.userInfo)")
+//        }
+//    }
 
     override func viewWillAppear(animated: Bool) {
-        displayLastQuestion()
+//        displayLastQuestion()
     }
 
 }

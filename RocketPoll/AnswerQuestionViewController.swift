@@ -15,74 +15,53 @@ class AnswerQuestionViewController: PollingViewControllerBase, UITableViewDataSo
     @IBOutlet weak var tableView: UITableView!
 
     let cellIdentifier = "answerOption"
-    var options: [NSString] = []
+//    var options: [NSString] = []
 
     var selectedOptionIndex: Int = -1
 
 
     var currentQuestion: Question?
-    var currentOptions: NSOrderedSet?
+    var currentOptions = NSOrderedSet()
     var currentOption: Option?
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        displayLastQuestion()
+
+        getQuestionFromParse()
     }
 
-    func displayLastQuestion(){
-        let appDelegate = UIApplication.sharedApplication().delegate as PollingAppDelegate
-        let managedContext = appDelegate.managedObjectContext!
+    func getQuestionFromParse	()
+    {
+        // get the  questions
+        DataController.sharedInstance.getQuestionsWithBlock { (questions, error) -> Void in
+            if (questions != nil && questions.count > 0){
 
-        let fetchRequest = NSFetchRequest(entityName:"Question")
-        var error: NSError?
-        let fetchedResults = managedContext.executeFetchRequest(fetchRequest,
-            error: &error) as? [Question]
+                // grab the last one
+                let lastquestion = questions.last!
 
-        if let results = fetchedResults {
-            if results.count > 0
-            {
-                self.currentQuestion = results.last! as Question!
-                self.questionLabel.text = self.currentQuestion!.text
-
-                self.currentOptions = self.currentQuestion!.valueForKey("options") as NSOrderedSet!
-
-                self.selectedOptionIndex = -1
-                self.options = []
-                self.currentOptions!.enumerateObjectsUsingBlock({ (option, index, stop) -> Void in
-                    var managedOption = (option as Option)
-                    self.options.append(managedOption.text)
+                // show the question
+                self.questionLabel.text = lastquestion.text
+                self.currentOptions = lastquestion.options
+                println("\(self.questionLabel.text) \(self.currentOptions)")
+                NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+                    self.questionLabel.setNeedsDisplay()
+                    self.tableView.reloadData()
+                    println("resetting display in background")
                 })
-
-                self.tableView.reloadData()
             }
-        } else {
-            println("Could not fetch \(error), \(error!.userInfo)")
         }
+
     }
 
     @IBAction func click(sender: AnyObject) {
 
-        if(currentOption != nil && currentOptions != nil)
-        {
-
-            let appDelegate = UIApplication.sharedApplication().delegate as PollingAppDelegate
-            let managedContext = appDelegate.managedObjectContext!
-            // create a coredata entry for a question response
-
-            let response =  NSEntityDescription.insertNewObjectForEntityForName("Answer",
-                inManagedObjectContext:
-                managedContext) as Answer
-
-
-                response.question = currentQuestion!
-                response.option = currentOption!
-
-            var error: NSError?
-            if !managedContext.save(&error) {
-                println("Could not save \(error), \(error?.userInfo)")
-            }
-        }
+//        if(currentOption != nil && currentOptions != nil)
+//        {
+//                response.question = currentQuestion!
+//                response.option = currentOption!
+//
+//        }
 
         showSwipeRight()
     }
@@ -94,11 +73,12 @@ class AnswerQuestionViewController: PollingViewControllerBase, UITableViewDataSo
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
-        return options.count
+        println(self.currentOptions.count)
+        return self.currentOptions.count
     }
 
     override func viewWillAppear(animated: Bool) {
-        displayLastQuestion()
+//        displayLastQuestion()
     }
 
     // Row display. Implementers should *always* try to reuse cells by setting each cell's reuseIdentifier and querying for available reusable cells with dequeueReusableCellWithIdentifier:
@@ -110,7 +90,7 @@ class AnswerQuestionViewController: PollingViewControllerBase, UITableViewDataSo
 
         cell.backgroundColor = UIColor.clearColor()
 
-        cell.textLabel!.text = self.options[indexPath.row]
+        cell.textLabel!.text = self.currentOptions[indexPath.row] as NSString
 
         cell.accessoryType = .None
         if(indexPath.row == selectedOptionIndex)
@@ -124,7 +104,7 @@ class AnswerQuestionViewController: PollingViewControllerBase, UITableViewDataSo
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: false)
         selectedOptionIndex = indexPath.row
-        self.currentOption = self.currentOptions?.objectAtIndex(selectedOptionIndex) as Option!
+//        self.currentOption = self.currentOptions.objectAtIndex(selectedOptionIndex) as Option!
         tableView.reloadData()
     }
 

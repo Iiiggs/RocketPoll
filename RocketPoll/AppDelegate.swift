@@ -24,6 +24,7 @@ import Parse
 class PollingAppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    var facebookUser: FBGraphUser?
 
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {

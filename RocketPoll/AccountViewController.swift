@@ -8,14 +8,15 @@
 
 //import Cocoa
 
-class AccontViewController: PollingViewControllerBase, FBLoginViewDelegate {
-    var user: FBGraphUser?
+class AccountViewController: PollingViewControllerBase, FBLoginViewDelegate {
+    var parseUser: PFUser?
 
 //    @IBOutlet weak var loginButton: FBLoginView!
     @IBOutlet weak var nameLabel: UILabel!
-    @IBAction func inviteFriends(sender: AnyObject) {
-    }
+    @IBAction func inviteFriends(sender: AnyObject) {}
     @IBOutlet weak var profilePictureImage: UIImageView!
+
+
     override func viewDidLoad() {
 //        addParseUser()
 
@@ -41,11 +42,57 @@ class AccontViewController: PollingViewControllerBase, FBLoginViewDelegate {
     }
 
     func loginViewShowingLoggedOutUser(loginView: FBLoginView!) {
-
+        self.nameLabel.text = "Guest"
+        self.profilePictureImage.image = nil
+        self.parseUser = nil
+        let appDelegate = UIApplication.sharedApplication().delegate! as PollingAppDelegate
+        appDelegate.facebookUser = nil
     }
 
     func loginViewFetchedUserInfo(loginView: FBLoginView!, user: FBGraphUser!) {
-        self.user = user
+        let appDelegate = UIApplication.sharedApplication().delegate! as PollingAppDelegate
+        appDelegate.facebookUser = user
+
+        // find out if user already exists
+
+
+        // find some working examples of facebok/parse user management?
+        // 
+
+        if(self.parseUser == nil)
+        {
+            self.parseUser = PFUser()
+            self.parseUser?.username = appDelegate.facebookUser?.name
+            self.parseUser?.password = "rp123"
+
+            self.parseUser?.signUpInBackgroundWithBlock { (succeded, error) -> Void in
+                if succeded {
+                    println("Success")
+                }
+                else {
+                    println("Error: \(error)")
+
+//                    self.parseUser? = PFUser.logInWithUsername(self.parseUser?.username, password: self.parseUser?.password)
+
+                    PFUser.logInWithUsernameInBackground(self.parseUser?.username, password: self.parseUser?.password, block: { (parseUser, error) -> Void in
+                        if error == nil {
+                            println("Success Logging In")
+                            
+
+                            self.parseUser? = parseUser
+                            self.parseUser?.setObject(user, forKey: "facebookUser")
+                            self.parseUser?.save()
+                        }
+                        else {
+                            NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+                                UIAlertView(title: "Error", message: error.description, delegate: nil, cancelButtonTitle: "OK").show()
+                            })
+                        }
+                    })
+                }
+            }
+        }
+
 
         self.nameLabel.text = user.name
 
@@ -64,7 +111,11 @@ class AccontViewController: PollingViewControllerBase, FBLoginViewDelegate {
                     self.profilePictureImage.contentMode = UIViewContentMode.ScaleAspectFill
                     self.profilePictureImage.image = UIImage(data:imageData!)
                 }
-                else {}
+                else {
+                    NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+                        UIAlertView(title: "Error", message: error.description, delegate: nil, cancelButtonTitle: "OK").show()
+                    })
+                }
 
 
 
@@ -72,53 +123,33 @@ class AccontViewController: PollingViewControllerBase, FBLoginViewDelegate {
 //                self.profilePictureImage.image = result as UIImage
             }
             else {
-                let err = error as NSError
-                println(err)
+                NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+                    UIAlertView(title: "Error", message: error.description, delegate: nil, cancelButtonTitle: "OK").show()
+                })
             }
 
         })
 
     }
 
-    func sendRequestsToFriends(){
-        FBWebDialogs.presentFeedDialogModallyWithSession(PFFacebookUtils.session(), parameters: nil, handler: { (result, url, error) -> Void in
-            if error == nil{
-                println(result)
-            }
-            else {
-                println(error)
-            }
-        })
-    }
 
-    func getMySocialPollingFriends(user: FBGraphUser!){
-        FBRequestConnection.startWithGraphPath("/\(user.objectID)/friends/", completionHandler: { (connection, result, error) -> Void in
-            if error == nil{
-                println(result)
-            }
-            else {
-                println(error)
-            }
-            
-        })
-    }
 
-    func addParseUser(){
-        var user = PFUser()
-        user.username = "Iiiggs2"
-        user.password = "abc123"
-        user.email = "igorkantor2@icloud.com"
-
-        user.setValue("913-608-2173", forKey: "phone")
-
-        user.signUpInBackgroundWithBlock { (succeded, error) -> Void in
-            if error == nil {
-                println("Success")
-            }
-            else {
-                println("Error: \(error)")
-            }
-        }
-
-    }
+//    func addParseUser(){
+//        var user = PFUser()
+//        user.username = "Iiiggs2"
+//        user.password = "abc123"
+//        user.email = "igorkantor2@icloud.com"
+//
+//        user.setValue("913-608-2173", forKey: "phone")
+//
+//        user.signUpInBackgroundWithBlock { (succeded, error) -> Void in
+//            if error == nil {
+//                println("Success")
+//            }
+//            else {
+//                println("Error: \(error)")
+//            }
+//        }
+//
+//    }
 }

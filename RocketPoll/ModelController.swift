@@ -42,22 +42,25 @@ class ModelController: NSObject, UIPageViewControllerDataSource {
 
         switch index {
         case 0:
-            var vc = storyboard.instantiateViewControllerWithIdentifier("AccountViewController") as AccontViewController
+            var vc = storyboard.instantiateViewControllerWithIdentifier("DevToolsViewController") as DevToolsViewController
             vc.dataObject = 0
             return vc
         case 1:
-            var vc = storyboard.instantiateViewControllerWithIdentifier("CreateQuestionViewController") as CreateQuestionViewController
+            var vc = storyboard.instantiateViewControllerWithIdentifier("AccountViewController") as AccountViewController
             vc.dataObject = 1
             return vc
         case 2:
-            var vc = storyboard.instantiateViewControllerWithIdentifier("AnswerQuestionViewController") as AnswerQuestionViewController
+            var vc = storyboard.instantiateViewControllerWithIdentifier("CreateQuestionViewController") as CreateQuestionViewController
             vc.dataObject = 2
             return vc
         case 3:
-            var vc = storyboard.instantiateViewControllerWithIdentifier("SeeResultsViewController") as SeeResultsViewController
+            var vc = storyboard.instantiateViewControllerWithIdentifier("QuestionsListViewController") as QuestionsListViewController
             vc.dataObject = 3
             return vc
-
+        case 4:
+            var vc = storyboard.instantiateViewControllerWithIdentifier("SeeResultsViewController") as SeeResultsViewController
+            vc.dataObject = 4
+            return vc
         default:
             let dataViewController = storyboard.instantiateViewControllerWithIdentifier("PollingViewControllerBase") as PollingViewControllerBase
             dataViewController.dataObject = self.pageData[index]
@@ -96,7 +99,7 @@ class ModelController: NSObject, UIPageViewControllerDataSource {
         var index = dataObject.integerValue!
 
     
-        if index == 3 {
+        if index == 4 {
             return nil
         }
         
