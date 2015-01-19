@@ -15,55 +15,23 @@ class AnswerQuestionViewController: PollingViewControllerBase, UITableViewDataSo
     @IBOutlet weak var tableView: UITableView!
 
     let cellIdentifier = "answerOption"
-//    var options: [NSString] = []
-
-    var selectedOptionIndex: Int = -1
-
 
     var currentQuestion: Question?
-    var currentOptions = NSOrderedSet()
-    var currentOption: Option?
+    var selectedOptionIndex: Int = -1
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-
-        getQuestionFromParse()
+        self.questionLabel.text = self.currentQuestion?.text
     }
 
-    func getQuestionFromParse	()
-    {
-        // get the  questions
-        DataController.sharedInstance.getQuestionsWithBlock { (questions, error) -> Void in
-            if (questions != nil && questions.count > 0){
-
-                // grab the last one
-                let lastquestion = questions.last!
-
-                // show the question
-                self.questionLabel.text = lastquestion.text
-                self.currentOptions = lastquestion.options
-                println("\(self.questionLabel.text) \(self.currentOptions)")
-                NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
-                    self.questionLabel.setNeedsDisplay()
-                    self.tableView.reloadData()
-                    println("resetting display in background")
-                })
-            }
-        }
-
-    }
 
     @IBAction func click(sender: AnyObject) {
-
-//        if(currentOption != nil && currentOptions != nil)
-//        {
-//                response.question = currentQuestion!
-//                response.option = currentOption!
-//
-//        }
-
-        showSwipeRight()
+        if(selectedOptionIndex != -1)
+        {
+            // submit
+            self.dismissViewControllerAnimated(true, completion: nil)
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -73,8 +41,7 @@ class AnswerQuestionViewController: PollingViewControllerBase, UITableViewDataSo
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
-        println(self.currentOptions.count)
-        return self.currentOptions.count
+        return self.currentQuestion!.options.count
     }
 
     override func viewWillAppear(animated: Bool) {
@@ -90,7 +57,7 @@ class AnswerQuestionViewController: PollingViewControllerBase, UITableViewDataSo
 
         cell.backgroundColor = UIColor.clearColor()
 
-        cell.textLabel!.text = self.currentOptions[indexPath.row] as NSString
+        cell.textLabel!.text = self.currentQuestion?.options.objectAtIndex(indexPath.row) as NSString
 
         cell.accessoryType = .None
         if(indexPath.row == selectedOptionIndex)

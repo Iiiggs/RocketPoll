@@ -43,10 +43,36 @@ class QuestionsListViewController: PollingViewControllerBase, UITableViewDelegat
         var cell = self.questionsTableView.dequeueReusableCellWithIdentifier("questionListCell") as UITableViewCell
 
         var user:PFUser = questions[indexPath.row].askedBy
-        user.fetchIfNeeded()
-
-        cell.textLabel!.text = user.objectForKey("username") as String
+        user.fetchInBackgroundWithBlock { (user, error) -> Void in
+            if error == nil {
+                let askingUserName = user.objectForKey("username") as String
+                cell.textLabel!.text = "question from \(askingUserName)"
+            }
+            else
+            {
+                NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+                    UIAlertView(title: "Error", message: error.description, delegate: nil, cancelButtonTitle: "OK").show()
+                })
+            }
+        }
 
         return cell
     }
+
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let question = questions[indexPath.row]
+
+        var storyboard = self.storyboard!
+
+        var answerQuestionViewController = storyboard.instantiateViewControllerWithIdentifier("AnswerQuestionViewController") as AnswerQuestionViewController
+
+        answerQuestionViewController.currentQuestion = question
+
+        self.presentViewController(answerQuestionViewController, animated: true, completion: nil)
+    }
+
+
+
+
+
 }

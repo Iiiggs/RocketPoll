@@ -16,13 +16,6 @@ class PollingViewControllerBase: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-//        setupManagedObjectContext()
-
-        var question = [NSManagedObject]()
-
-
-
     }
 
 
@@ -33,41 +26,6 @@ class PollingViewControllerBase: UIViewController {
 
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-    }
-
-    override func viewWillDisappear(animated: Bool) {
-        let swipeImageView = self.view.viewWithTag(50)?
-
-        if swipeImageView != nil {
-            UIView.animateWithDuration(0.5, animations: {
-                    swipeImageView!.alpha = 0.0
-                }) { (Bool) -> Void in
-                    swipeImageView!.removeFromSuperview()
-                    self.swipeShown = false
-            }
-        }
-    }
-
-    func showSwipeRight()
-    {
-
-        if !swipeShown{
-            swipeShown = true
-
-            var image = UIImage(named: "swipe_right.png")
-            var imageView = UIImageView(image: image)
-            imageView.contentMode = UIViewContentMode.ScaleToFill
-            imageView.alpha = 0.0
-            imageView.tag = 50
-            self.view.addSubview(imageView)
-
-            UIView.animateWithDuration(0.5, animations: {
-                    imageView.alpha = 0.2
-                }) { (Bool) -> Void in
-            }
-
-
-        }
     }
 }
 

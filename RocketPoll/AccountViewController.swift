@@ -81,7 +81,7 @@ class AccountViewController: PollingViewControllerBase, FBLoginViewDelegate {
 
                             self.parseUser? = parseUser
                             self.parseUser?.setObject(user, forKey: "facebookUser")
-                            self.parseUser?.save()
+                            self.parseUser?.saveInBackgroundWithBlock(nil)
                         }
                         else {
                             NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
