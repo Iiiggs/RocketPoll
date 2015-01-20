@@ -286,7 +286,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Questions for Me" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YkQ-hE-DPZ">
-                                <rect key="frame" x="249" y="40" width="132" height="21"/>
+                                <rect key="frame" x="234" y="40" width="132" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
@@ -315,7 +315,7 @@
                             <constraint firstItem="YkQ-hE-DPZ" firstAttribute="top" secondItem="JW8-wp-Hcq" secondAttribute="top" constant="20" id="Ms5-Ba-MKa"/>
                             <constraint firstAttribute="centerX" secondItem="PbF-4C-6rR" secondAttribute="centerX" id="fvw-f8-fSn"/>
                             <constraint firstItem="PbF-4C-6rR" firstAttribute="top" secondItem="YkQ-hE-DPZ" secondAttribute="bottom" constant="40" id="hb4-as-xl5"/>
-                            <constraint firstAttribute="centerX" secondItem="YkQ-hE-DPZ" secondAttribute="centerX" constant="-15" id="mty-yn-OU0"/>
+                            <constraint firstAttribute="centerX" secondItem="YkQ-hE-DPZ" secondAttribute="centerX" id="mty-yn-OU0"/>
                         </constraints>
                     </view>
                     <connections>

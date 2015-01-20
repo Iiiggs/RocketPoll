@@ -41,7 +41,52 @@ class PollingAppDelegate: UIResponder, UIApplicationDelegate {
 
         PFFacebookUtils.initializeFacebook()
 
+        registerForPush(application)
+
         return true
+    }
+
+    func registerForPush(application: UIApplication){
+
+
+        var types: UIUserNotificationType =
+            UIUserNotificationType.Badge |
+            UIUserNotificationType.Alert |
+            UIUserNotificationType.Sound
+
+        application.registerUserNotificationSettings(UIUserNotificationSettings(forTypes: types, categories: nil))
+        application.registerForRemoteNotifications()
+    }
+
+
+
+
+    func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData)
+    {
+        PFInstallation.currentInstallation().setDeviceTokenFromData(deviceToken)
+        PFInstallation.currentInstallation().saveInBackgroundWithBlock { (success, error) -> Void in
+            if success {
+                NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+                    UIAlertView(title: "\(success)", message: nil, delegate: nil, cancelButtonTitle: "OK").show()
+                })
+            }
+            else
+            {
+                NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+                    UIAlertView(title: "\(success)", message: error.description, delegate: nil, cancelButtonTitle: "OK").show()
+                })
+            }
+
+        }
+
+        if PFUser.currentUser() != nil{
+            // how to get facebook id of current user?
+        }
+        // What's next? 
+    }
+
+    func application(application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: NSError) {
+        UIAlertView(title: "Error", message: error.description, delegate: nil, cancelButtonTitle: "OK").show()
     }
 
     func applicationWillResignActive(application: UIApplication) {

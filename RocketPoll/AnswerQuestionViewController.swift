@@ -30,6 +30,13 @@ class AnswerQuestionViewController: PollingViewControllerBase, UITableViewDataSo
         if(selectedOptionIndex != -1)
         {
             // submit
+            let answer = Answer(
+                question: self.currentQuestion!.text,
+                option: self.currentQuestion?.options.objectAtIndex(self.selectedOptionIndex) as String)
+
+            DataController.sharedInstance.answerQuestion(answer)
+
+            // navigate back to question list
             self.dismissViewControllerAnimated(true, completion: nil)
         }
     }

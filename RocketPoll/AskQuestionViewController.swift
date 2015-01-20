@@ -77,13 +77,26 @@ class CreateQuestionViewController: PollingViewControllerBase, UITableViewDelega
 //    }
 
     func showFriendsList(){
-        var storyboard = self.storyboard!
 
-        var friendsListViewController = storyboard.instantiateViewControllerWithIdentifier("FriendsListViewController") as FriendsListViewController
+        let appDelegate = UIApplication.sharedApplication().delegate! as PollingAppDelegate
 
-        friendsListViewController.delegate = self
+        if appDelegate.facebookUser != nil {
+            var storyboard = self.storyboard!
 
-        self.presentViewController(friendsListViewController, animated: true, completion: nil)
+            var friendsListViewController = storyboard.instantiateViewControllerWithIdentifier("FriendsListViewController") as FriendsListViewController
+
+            friendsListViewController.delegate = self
+
+
+            friendsListViewController.user = appDelegate.facebookUser
+
+            self.presentViewController(friendsListViewController, animated: true, completion: nil)
+
+        }
+        else
+        {
+            UIAlertView(title: "Warning", message: "Must login with Facebook to ask friends", delegate: nil, cancelButtonTitle: "OK").show()
+        }
     }
 
     func donePickingFriends(friends: NSArray) {
@@ -96,11 +109,9 @@ class CreateQuestionViewController: PollingViewControllerBase, UITableViewDelega
             options.addObject((optionTextField as UITextField).text)
         }
 
-        for friend in friends as NSArray {
-            println("To Friend: \(friend)")
-        }
-
         DataController.sharedInstance.askQuestion(text, options: options, friends: friends)
+
+        
     }
 
     func saveOptionsToSql(){

@@ -47,7 +47,7 @@ class SeeResultsViewController: PollingViewControllerBase,
             {
                 responses = []
                 for response: Answer in results {
-                    println("\(response.question.text) \(response.option.text)")
+                    println("\(response.question) \(response.option)")
 
                     responses!.append(response)
                 }
@@ -68,8 +68,8 @@ class SeeResultsViewController: PollingViewControllerBase,
 
         cell.backgroundColor = UIColor.clearColor()
 
-        cell.textLabel!.text = self.responses![indexPath.row].question.text
-        cell.detailTextLabel!.text = self.responses![indexPath.row].option.text
+        cell.textLabel!.text = self.responses![indexPath.row].question
+        cell.detailTextLabel!.text = self.responses![indexPath.row].option
 
         return cell
     }

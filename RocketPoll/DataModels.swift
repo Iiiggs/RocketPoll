@@ -10,17 +10,12 @@ import Foundation
 import CoreData
 
 class Answer {
-    var option: Option
-    var question: Question
-
-    init(question: Question, option: Option){
-        self.question = question
-        self.option = option
-    }
+    var option: String
+    var question: String
 
     init(question: String, option: String){
-        self.question = Question(text: question, options: NSOrderedSet(), askedBy: PFUser())
-        self.option = Option(text: option)
+        self.question =  question
+        self.option = option
     }
 }
 

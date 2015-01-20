@@ -77,11 +77,15 @@ class AccountViewController: PollingViewControllerBase, FBLoginViewDelegate {
                     PFUser.logInWithUsernameInBackground(self.parseUser?.username, password: self.parseUser?.password, block: { (parseUser, error) -> Void in
                         if error == nil {
                             println("Success Logging In")
-                            
 
                             self.parseUser? = parseUser
                             self.parseUser?.setObject(user, forKey: "facebookUser")
                             self.parseUser?.saveInBackgroundWithBlock(nil)
+
+                            let facebookId = user.objectForKey("id") as String
+                        PFInstallation.currentInstallation().setObject(["questions_to_\(facebookId)"], forKey: "channels")
+                            PFInstallation.currentInstallation().saveInBackgroundWithBlock(nil)
+
                         }
                         else {
                             NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in

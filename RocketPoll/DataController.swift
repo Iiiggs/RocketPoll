@@ -33,6 +33,8 @@ public class DataController{
         backendQuestion["createdBy"] = PFUser.currentUser()
         backendQuestion.saveInBackgroundWithBlock { (succeeded, error) -> Void in
             if succeeded {
+
+                // save to users asked questions list
                 var questions = PFUser.currentUser().objectForKey("questions") as NSMutableArray?
 
                 if questions == nil {
@@ -41,7 +43,12 @@ public class DataController{
                 questions!.addObject(backendQuestion)
 
                 PFUser.currentUser().setObject(questions, forKey: "questions")
-                PFUser.currentUser().save()
+                PFUser.currentUser().saveInBackgroundWithBlock(nil)
+
+                var push = PFPush()
+                push.setChannel("questions_to_\(friends.first!)")
+                push.setMessage("You have a new question from \(PFUser.currentUser().username)")
+                push.sendPushInBackgroundWithBlock(nil)
             }
         }
     }
@@ -52,7 +59,7 @@ public class DataController{
 
         var query = PFQuery(className:"Question")
 
-        let facebookId = "934339306579291"
+        let facebookId = PFUser.currentUser().objectForKey("facebookUser").objectForKey("id") as String
 
         query.whereKey("friends", equalTo: facebookId)
 
@@ -87,8 +94,8 @@ public class DataController{
     // Answer question
     func answerQuestion(answer: Answer){
         var backendAnswer = PFObject(className:"Answer")
-        backendAnswer["question"] = answer.question.text // can we get away with just submitting the question?
-        backendAnswer["option"] = answer.option.text
+        backendAnswer["question"] = answer.question // can we get away with just submitting the question?
+        backendAnswer["option"] = answer.option
         backendAnswer["createdBy"] = PFUser.currentUser()
         backendAnswer.saveInBackgroundWithBlock(nil)
     }
@@ -122,11 +129,11 @@ public class DataController{
                 var dict =  Dictionary<String, Int>()
 
                 for answer in answers {
-                    if let count = dict[answer.option.text] {
-                        dict[answer.option.text] = count + 1
+                    if let count = dict[answer.option] {
+                        dict[answer.option] = count + 1
                     }
                     else{
-                        dict[answer.option.text] = 1
+                        dict[answer.option] = 1
                     }
                 }
 

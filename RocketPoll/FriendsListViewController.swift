@@ -10,6 +10,7 @@ import UIKit
 
 class FriendsListViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
+    var user: FBGraphUser?
     var friends = NSArray()
     let cellIdentifier = "friendsCell"
     var delegate: FriendsPickerDelegate?
@@ -19,8 +20,7 @@ class FriendsListViewController: UIViewController, UITableViewDataSource, UITabl
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        let appDelegate = UIApplication.sharedApplication().delegate! as PollingAppDelegate
-        getMySocialPollingFriends(appDelegate.facebookUser?)
+        self.getMySocialPollingFriends()
 
         self.tableView.registerClass(FacebookFriendsTableViewCell.self, forCellReuseIdentifier: cellIdentifier)
     }
@@ -45,8 +45,8 @@ class FriendsListViewController: UIViewController, UITableViewDataSource, UITabl
         })
     }
 
-    func getMySocialPollingFriends(user: FBGraphUser!){
-        FBRequestConnection.startWithGraphPath("/\(user.objectID)/friends/", completionHandler: { (connection, result, error) -> Void in
+    func getMySocialPollingFriends(){
+        FBRequestConnection.startWithGraphPath("/\(user!.objectID)/friends/", completionHandler: { (connection, result, error) -> Void in
             if error == nil{
                 let resultDataArray = (result as NSDictionary)["data"]! as NSArray
 

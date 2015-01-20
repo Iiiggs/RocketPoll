@@ -318,6 +318,11 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0510;
+				TargetAttributes = {
+					09ABC06C13A1D52D009C3FCF = {
+						DevelopmentTeam = 3SZL8AP34G;
+					};
+				};
 			};
 			buildConfigurationList = 09ABC06713A1D52D009C3FCF /* Build configuration list for PBXProject "RocketPoll" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -440,6 +445,7 @@
 		09ABC08C13A1D52E009C3FCF /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
@@ -447,6 +453,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				ONLY_ACTIVE_ARCH = YES;
+				PROVISIONING_PROFILE = "4ede55c9-f0c9-491a-96b8-5d7659fa701a";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -454,10 +461,12 @@
 		09ABC08D13A1D52E009C3FCF /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				PROVISIONING_PROFILE = "4ede55c9-f0c9-491a-96b8-5d7659fa701a";
 				SDKROOT = iphoneos;
 			};
 			name = Release;
@@ -481,6 +490,7 @@
 				INFOPLIST_FILE = "RocketPoll/RocketPoll-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = RocketPoll;
+				PROVISIONING_PROFILE = "aa4081b3-2d7a-40c6-b372-13dfa63b4017";
 				SWIFT_OBJC_BRIDGING_HEADER = "RocketPoll-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				WRAPPER_EXTENSION = app;
@@ -505,6 +515,7 @@
 				INFOPLIST_FILE = "RocketPoll/RocketPoll-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = RocketPoll;
+				PROVISIONING_PROFILE = "aa4081b3-2d7a-40c6-b372-13dfa63b4017";
 				SWIFT_OBJC_BRIDGING_HEADER = "RocketPoll-Bridging-Header.h";
 				VALIDATE_PRODUCT = YES;
 				WRAPPER_EXTENSION = app;
