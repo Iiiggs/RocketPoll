@@ -63,12 +63,14 @@ class PollingAppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData)
     {
-        PFInstallation.currentInstallation().setDeviceTokenFromData(deviceToken)
-        PFInstallation.currentInstallation().saveInBackgroundWithBlock { (success, error) -> Void in
+        var installation = PFInstallation.currentInstallation()
+
+        installation.setDeviceTokenFromData(deviceToken)
+        installation.saveInBackgroundWithBlock { (success, error) -> Void in
             if success {
-                NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
-                    UIAlertView(title: "\(success)", message: nil, delegate: nil, cancelButtonTitle: "OK").show()
-                })
+//                NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+//                    UIAlertView(title: "\(success)", message: nil, delegate: nil, cancelButtonTitle: "OK").show()
+//                })
             }
             else
             {
@@ -87,6 +89,10 @@ class PollingAppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: NSError) {
         UIAlertView(title: "Error", message: error.description, delegate: nil, cancelButtonTitle: "OK").show()
+    }
+
+    func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
+        PFPush.handlePush(userInfo)
     }
 
     func applicationWillResignActive(application: UIApplication) {

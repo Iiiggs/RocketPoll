@@ -40,7 +40,9 @@ class QuestionsListViewController: PollingViewControllerBase, UITableViewDelegat
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
     {
-        var cell = self.questionsTableView.dequeueReusableCellWithIdentifier("questionListCell") as UITableViewCell
+        var cell = self.questionsTableView.dequeueReusableCellWithIdentifier("questionListCell") as QuestionListTableViewCell
+
+        cell.backgroundColor = UIColor.clearColor()
 
         var user:PFUser = questions[indexPath.row].askedBy
         user.fetchInBackgroundWithBlock { (user, error) -> Void in
