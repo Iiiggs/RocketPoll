@@ -121,23 +121,56 @@ public class DataController{
         }
     }
 
+    //            ["Where should I eat tonight?":                          ["McDonalds": 1,
+    //                "Burger King": 3,
+    //                "Fugo De Chao": 12,
+    //                "Thai Place": 3,
+    //                "Spookey Sushi": 0,
+    //                "Yobagoya": 1,
+    //                "C.B. Potts": 4],
+    //            "Should we go skiiing this weekend?" :
+    //                ["Yes": 3,
+    //                "No": 0,
+    //                "Maybe": 2]]
+
+
     func countAnswersWithBlock(block: AnswersCountResultBlock){
 
         getAnswersWithBlock { (answers, error) -> Void in
             if error == nil {
                 // group by the answers and make a dict
-                var dict =  Dictionary<String, Int>()
+                var dict =  Dictionary<String, Dictionary<String, Int>>()
 
-                for answer in answers {
-                    if let count = dict[answer.option] {
-                        dict[answer.option] = count + 1
+
+                // work on filling this dict!!!
+                for answer in answers{
+                    if dict[answer.question] == nil {
+                        var qdict = Dictionary<String, Int>()
+                        qdict[answer.option] = 1
+                        dict[answer.question] = qdict
                     }
-                    else{
-                        dict[answer.option] = 1
+                    else {
+                        var qdict = dict[answer.question]!
+                        if qdict[answer.option] != nil{
+                            let count = qdict[answer.option]! + 1
+                            qdict[answer.option] = count
+                        }
+                        else {
+                            qdict[answer.option] = 1
+                        }
                     }
                 }
 
-                println("Done counting")
+//                for answer in answers {
+//                    if let count = dict[answer.question]![answer.option] as? Int {
+//                        dict[answer.question][answer.option] = count + 1
+//                    }
+//                    else{
+//                        dict[answer.question][answer.option] = 1
+//                    }
+//                }
+
+                println("Done counting \(dict)")
 
                 block(dict, nil)
             }
