@@ -12,7 +12,7 @@ import CoreData
 class SeeResultsViewController: PollingViewControllerBase,
     UITableViewDelegate,
     UITableViewDataSource {
-    var responses: [Answer]? = []
+    var answers: [Answer]? = []
 
     let cellIdentifier = "questionResponse"
 
@@ -30,37 +30,23 @@ class SeeResultsViewController: PollingViewControllerBase,
     }
 
     override func viewWillAppear(animated: Bool) {
-        getResponseData()
     }
 
     func getResponseData(){
-        let appDelegate = UIApplication.sharedApplication().delegate as PollingAppDelegate
-        let managedContext = appDelegate.managedObjectContext!
-
-        let fetchRequest = NSFetchRequest(entityName:"Answer")
-        var error: NSError?
-        let fetchedResults = managedContext.executeFetchRequest(fetchRequest,
-            error: &error) as? [Answer]
-
-        if let results = fetchedResults {
-            if results.count > 0
-            {
-                responses = []
-                for response: Answer in results {
-                    println("\(response.question) \(response.option)")
-
-                    responses!.append(response)
-                }
-
-                self.tableView.reloadData()
+        DataController.sharedInstance.getAnswersWithBlock { (answers, error) -> Void in
+            if error == nil {
+                self.answers = answers
             }
-        } else {
-            println("Could not fetch \(error), \(error!.userInfo)")
+            else {
+                NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+                    UIAlertView(title: "Error", message: error.description, delegate: nil, cancelButtonTitle: "OK").show()
+                })
+            }
         }
     }
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return responses!.count
+        return answers!.count
     }
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -68,8 +54,8 @@ class SeeResultsViewController: PollingViewControllerBase,
 
         cell.backgroundColor = UIColor.clearColor()
 
-        cell.textLabel!.text = self.responses![indexPath.row].question
-        cell.detailTextLabel!.text = self.responses![indexPath.row].option
+        cell.textLabel!.text = self.answers![indexPath.row].question
+        cell.detailTextLabel!.text = self.answers![indexPath.row].option
 
         return cell
     }
