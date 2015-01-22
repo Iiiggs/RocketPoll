@@ -141,7 +141,6 @@ public class DataController{
                 // group by the answers and make a dict
                 var dict =  Dictionary<String, Dictionary<String, Int>>()
 
-
                 // work on filling this dict!!!
                 for answer in answers{
                     if dict[answer.question] == nil {
@@ -158,19 +157,9 @@ public class DataController{
                         else {
                             qdict[answer.option] = 1
                         }
+                        dict[answer.question] = qdict
                     }
                 }
-
-//                for answer in answers {
-//                    if let count = dict[answer.question]![answer.option] as? Int {
-//                        dict[answer.question][answer.option] = count + 1
-//                    }
-//                    else{
-//                        dict[answer.question][answer.option] = 1
-//                    }
-//                }
-
-                println("Done counting \(dict)")
 
                 block(dict, nil)
             }
@@ -178,9 +167,5 @@ public class DataController{
                 block(nil, error)
             }
         }
-
-
-
-//        block(["Option 1": "1", "Option 2": "3", "Option 3": "2"], nil)
     }
 }

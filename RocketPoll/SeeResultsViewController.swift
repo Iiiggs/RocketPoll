@@ -23,8 +23,6 @@ class SeeResultsViewController: PollingViewControllerBase,
 
         // Do any additional setup after loading the view.
         getResponseData()
-
-        getMyQuestions()
     }
 
     override func didReceiveMemoryWarning() {
@@ -33,37 +31,23 @@ class SeeResultsViewController: PollingViewControllerBase,
     }
 
     override func viewWillAppear(animated: Bool) {
-    }
-
-    func getMyQuestions(){
-//        self.questionsWithResponseCounts =
-
+        getResponseData()
     }
 
     func getResponseData(){
-        self.questionsWithResponseCounts =
-                    ["Where should I eat tonight?":                          ["McDonalds": 1,
-                        "Burger King": 3,
-                        "Fugo De Chao": 12,
-                        "Thai Place": 3,
-                        "Spookey Sushi": 0,
-                        "Yobagoya": 1,
-                        "C.B. Potts": 4],
-                    "Should we go skiiing this weekend?" :
-                        ["Yes": 3,
-                        "No": 0,
-                        "Maybe": 2]]
-
-//        DataController.sharedInstance.countAnswersWithBlock { (responseCounts, error) -> Void in
-//            if error == nil {
-//                self.self.questionsWithResponseCounts = responseCounts
-//            }
-//            else {
-//                NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
-//                    UIAlertView(title: "Error", message: error.description, delegate: nil, cancelButtonTitle: "OK").show()
-//                })
-//            }
-//        }
+        DataController.sharedInstance.countAnswersWithBlock { (responseCounts, error) -> Void in
+            if error == nil {
+                self.questionsWithResponseCounts = responseCounts
+                NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+                    self.tableView.reloadData()
+                })
+            }
+            else {
+                NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+                    UIAlertView(title: "Error", message: error.description, delegate: nil, cancelButtonTitle: "OK").show()
+                })
+            }
+        }
 
 //        DataController.sharedInstance.getAnswersWithBlock { (answers, error) -> Void in
 //            if error == nil {

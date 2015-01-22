@@ -19,9 +19,20 @@ class QuestionsListViewController: PollingViewControllerBase, UITableViewDelegat
 
         self.questionsTableView.registerClass(QuestionListTableViewCell.self, forCellReuseIdentifier: "questionListCell")
 
+        getQuestions()
+    }
+
+    override func viewWillAppear(animated: Bool) {
+        getQuestions()
+    }
+
+    func getQuestions(){
         DataController.sharedInstance.getQuestionsWithBlock { (questions, error) -> Void in
             if error == nil {
                 self.questions = questions
+                NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+                    self.questionsTableView.reloadData()
+                })
             }
             else {
                 NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
@@ -29,6 +40,7 @@ class QuestionsListViewController: PollingViewControllerBase, UITableViewDelegat
                 })
             }
         }
+
     }
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int

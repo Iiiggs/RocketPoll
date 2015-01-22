@@ -187,6 +187,7 @@
 		09ABC07713A1D52D009C3FCF /* RocketPoll */ = {
 			isa = PBXGroup;
 			children = (
+				2F3687491A708514006F7C4C /* User Interface */,
 				2F9F37441A64C6FA00B77EB9 /* Core */,
 				2F9F37431A64C6ED00B77EB9 /* Results */,
 				2F9F37421A64C6E300B77EB9 /* Answer */,
@@ -223,11 +224,19 @@
 			path = RocketPoll/en.lproj;
 			sourceTree = SOURCE_ROOT;
 		};
+		2F3687491A708514006F7C4C /* User Interface */ = {
+			isa = PBXGroup;
+			children = (
+				2F8498FD1A49E5DB008A9586 /* Main.storyboard */,
+			);
+			name = "User Interface";
+			sourceTree = "<group>";
+		};
 		2F9F37411A64C6DC00B77EB9 /* Ask */ = {
 			isa = PBXGroup;
 			children = (
-				2FD50CCC1A4A2684007D72B2 /* FriendsListViewController.swift */,
 				2F3B0C2C1A49E1FB007E20A8 /* AskQuestionViewController.swift */,
+				2FD50CCC1A4A2684007D72B2 /* FriendsListViewController.swift */,
 				2FD74BE21A62EC1C0093BC03 /* FacebookFriendsTableViewCell.swift */,
 			);
 			name = Ask;
@@ -237,9 +246,9 @@
 			isa = PBXGroup;
 			children = (
 				2F9F373F1A64C24200B77EB9 /* QuestionsListViewController.swift */,
-				2F3B0C291A49E1FB007E20A8 /* AnswerOptionTableViewCell.swift */,
-				2F3B0C2A1A49E1FB007E20A8 /* AnswerQuestionViewController.swift */,
 				2F9F37451A64CB6500B77EB9 /* QuestionListTableViewCell.swift */,
+				2F3B0C2A1A49E1FB007E20A8 /* AnswerQuestionViewController.swift */,
+				2F3B0C291A49E1FB007E20A8 /* AnswerOptionTableViewCell.swift */,
 			);
 			name = Answer;
 			sourceTree = "<group>";
@@ -256,14 +265,13 @@
 		2F9F37441A64C6FA00B77EB9 /* Core */ = {
 			isa = PBXGroup;
 			children = (
-				2F9FE2A21A49E72B0061A0AA /* DataModels.swift */,
-				2F5446C91A55E88900A834E7 /* DevToolsViewController.swift */,
 				2F23E54B1A49DDDF00017554 /* AccountViewController.swift */,
-				2F8499081A49E699008A9586 /* RootViewController.swift */,
-				2F84990C1A49E6A4008A9586 /* ModelController.swift */,
-				2F8498FD1A49E5DB008A9586 /* Main.storyboard */,
 				2F3B0C2B1A49E1FB007E20A8 /* AppDelegate.swift */,
 				2F7670391A61B32600F56955 /* DataController.swift */,
+				2F9FE2A21A49E72B0061A0AA /* DataModels.swift */,
+				2F5446C91A55E88900A834E7 /* DevToolsViewController.swift */,
+				2F8499081A49E699008A9586 /* RootViewController.swift */,
+				2F84990C1A49E6A4008A9586 /* ModelController.swift */,
 				2F8498F61A49E4CC008A9586 /* PollingViewControllerBase.swift */,
 			);
 			name = Core;

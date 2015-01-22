@@ -51,7 +51,6 @@ class FriendsListViewController: UIViewController, UITableViewDataSource, UITabl
                 let resultDataArray = (result as NSDictionary)["data"]! as NSArray
 
                 self.friends = resultDataArray
-                println(resultDataArray)
                 NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
                     self.tableView.reloadData()
                 })
