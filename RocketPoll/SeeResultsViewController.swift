@@ -71,7 +71,8 @@ class SeeResultsViewController: PollingViewControllerBase,
         let responsesValue = responses[responsesKey] as CGFloat
 
         cell.responseLabel.text = "\(responsesKey) (\(Int(responsesValue)))"
-        cell.responseLabel.font = UIFont.systemFontOfSize(10 + responsesValue)
+        cell.responseLabel.font = UIFont(name: "Chalkboard SE", size: 10 + responsesValue)
+//        cell.responseLabel.font = UIFont.(10 + responsesValue)
 
         // basic label of option and count
 //        let key = self.responseCounts.allKeys[indexPath.row] as String

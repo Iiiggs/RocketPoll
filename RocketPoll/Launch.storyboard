@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="F6O-AP-bJC">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="u1u-Ol-OKs">
+            <objects>
+                <viewController id="F6O-AP-bJC" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="tuS-TP-A2N"/>
+                        <viewControllerLayoutGuide type="bottom" id="eZX-PM-yaN"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="7Nc-1U-fsa">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Rocket" highlightedImage="Default.png" translatesAutoresizingMaskIntoConstraints="NO" id="wdR-3X-sif">
+                                <rect key="frame" x="150" y="47" width="300" height="300"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="wdR-3X-sif" secondAttribute="height" id="0PO-bu-Rmz"/>
+                                    <constraint firstAttribute="width" constant="378" id="0lq-A6-tf9"/>
+                                    <constraint firstAttribute="width" constant="300" id="6iv-z3-h5r"/>
+                                    <constraint firstAttribute="height" constant="300" id="ewv-ZL-M1x"/>
+                                    <constraint firstAttribute="height" constant="355" id="qYo-42-Adb"/>
+                                </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="0PO-bu-Rmz"/>
+                                        <exclude reference="0lq-A6-tf9"/>
+                                        <exclude reference="qYo-42-Adb"/>
+                                    </mask>
+                                </variation>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Rocket Poll" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="opy-r3-2eB">
+                                <rect key="frame" x="167" y="355" width="267" height="52"/>
+                                <fontDescription key="fontDescription" name="ChalkboardSE-Regular" family="Chalkboard SE" pointSize="52"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="0.83320275769999996" green="1" blue="0.85115531420000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="wdR-3X-sif" firstAttribute="leading" secondItem="7Nc-1U-fsa" secondAttribute="leadingMargin" constant="50" id="1KD-zt-WrE"/>
+                            <constraint firstAttribute="centerY" secondItem="wdR-3X-sif" secondAttribute="centerY" constant="102.5" id="A1p-bT-czd"/>
+                            <constraint firstAttribute="centerX" secondItem="wdR-3X-sif" secondAttribute="centerX" id="BWV-5L-dcP"/>
+                            <constraint firstAttribute="height" secondItem="wdR-3X-sif" secondAttribute="height" multiplier="0.8" id="CbA-sE-unT"/>
+                            <constraint firstItem="opy-r3-2eB" firstAttribute="top" secondItem="wdR-3X-sif" secondAttribute="bottom" constant="20" id="FiW-Z6-MKe"/>
+                            <constraint firstAttribute="width" secondItem="wdR-3X-sif" secondAttribute="width" multiplier="0.8" id="Oqh-S2-ydZ"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="wdR-3X-sif" secondAttribute="trailing" constant="50" id="elf-Rg-3sb"/>
+                            <constraint firstItem="wdR-3X-sif" firstAttribute="top" secondItem="tuS-TP-A2N" secondAttribute="bottom" constant="50" id="f9V-LR-NlA"/>
+                            <constraint firstAttribute="centerX" secondItem="opy-r3-2eB" secondAttribute="centerX" id="pRG-cE-8EH"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="1KD-zt-WrE"/>
+                                <exclude reference="CbA-sE-unT"/>
+                                <exclude reference="Oqh-S2-ydZ"/>
+                                <exclude reference="elf-Rg-3sb"/>
+                                <exclude reference="f9V-LR-NlA"/>
+                            </mask>
+                        </variation>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="MjA-JA-pPb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="144" y="166"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="Default.png" width="320" height="480"/>
+        <image name="Rocket" width="350" height="350"/>
+    </resources>
+</document>

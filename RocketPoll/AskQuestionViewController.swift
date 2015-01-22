@@ -24,7 +24,8 @@ class CreateQuestionViewController: PollingViewControllerBase, UITableViewDelega
 
     var optionTextFields: NSMutableSet = NSMutableSet()
 
-    @IBOutlet weak var questionTextField: UITextField!
+    @IBOutlet weak var questionTextView: UITextView!
+
     override func viewDidLoad() {
         super.viewDidLoad() 
 
@@ -102,7 +103,7 @@ class CreateQuestionViewController: PollingViewControllerBase, UITableViewDelega
     func donePickingFriends(friends: NSArray) {
         // use the selected friends to submit a question/trigger request to the api
 
-        let text = self.questionTextField.text
+        let text = self.questionTextView.text
         var options:NSMutableArray = []
 
         for optionTextField in self.optionTextFields {

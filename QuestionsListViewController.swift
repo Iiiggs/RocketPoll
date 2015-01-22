@@ -45,6 +45,7 @@ class QuestionsListViewController: PollingViewControllerBase, UITableViewDelegat
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
+        println("questions count: \(questions.count)")
         return questions.count
     }
     // Row display. Implementers should *always* try to reuse cells by setting each cell's reuseIdentifier and querying for available reusable cells with dequeueReusableCellWithIdentifier:

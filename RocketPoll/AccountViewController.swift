@@ -111,13 +111,13 @@ class AccountViewController: PollingViewControllerBase, FBLoginViewDelegate {
                 var err: NSError?
                 var imageData = NSData(contentsOfURL:url!,options: NSDataReadingOptions.DataReadingMappedIfSafe, error: &err)
 
-                if error == nil {
+                if err == nil {
                     self.profilePictureImage.contentMode = UIViewContentMode.ScaleAspectFill
                     self.profilePictureImage.image = UIImage(data:imageData!)
                 }
                 else {
                     NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
-                        UIAlertView(title: "Error", message: error.description, delegate: nil, cancelButtonTitle: "OK").show()
+                        UIAlertView(title: "Error", message: err!.description, delegate: nil, cancelButtonTitle: "OK").show()
                     })
                 }
 
