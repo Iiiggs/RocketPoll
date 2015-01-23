@@ -59,9 +59,11 @@ public class DataController{
 
         var query = PFQuery(className:"Question")
 
-        let facebookId = PFUser.currentUser().objectForKey("facebookUser").objectForKey("id") as String
-
-        query.whereKey("friends", equalTo: facebookId)
+        // TODO: Need to update this to use Parse user id
+        // Also make sure that we start using parse user id for asking questions
+//        let facebookId = PFUser.currentUser().objectForKey("facebookUser").objectForKey("id") as String
+//
+//        query.whereKey("friends", equalTo: facebookId)
 
         query.orderByAscending("createdAt")
         query.findObjectsInBackgroundWithBlock{ (backendQuestions: [AnyObject]!, error) -> Void in

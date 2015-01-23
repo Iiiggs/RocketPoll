@@ -8,7 +8,7 @@
 
 import UIKit
 
-class RootViewController: UIViewController, UIPageViewControllerDelegate {
+class RootViewController: UIViewController, UIPageViewControllerDelegate, PFLogInViewControllerDelegate, PFSignUpViewControllerDelegate {
 
     var pageViewController: UIPageViewController?
 
@@ -41,8 +41,53 @@ class RootViewController: UIViewController, UIPageViewControllerDelegate {
 
         // Add the page view controller's gesture recognizers to the book view controller's view so that the gestures are started more easily.
         self.view.gestureRecognizers = self.pageViewController!.gestureRecognizers
+    }
 
-//        self.pageViewController?.setViewControllers(<#viewControllers: [AnyObject]!#>, direction: <#UIPageViewControllerNavigationDirection#>, animated: <#Bool#>, completion: <#((Bool) -> Void)!##(Bool) -> Void#>)
+    // Show login
+    override func viewDidAppear(animated: Bool) {
+        if PFUser.currentUser() == nil{
+
+            // login/signup view controller customization
+            var login = PFLogInViewController()
+            login.delegate = self
+            login.fields = PFLogInFields.UsernameAndPassword | PFLogInFields.LogInButton | PFLogInFields.SignUpButton | PFLogInFields.PasswordForgotten | PFLogInFields.Facebook | PFLogInFields.Twitter
+            self.presentViewController(login, animated: true) { () -> Void in
+                login.signUpController.delegate = self
+            }
+        }
+        else {
+            PFUser.logOut()
+        }
+
+    }
+
+    // Login stuff
+    func logInViewController(logInController: PFLogInViewController!, shouldBeginLogInWithUsername username: String!, password: String!) -> Bool {
+        // client-side validation of login
+        return true
+    }
+
+    func logInViewController(logInController: PFLogInViewController!, didLogInUser user: PFUser!) {
+        // do stuff with PFUser object
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
+
+    func logInViewController(logInController: PFLogInViewController!, didFailToLogInWithError error: NSError!) {
+        UIAlertView(title: "Error", message: error.description, delegate: nil, cancelButtonTitle: "OK").show()
+    }
+
+    // Signup stuff
+    func signUpViewController(signUpController: PFSignUpViewController!, shouldBeginSignUp info: [NSObject : AnyObject]!) -> Bool {
+        // client-side validation of signup
+        return true
+    }
+
+    func signUpViewController(signUpController: PFSignUpViewController!, didSignUpUser user: PFUser!) {
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
+
+    func signUpViewController(signUpController: PFSignUpViewController!, didFailToSignUpWithError error: NSError!) {
+            UIAlertView(title: "Error", message: error.description, delegate: nil, cancelButtonTitle: "OK").show()
     }
 
     override func didReceiveMemoryWarning() {

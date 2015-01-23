@@ -42,6 +42,8 @@
 		2F9F37401A64C24200B77EB9 /* QuestionsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F9F373F1A64C24200B77EB9 /* QuestionsListViewController.swift */; };
 		2F9F37461A64CB6500B77EB9 /* QuestionListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F9F37451A64CB6500B77EB9 /* QuestionListTableViewCell.swift */; };
 		2F9FE2A41A49E72B0061A0AA /* DataModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F9FE2A21A49E72B0061A0AA /* DataModels.swift */; };
+		2FC933DE1A71C44200E670BE /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6372FF551613CC42002132AF /* Social.framework */; };
+		2FC933DF1A71C44700E670BE /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6372FF521613CC3C002132AF /* Accounts.framework */; };
 		2FCDD6B014A573F500295AAC /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FCDD6AF14A573F500295AAC /* QuartzCore.framework */; };
 		2FD50CCD1A4A2684007D72B2 /* FriendsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FD50CCC1A4A2684007D72B2 /* FriendsListViewController.swift */; };
 		2FD74BE31A62EC1C0093BC03 /* FacebookFriendsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FD74BE21A62EC1C0093BC03 /* FacebookFriendsTableViewCell.swift */; };
@@ -124,6 +126,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2FC933DF1A71C44700E670BE /* Accounts.framework in Frameworks */,
+				2FC933DE1A71C44200E670BE /* Social.framework in Frameworks */,
+				811B095C1A09503D008B3393 /* ParseUI.framework in Frameworks */,
 				91D261791A36EB67005D713D /* libsqlite3.0.dylib in Frameworks */,
 				2F19B7501A487A0C00E29463 /* FacebookSDK.framework in Frameworks */,
 				81A6CA611A2EA82800297C39 /* libstdc++.6.dylib in Frameworks */,
@@ -134,7 +139,6 @@
 				2FCDD6B014A573F500295AAC /* QuartzCore.framework in Frameworks */,
 				099CCEAD13F9E3760039A464 /* libz.1.1.3.dylib in Frameworks */,
 				09BEF34C13D51C3F001BBCDB /* Security.framework in Frameworks */,
-				811B095C1A09503D008B3393 /* ParseUI.framework in Frameworks */,
 				095ACE8613C68EA300566243 /* AudioToolbox.framework in Frameworks */,
 				2F19B7511A487A0C00E29463 /* FBAudienceNetwork.framework in Frameworks */,
 				092354B713A1D83C00DA740F /* MobileCoreServices.framework in Frameworks */,
@@ -315,6 +319,7 @@
 				09ABC06A13A1D52D009C3FCF /* Frameworks */,
 				09ABC06B13A1D52D009C3FCF /* Resources */,
 				81A6CA5F1A2EA3D600297C39 /* Upload Symbol Files */,
+				2FC933DD1A71AFA500E670BE /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -378,6 +383,19 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		2FC933DD1A71AFA500E670BE /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "export PATH=/usr/local/bin:$PATH\ncd ${SRCROOT}/parse\n\nparse symbols \"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}\"";
+		};
 		81A6CA5F1A2EA3D600297C39 /* Upload Symbol Files */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;

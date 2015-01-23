@@ -1,0 +1,11 @@
+{
+    "applications": {
+        "SocialPolling": {
+            "applicationId": "HzV2hHIkPkjzIRyAfsVPozcB9ZemavFNurRqliYB", 
+            "masterKey": "CHJ1HTEPNmiScIqRwYPxBhFYh6LkrqPjhUlJnt6k"
+        }, 
+        "_default": {
+            "link": "SocialPolling"
+        }
+    }
+}

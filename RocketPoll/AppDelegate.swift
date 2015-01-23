@@ -26,16 +26,21 @@ class PollingAppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     var facebookUser: FBGraphUser?
 
+    func delay(delay:Double, closure:()->()) {
+        dispatch_after(
+            dispatch_time(
+                DISPATCH_TIME_NOW,
+                Int64(delay * Double(NSEC_PER_SEC))
+            ),
+            dispatch_get_main_queue(), closure)
+    }
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
 
         FBAppEvents.activateApp()
 
-//        ParseCrashReporting.enable()
-
-        //    [Parse setApplicationId:@"HzV2hHIkPkjzIRyAfsVPozcB9ZemavFNurRqliYB"
-        //                  clientKey:@"BoR07Tovxpg1hpJ6Q5ypmm6YESeObx4gStaWmdnf"];
+        ParseCrashReporting.enable();
 
         Parse.setApplicationId("HzV2hHIkPkjzIRyAfsVPozcB9ZemavFNurRqliYB", clientKey: "BoR07Tovxpg1hpJ6Q5ypmm6YESeObx4gStaWmdnf")
 

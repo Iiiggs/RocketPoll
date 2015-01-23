@@ -81,6 +81,7 @@ class CreateQuestionViewController: PollingViewControllerBase, UITableViewDelega
 
         let appDelegate = UIApplication.sharedApplication().delegate! as PollingAppDelegate
 
+        // TODO: Figure out a way to show Parse friends instead
         if appDelegate.facebookUser != nil {
             var storyboard = self.storyboard!
 

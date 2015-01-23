@@ -45,21 +45,21 @@ class ModelController: NSObject, UIPageViewControllerDataSource {
             var vc = storyboard.instantiateViewControllerWithIdentifier("DevToolsViewController") as DevToolsViewController
             vc.dataObject = 0
             return vc
+//        case 1:
+//            var vc = storyboard.instantiateViewControllerWithIdentifier("AccountViewController") as AccountViewController
+//            vc.dataObject = 1
+//            return vc
         case 1:
-            var vc = storyboard.instantiateViewControllerWithIdentifier("AccountViewController") as AccountViewController
+            var vc = storyboard.instantiateViewControllerWithIdentifier("CreateQuestionViewController") as CreateQuestionViewController
             vc.dataObject = 1
             return vc
         case 2:
-            var vc = storyboard.instantiateViewControllerWithIdentifier("CreateQuestionViewController") as CreateQuestionViewController
+            var vc = storyboard.instantiateViewControllerWithIdentifier("QuestionsListViewController") as QuestionsListViewController
             vc.dataObject = 2
             return vc
         case 3:
-            var vc = storyboard.instantiateViewControllerWithIdentifier("QuestionsListViewController") as QuestionsListViewController
-            vc.dataObject = 3
-            return vc
-        case 4:
             var vc = storyboard.instantiateViewControllerWithIdentifier("SeeResultsViewController") as SeeResultsViewController
-            vc.dataObject = 4
+            vc.dataObject = 3
             return vc
         default:
             let dataViewController = storyboard.instantiateViewControllerWithIdentifier("PollingViewControllerBase") as PollingViewControllerBase
@@ -99,7 +99,7 @@ class ModelController: NSObject, UIPageViewControllerDataSource {
         var index = dataObject.integerValue!
 
     
-        if index == 4 {
+        if index == 3 {
             return nil
         }
         
