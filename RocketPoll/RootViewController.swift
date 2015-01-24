@@ -48,27 +48,57 @@ class RootViewController: UIViewController, UIPageViewControllerDelegate, PFLogI
         if PFUser.currentUser() == nil{
 
             // login/signup view controller customization
-            var login = PFLogInViewController()
+            var login = RPLoginViewController()
             login.delegate = self
             login.fields = PFLogInFields.UsernameAndPassword | PFLogInFields.LogInButton | PFLogInFields.SignUpButton | PFLogInFields.PasswordForgotten | PFLogInFields.Facebook | PFLogInFields.Twitter
             self.presentViewController(login, animated: true) { () -> Void in
+                login.signUpController = RPSignUpViewController()
                 login.signUpController.delegate = self
             }
         }
-        else {
-            PFUser.logOut()
-        }
-
     }
 
     // Login stuff
-    func logInViewController(logInController: PFLogInViewController!, shouldBeginLogInWithUsername username: String!, password: String!) -> Bool {
-        // client-side validation of login
-        return true
-    }
-
     func logInViewController(logInController: PFLogInViewController!, didLogInUser user: PFUser!) {
-        // do stuff with PFUser object
+        // if we did a Facebook signin, grab some additional data
+        // such as the username
+        if PFFacebookUtils.isLinkedWithUser(user){
+            var request = FBRequest.requestForMe()
+            request.startWithCompletionHandler { (connection, fbUser, error) -> Void in
+                if error == nil {
+                    if (user.username != fbUser["name"] as? String){
+                        user.username = fbUser["name"] as String
+                        user["gender"] = fbUser["gender"] as String
+                        println(user)
+                        user.saveEventually()
+                    }
+                }
+                else {
+                    NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+                        UIAlertView(title: "Error", message: error.description, delegate: nil, cancelButtonTitle: "OK").show()
+                    })
+                }
+            }
+        }
+        else if PFTwitterUtils.isLinkedWithUser(user) // do the same with Twitter user login
+        {
+            var verify = NSURL(string: "https://api.twitter.com/1.1/account/verify_credentials.json")!
+            var request = NSMutableURLRequest(URL: verify)
+            PFTwitterUtils.twitter().signRequest(request)
+            println(request.description)
+            NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue(), completionHandler: { (response, data, error) -> Void in
+                if error == nil {
+                    let result = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: nil) as NSDictionary
+                    user.username = result["name"] as String
+                    user.saveEventually()
+                }
+                else {
+                    NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+                        UIAlertView(title: "Error", message: error.description, delegate: nil, cancelButtonTitle: "OK").show()
+                    })
+                }
+            })
+        }
         self.dismissViewControllerAnimated(true, completion: nil)
     }
 
@@ -77,11 +107,6 @@ class RootViewController: UIViewController, UIPageViewControllerDelegate, PFLogI
     }
 
     // Signup stuff
-    func signUpViewController(signUpController: PFSignUpViewController!, shouldBeginSignUp info: [NSObject : AnyObject]!) -> Bool {
-        // client-side validation of signup
-        return true
-    }
-
     func signUpViewController(signUpController: PFSignUpViewController!, didSignUpUser user: PFUser!) {
         self.dismissViewControllerAnimated(true, completion: nil)
     }
@@ -137,8 +162,6 @@ class RootViewController: UIViewController, UIPageViewControllerDelegate, PFLogI
     }
 
     func nextPage(){
-//        let vc = self.modelController.viewControllerAtIndex(<#index: Int#>, storyboard: <#UIStoryboard#>)
-
         let i = 2
 
         let vc = self.modelController.viewControllerAtIndex(i, storyboard: self.storyboard!)

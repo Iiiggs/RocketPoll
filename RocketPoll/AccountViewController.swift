@@ -20,17 +20,16 @@ class AccountViewController: PollingViewControllerBase, FBLoginViewDelegate {
     override func viewDidLoad() {
 //        addParseUser()
 
-        // add login button
-        var loginButton = FBLoginView()
-        loginButton.delegate = self
-        self.view.addSubview(loginButton)
-
-        loginButton.setTranslatesAutoresizingMaskIntoConstraints(false)
-
-        self.view.addConstraint(NSLayoutConstraint(item: self.view, attribute: NSLayoutAttribute.Bottom, relatedBy:NSLayoutRelation.Equal, toItem: loginButton, attribute: NSLayoutAttribute.Bottom, multiplier: 1.0, constant: 20.0))
-
-        self.view.addConstraint(NSLayoutConstraint(item: self.view, attribute: NSLayoutAttribute.CenterX, relatedBy:NSLayoutRelation.Equal, toItem: loginButton, attribute: NSLayoutAttribute.CenterX, multiplier: 1.0, constant: 0.0))
-
+//        // add login button
+//        var loginButton = FBLoginView()
+//        loginButton.delegate = self
+//        self.view.addSubview(loginButton)
+//
+//        loginButton.setTranslatesAutoresizingMaskIntoConstraints(false)
+//
+//        self.view.addConstraint(NSLayoutConstraint(item: self.view, attribute: NSLayoutAttribute.Bottom, relatedBy:NSLayoutRelation.Equal, toItem: loginButton, attribute: NSLayoutAttribute.Bottom, multiplier: 1.0, constant: 20.0))
+//
+//        self.view.addConstraint(NSLayoutConstraint(item: self.view, attribute: NSLayoutAttribute.CenterX, relatedBy:NSLayoutRelation.Equal, toItem: loginButton, attribute: NSLayoutAttribute.CenterX, multiplier: 1.0, constant: 0.0))
     }
 
     func loginView(loginView: FBLoginView!, handleError error: NSError!) {
@@ -156,4 +155,17 @@ class AccountViewController: PollingViewControllerBase, FBLoginViewDelegate {
 //        }
 //
 //    }
+
+
+
+    override func viewDidAppear(animated: Bool) {
+        if PFUser.currentUser() != nil{
+            self.nameLabel.text = PFUser.currentUser().username
+        }
+        else
+        {
+            self.nameLabel.text = "Guest"
+        }
+
+    }
 }

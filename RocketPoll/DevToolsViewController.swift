@@ -10,6 +10,8 @@ import UIKit
 
 class DevToolsViewController: PollingViewControllerBase {
 
+    
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -57,4 +59,11 @@ class DevToolsViewController: PollingViewControllerBase {
             }
         }
     }
+
+
+    @IBAction func logout(sender: AnyObject) {
+        PFUser.logOut()
+//        PFFacebookUtils.session().close()
+    }
+
 }

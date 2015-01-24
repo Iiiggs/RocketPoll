@@ -37,7 +37,6 @@ class PollingAppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
-
         FBAppEvents.activateApp()
 
         ParseCrashReporting.enable();
@@ -46,14 +45,18 @@ class PollingAppDelegate: UIResponder, UIApplicationDelegate {
 
         PFFacebookUtils.initializeFacebook()
 
+        PFTwitterUtils .initializeWithConsumerKey("AKLOk4eRciUE8YtaNuxkFjR8G", consumerSecret: "YKBKBK9Cdpg4owXdKIcbB8XqIgQzrwOzVNRl49JiLyxarQqY9w")
+
         registerForPush(application)
+
+        PFAnalytics.trackAppOpenedWithLaunchOptionsInBackground(launchOptions, block: nil)
+
+
 
         return true
     }
 
     func registerForPush(application: UIApplication){
-
-
         var types: UIUserNotificationType =
             UIUserNotificationType.Badge |
             UIUserNotificationType.Alert |
@@ -115,7 +118,7 @@ class PollingAppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationDidBecomeActive(application: UIApplication) {
-        // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+        FBAppCall.handleDidBecomeActiveWithSession(PFFacebookUtils.session())
     }
 
     func applicationWillTerminate(application: UIApplication) {
@@ -124,16 +127,10 @@ class PollingAppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject?) -> Bool {
-        return FBAppCall.handleOpenURL(url, sourceApplication: sourceApplication)
+        return FBAppCall.handleOpenURL(url, sourceApplication:sourceApplication,
+            withSession:PFFacebookUtils.session())
     }
-    // - (BOOL)application:(UIApplication *)application
-    // openURL:(NSURL *)url
-    // sourceApplication:(NSString *)sourceApplication
-    // annotation:(id)annotation {
-    // // attempt to extract a token from the url
-    // return [FBAppCall handleOpenURL:url sourceApplication:sourceApplication];
-    // }
-
+    
     lazy var applicationDocumentsDirectory: NSURL = {
         // The directory the application uses to store the Core Data store file. This code uses a directory named "com.igorware.CoreDataTest2" in the application's documents Application Support directory.
         let urls = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)

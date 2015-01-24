@@ -235,7 +235,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1Ge-6O-x5m" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1800" y="-908"/>
+            <point key="canvasLocation" x="496" y="-903"/>
         </scene>
         <!--Friends List View Controller-->
         <scene sceneID="agq-of-oo1">
@@ -322,7 +322,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9yT-3y-Hyf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="498" y="-244"/>
+            <point key="canvasLocation" x="484" y="433"/>
         </scene>
         <!--Questions List View Controller-->
         <scene sceneID="shc-Xh-v1l">
@@ -526,7 +526,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zkX-hG-ej8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="498" y="-908"/>
+            <point key="canvasLocation" x="484" y="-231"/>
         </scene>
         <!--Account View Controller-->
         <scene sceneID="hJd-w0-GhJ">
@@ -584,6 +584,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Cp3-2v-Dzc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-171" y="-908"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="FxK-Li-WtQ">
+            <objects>
+                <viewController id="RUg-lB-7HU" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="oiw-ka-CWc"/>
+                        <viewControllerLayoutGuide type="bottom" id="PRD-KL-NFW"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="44z-ao-mp4">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Cij-zi-SPc" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1407" y="-547"/>
         </scene>
         <!--Dev Tools View Controller-->
         <scene sceneID="boK-Ti-QDE">
@@ -661,11 +679,22 @@
                                     <action selector="countResults:" destination="wsw-qQ-RbU" eventType="touchUpInside" id="bu3-ic-NRh"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lzt-no-coM">
+                                <rect key="frame" x="277" y="339" width="46" height="34"/>
+                                <fontDescription key="fontDescription" name="ChalkboardSE-Regular" family="Chalkboard SE" pointSize="15"/>
+                                <state key="normal" title="Logout">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="logout:" destination="wsw-qQ-RbU" eventType="touchUpInside" id="r87-vc-G5A"/>
+                                </connections>
+                            </button>
                         </subviews>
-                        <color key="backgroundColor" red="0.83320275769999996" green="1" blue="0.85115531420000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.83137254901960778" green="1" blue="0.85098039215686272" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="yES-tE-1tw" firstAttribute="width" secondItem="XZX-1Y-XhL" secondAttribute="width" id="4nx-4z-XUy"/>
                             <constraint firstItem="yHr-KJ-Q9z" firstAttribute="top" secondItem="tNa-fr-fK2" secondAttribute="bottom" constant="40" id="5ef-yp-CEw"/>
+                            <constraint firstAttribute="centerY" secondItem="lzt-no-coM" secondAttribute="centerY" constant="-42" id="7TR-bX-HDw"/>
                             <constraint firstItem="V2X-bE-jaF" firstAttribute="top" secondItem="yHr-KJ-Q9z" secondAttribute="bottom" constant="20" id="8CT-PN-ZZw"/>
                             <constraint firstItem="tNa-fr-fK2" firstAttribute="top" secondItem="4HG-pU-zof" secondAttribute="bottom" constant="20" id="9IR-h7-zUK"/>
                             <constraint firstItem="yES-tE-1tw" firstAttribute="width" secondItem="OnQ-hH-wDG" secondAttribute="width" id="BbN-kq-gjf"/>
@@ -675,6 +704,7 @@
                             <constraint firstAttribute="centerX" secondItem="OnQ-hH-wDG" secondAttribute="centerX" id="FW5-mM-IVz"/>
                             <constraint firstAttribute="centerX" secondItem="tNa-fr-fK2" secondAttribute="centerX" constant="-1" id="Or4-c0-wUC"/>
                             <constraint firstAttribute="centerX" secondItem="4HG-pU-zof" secondAttribute="centerX" constant="-0.5" id="SMw-5P-MKv"/>
+                            <constraint firstItem="lzt-no-coM" firstAttribute="top" secondItem="bCg-6L-GLq" secondAttribute="bottom" constant="20" id="VTi-TC-VhW"/>
                             <constraint firstAttribute="leadingMargin" secondItem="yES-tE-1tw" secondAttribute="leading" constant="-10" id="W5I-WW-5lG"/>
                             <constraint firstItem="bCg-6L-GLq" firstAttribute="top" secondItem="B5q-6K-6iM" secondAttribute="bottom" constant="20" id="Yfg-11-Y6I"/>
                             <constraint firstItem="OnQ-hH-wDG" firstAttribute="top" secondItem="XZX-1Y-XhL" secondAttribute="top" constant="5" id="bd7-Ay-Iec"/>
@@ -684,9 +714,15 @@
                             <constraint firstItem="XZX-1Y-XhL" firstAttribute="width" secondItem="OnQ-hH-wDG" secondAttribute="width" id="jXv-Qs-vrJ"/>
                             <constraint firstItem="B5q-6K-6iM" firstAttribute="top" secondItem="V2X-bE-jaF" secondAttribute="bottom" constant="20" id="pN4-9W-D7e"/>
                             <constraint firstAttribute="centerX" secondItem="yHr-KJ-Q9z" secondAttribute="centerX" id="qzv-kF-L8L"/>
+                            <constraint firstAttribute="centerX" secondItem="lzt-no-coM" secondAttribute="centerX" id="rav-n1-T26"/>
                             <constraint firstItem="yES-tE-1tw" firstAttribute="width" secondItem="OnQ-hH-wDG" secondAttribute="width" id="vIh-zR-fOO"/>
                             <constraint firstItem="yES-tE-1tw" firstAttribute="top" secondItem="OnQ-hH-wDG" secondAttribute="top" constant="3" id="zPu-iE-UZi"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="7TR-bX-HDw"/>
+                            </mask>
+                        </variation>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1wF-x1-UBo" userLabel="First Responder" sceneMemberID="firstResponder"/>
