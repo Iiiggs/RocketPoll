@@ -17,8 +17,6 @@ class QuestionsListViewController: PollingViewControllerBase, UITableViewDelegat
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.questionsTableView.registerClass(QuestionListTableViewCell.self, forCellReuseIdentifier: "questionListCell")
-
         getQuestions()
     }
 
@@ -26,10 +24,15 @@ class QuestionsListViewController: PollingViewControllerBase, UITableViewDelegat
         getQuestions()
     }
 
+
     func getQuestions(){
-        DataController.sharedInstance.getQuestionsWithBlock { (questions, error) -> Void in
+        var query = PFQuery(className:"Question")
+        query.whereKey("askedOf", equalTo: PFUser.currentUser())
+        query.orderByAscending("createdAt")
+        query.includeKey("createdBy")
+        query.findObjectsInBackgroundWithBlock{ (questions, error) -> Void in
             if error == nil {
-                self.questions = questions
+                self.questions = questions as [Question]
                 NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
                     self.questionsTableView.reloadData()
                 })
@@ -40,12 +43,10 @@ class QuestionsListViewController: PollingViewControllerBase, UITableViewDelegat
                 })
             }
         }
-
     }
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
-        println("questions count: \(questions.count)")
         return questions.count
     }
     // Row display. Implementers should *always* try to reuse cells by setting each cell's reuseIdentifier and querying for available reusable cells with dequeueReusableCellWithIdentifier:
@@ -57,19 +58,24 @@ class QuestionsListViewController: PollingViewControllerBase, UITableViewDelegat
 
         cell.backgroundColor = UIColor.clearColor()
 
-        var user:PFUser = questions[indexPath.row].askedBy
-        user.fetchInBackgroundWithBlock { (user, error) -> Void in
-            if error == nil {
-                let askingUserName = user.objectForKey("username") as String
-                cell.textLabel!.text = "question from \(askingUserName)"
-            }
-            else
-            {
-                NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
-                    UIAlertView(title: "Error", message: error.description, delegate: nil, cancelButtonTitle: "OK").show()
-                })
-            }
-        }
+        cell.textLabel!.text = questions[indexPath.row].text
+
+        let createdByUser = questions[indexPath.row].objectForKey("createdBy") as PFUser
+        cell.detailTextLabel!.text = createdByUser.username
+
+//        var user:PFUser = questions[indexPath.row].askedBy
+//        user.fetchInBackgroundWithBlock { (user, error) -> Void in
+//            if error == nil {
+//                let askingUserName = user.objectForKey("username") as String
+//                cell.textLabel!.text = "question from \(askingUserName)"
+//            }
+//            else
+//            {
+//                NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+//                    UIAlertView(title: "Error", message: error.description, delegate: nil, cancelButtonTitle: "OK").show()
+//                })
+//            }
+//        }
 
         return cell
     }
@@ -85,7 +91,6 @@ class QuestionsListViewController: PollingViewControllerBase, UITableViewDelegat
 
         self.presentViewController(answerQuestionViewController, animated: true, completion: nil)
     }
-
 
 
 

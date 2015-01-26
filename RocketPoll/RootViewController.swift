@@ -41,6 +41,8 @@ class RootViewController: UIViewController, UIPageViewControllerDelegate, PFLogI
 
         // Add the page view controller's gesture recognizers to the book view controller's view so that the gestures are started more easily.
         self.view.gestureRecognizers = self.pageViewController!.gestureRecognizers
+
+
     }
 
     // Show login
@@ -56,6 +58,7 @@ class RootViewController: UIViewController, UIPageViewControllerDelegate, PFLogI
                 login.signUpController.delegate = self
             }
         }
+
     }
 
     // Login stuff
@@ -99,6 +102,7 @@ class RootViewController: UIViewController, UIPageViewControllerDelegate, PFLogI
                 }
             })
         }
+
         self.dismissViewControllerAnimated(true, completion: nil)
     }
 
@@ -162,7 +166,7 @@ class RootViewController: UIViewController, UIPageViewControllerDelegate, PFLogI
     }
 
     func nextPage(){
-        let i = 2
+        let i = 0
 
         let vc = self.modelController.viewControllerAtIndex(i, storyboard: self.storyboard!)
 

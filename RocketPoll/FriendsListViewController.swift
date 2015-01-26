@@ -11,7 +11,7 @@ import UIKit
 class FriendsListViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
     var user: FBGraphUser?
-    var friends = NSArray()
+    var friends: [PFUser] = []
     let cellIdentifier = "friendsCell"
     var delegate: FriendsPickerDelegate?
 
@@ -20,7 +20,7 @@ class FriendsListViewController: UIViewController, UITableViewDataSource, UITabl
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        self.getMySocialPollingFriends()
+//        self.getMySocialPollingFriends()
 
         self.tableView.registerClass(FacebookFriendsTableViewCell.self, forCellReuseIdentifier: cellIdentifier)
     }
@@ -45,24 +45,24 @@ class FriendsListViewController: UIViewController, UITableViewDataSource, UITabl
         })
     }
 
-    func getMySocialPollingFriends(){
-        FBRequestConnection.startWithGraphPath("/\(user!.objectID)/friends/", completionHandler: { (connection, result, error) -> Void in
-            if error == nil{
-                let resultDataArray = (result as NSDictionary)["data"]! as NSArray
-
-                self.friends = resultDataArray
-                NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
-                    self.tableView.reloadData()
-                })
-            }
-            else {
-                NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
-                    UIAlertView(title: "Error", message: error.description, delegate: nil, cancelButtonTitle: "OK").show()
-                })
-            }
-
-        })
-    }
+//    func getMySocialPollingFriends(){
+//        FBRequestConnection.startWithGraphPath("/\(user!.objectID)/friends/", completionHandler: { (connection, result, error) -> Void in
+//            if error == nil{
+//                let resultDataArray = (result as NSDictionary)["data"]! as NSArray
+//
+//                self.friends = resultDataArray
+//                NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+//                    self.tableView.reloadData()
+//                })
+//            }
+//            else {
+//                NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+//                    UIAlertView(title: "Error", message: error.description, delegate: nil, cancelButtonTitle: "OK").show()
+//                })
+//            }
+//
+//        })
+//    }
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
         return self.friends.count
@@ -73,7 +73,7 @@ class FriendsListViewController: UIViewController, UITableViewDataSource, UITabl
 
         cell.backgroundColor = UIColor.clearColor()
 
-        cell.textLabel!.text = self.friends[indexPath.row].objectForKey("name") as? String
+        cell.textLabel!.text = self.friends[indexPath.row].objectForKey("username") as? String
 
         return cell
     }
@@ -81,30 +81,12 @@ class FriendsListViewController: UIViewController, UITableViewDataSource, UITabl
     @IBAction func donePickingFriends(sender: AnyObject) {
         let selectedIndexPaths = self.tableView.indexPathsForSelectedRows() as [NSIndexPath]?
         if selectedIndexPaths != nil {
-            var selectedUsers: NSMutableArray = []
+            var selectedUsers: [PFUser] = []
             for i:NSIndexPath in selectedIndexPaths!{
-                let userId = friends[i.row].objectForKey("id") as String
-                selectedUsers.addObject(userId)
+                selectedUsers.append(friends[i.row])
             }
 
             self.delegate?.donePickingFriends(selectedUsers)
-
-            self.dismissViewControllerAnimated(true, completion: nil)
         }
-
-
-        self.dismissViewControllerAnimated(true, completion: nil)
     }
-
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

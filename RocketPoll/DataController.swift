@@ -12,6 +12,7 @@ import Foundation
 typealias AnswersResultBlock = ([Answer]!, NSError!) -> Void
 typealias AnswersCountResultBlock = (NSDictionary!, NSError!) -> Void
 typealias QuestionsResultBlock = ([Question]!, NSError!) -> Void
+typealias UsersResultBlock = ([PFUser]!, NSError!) -> Void
 
 
 public class DataController{
@@ -29,7 +30,7 @@ public class DataController{
         var backendQuestion = PFObject(className:"Question")
         backendQuestion["text"] = text
         backendQuestion["options"] = options
-        backendQuestion["friends"] = friends
+        backendQuestion["askedOf"] = friends
         backendQuestion["createdBy"] = PFUser.currentUser()
         backendQuestion.saveInBackgroundWithBlock { (succeeded, error) -> Void in
             if succeeded {
@@ -45,81 +46,23 @@ public class DataController{
                 PFUser.currentUser().setObject(questions, forKey: "questions")
                 PFUser.currentUser().saveInBackgroundWithBlock(nil)
 
-                var push = PFPush()
-                push.setChannel("questions_to_\(friends.first!)")
-                push.setMessage("You have a new question from \(PFUser.currentUser().username)")
-                push.sendPushInBackgroundWithBlock(nil)
-            }
-        }
-    }
-
-    // Query questions sent to me
-    func getQuestionsWithBlock(block: QuestionsResultBlock){
-        var questions: [Question]! = []
-
-        var query = PFQuery(className:"Question")
-
-        // TODO: Need to update this to use Parse user id
-        // Also make sure that we start using parse user id for asking questions
-//        let facebookId = PFUser.currentUser().objectForKey("facebookUser").objectForKey("id") as String
-//
-//        query.whereKey("friends", equalTo: facebookId)
-
-        query.orderByAscending("createdAt")
-        query.findObjectsInBackgroundWithBlock{ (backendQuestions: [AnyObject]!, error) -> Void in
-            if error == nil {
-                for backendQuestion in backendQuestions as [PFObject]!{
-                    // <mapperCode>
-                    var mutable_options = NSMutableOrderedSet()
-                    for option in backendQuestion.objectForKey("options") as NSArray{
-                        mutable_options.addObject(option as NSString)
-                    }
-
-                    var question = Question(
-                        text: backendQuestion.objectForKey("text") as NSString,
-                        options: mutable_options,
-                        askedBy: backendQuestion.objectForKey("createdBy") as PFUser//.objectForKey("facebookUser").objectForKey("first_name")  as String
-                    )
-                    // </mapperCode>
-
-                    questions.append(question)
+                for friend in friends {
+                    var push = PFPush()
+                    push.setChannel("questions_to_\(friend.objectId)")
+                    push.setMessage("You have a new question from \(PFUser.currentUser().username)")
+                    push.sendPushInBackgroundWithBlock(nil)
                 }
-
-                block(questions, nil)
-            }
-            else {
-                println("Error getting questions in background \(error)")
-                block(nil, error)
             }
         }
     }
-    // Answer question
-    func answerQuestion(answer: Answer){
-        var backendAnswer = PFObject(className:"Answer")
-        backendAnswer["question"] = answer.question // can we get away with just submitting the question?
-        backendAnswer["option"] = answer.option
-        backendAnswer["createdBy"] = PFUser.currentUser()
-        backendAnswer.saveInBackgroundWithBlock(nil)
-    }
+
+
     // Query aggregate responses
     func getAnswersWithBlock(block: AnswersResultBlock){
         var query = PFQuery(className: "Answer")
         // filter to my questions/specific question
-        query.findObjectsInBackgroundWithBlock { (backendAnswers: [AnyObject]!, error) -> Void in
-
-            if error == nil{
-                var answers = [Answer]()
-                for backendAnswer in backendAnswers as [PFObject]{
-                    answers.append(
-                        Answer(
-                            question: backendAnswer.objectForKey("question") as String,
-                            option:backendAnswer.objectForKey("option") as String))
-                }
-                block(answers, nil)
-            }
-            else{
-                block(nil, error)
-            }
+        query.findObjectsInBackgroundWithBlock { (answers: [AnyObject]!, error) -> Void in
+                block(answers as [Answer], error)
         }
     }
 
@@ -169,5 +112,18 @@ public class DataController{
                 block(nil, error)
             }
         }
+    }
+
+    func getCurrentUserFriendsWithBlock(block: UsersResultBlock){
+        let query = PFUser.query()
+
+        // filter to triends only
+
+        query.findObjectsInBackgroundWithBlock { (users, error) -> Void in
+            println(users)
+            block(users as? [PFUser], error)
+        }
+
+
     }
 }

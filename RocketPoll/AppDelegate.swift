@@ -76,9 +76,19 @@ class PollingAppDelegate: UIResponder, UIApplicationDelegate {
         installation.setDeviceTokenFromData(deviceToken)
         installation.saveInBackgroundWithBlock { (success, error) -> Void in
             if success {
-//                NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
-//                    UIAlertView(title: "\(success)", message: nil, delegate: nil, cancelButtonTitle: "OK").show()
-//                })
+                if PFUser.currentUser() != nil {
+                    // if all went well, register for our own channel
+                    var install = PFInstallation.currentInstallation()
+                    println(PFUser.currentUser().objectId)
+                    install.setObject(["questions_to_\(PFUser.currentUser().objectId)"], forKey: "channels")
+                    install.saveInBackgroundWithBlock({ (success, error) -> Void in
+                        if error != nil {
+                            NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+                                UIAlertView(title: "Error", message: error.description, delegate: nil, cancelButtonTitle: "OK").show()
+                            })
+                        }
+                    })
+                }
             }
             else
             {
@@ -86,13 +96,7 @@ class PollingAppDelegate: UIResponder, UIApplicationDelegate {
                     UIAlertView(title: "\(success)", message: error.description, delegate: nil, cancelButtonTitle: "OK").show()
                 })
             }
-
         }
-
-        if PFUser.currentUser() != nil{
-            // how to get facebook id of current user?
-        }
-        // What's next? 
     }
 
     func application(application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: NSError) {

@@ -28,10 +28,10 @@ class DevToolsViewController: PollingViewControllerBase {
     }
 
     @IBAction func submitSampleAnswer(sender: AnyObject) {
-        let sampleQuestion = Question(text:"What should I wear tonight?", options: NSOrderedSet(objects:["Something blue", "Something black", "Something purple"]), askedBy: PFUser())
-
-
-        DataController.sharedInstance.answerQuestion(Answer(question: sampleQuestion.text, option:"Something black"))
+//        let sampleQuestion = Question(text:"What should I wear tonight?", options: NSOrderedSet(objects:["Something blue", "Something black", "Something purple"]), askedBy: PFUser())
+//
+//
+//        DataController.sharedInstance.answerQuestion(Answer(question: sampleQuestion.text, option:"Something black"))
     }
 
     @IBAction func readResults(sender: AnyObject) {

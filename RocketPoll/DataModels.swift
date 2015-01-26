@@ -9,14 +9,33 @@
 import Foundation
 import CoreData
 
-class Answer {
-    var option: String
-    var question: String
-
-    init(question: String, option: String){
-        self.question =  question
-        self.option = option
+class Answer : PFObject, PFSubclassing{
+    var option: String {
+        get {
+            return objectForKey("option") as String
+        }
+        set {
+            setObject(newValue, forKey: "option")
+        }
     }
+
+    var question: String {
+        get {
+            return objectForKey("question") as String
+        }
+        set {
+            setObject(newValue, forKey: "question")
+        }
+    }
+
+    class func parseClassName() -> String! {
+        return "Answer"
+    }
+
+    override class func load(){
+        self.registerSubclass()
+    }
+
 }
 
 class Option {
@@ -28,16 +47,44 @@ class Option {
 
 }
 
-class Question {
-    var text: String
-    var options: NSOrderedSet
-    var askedBy: PFUser
+class Question: PFObject, PFSubclassing{
 
-    init(text: String, options: NSOrderedSet, askedBy: PFUser){
-        self.text = text
-        self.options = options
-        self.askedBy = askedBy
+    var text: String {
+        get {
+            return objectForKey("text") as String
+        }
+        set {
+            setObject(newValue, forKey: "text")
+        }
     }
+
+    var options: Array<String> {
+        get {
+            return objectForKey("options") as Array<String>
+        }
+        set {
+            setObject(newValue, forKey: "options")
+        }
+    }
+
+    class func parseClassName() -> String! {
+        return "Question"
+    }
+
+    override class func load(){
+        self.registerSubclass()
+    }
+
+
+//    var text: String
+//    var options: NSOrderedSet
+//    var askedBy: PFUser
+//
+//    init(text: String, options: NSOrderedSet, askedBy: PFUser){
+//        self.text = text
+//        self.options = options
+//        self.askedBy = askedBy
+//    }
 }
 
 

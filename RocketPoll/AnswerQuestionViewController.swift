@@ -30,11 +30,10 @@ class AnswerQuestionViewController: PollingViewControllerBase, UITableViewDataSo
         if(selectedOptionIndex != -1)
         {
             // submit
-            let answer = Answer(
-                question: self.currentQuestion!.text,
-                option: self.currentQuestion?.options.objectAtIndex(self.selectedOptionIndex) as String)
-
-            DataController.sharedInstance.answerQuestion(answer)
+            let answer = Answer()
+            answer.question = self.currentQuestion!.text
+            answer.option = self.currentQuestion?.options[self.selectedOptionIndex] as String!
+            answer.saveInBackgroundWithBlock(nil)
 
             // navigate back to question list
             self.dismissViewControllerAnimated(true, completion: nil)
@@ -64,7 +63,7 @@ class AnswerQuestionViewController: PollingViewControllerBase, UITableViewDataSo
 
         cell.backgroundColor = UIColor.clearColor()
 
-        cell.textLabel!.text = self.currentQuestion?.options.objectAtIndex(indexPath.row) as NSString
+        cell.textLabel!.text = self.currentQuestion?.options[indexPath.row] as String!
 
         cell.accessoryType = .None
         if(indexPath.row == selectedOptionIndex)

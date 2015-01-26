@@ -10,21 +10,25 @@ import UIKit
 import CoreData
 
 protocol FriendsPickerDelegate{
-    func donePickingFriends(friends:NSArray)
+    func donePickingFriends(friends:[PFUser])
+}
+
+protocol AskingNewQuestionDelegate{
+    func doneAskingNewQuestion()
 }
 
 
-class CreateQuestionViewController: PollingViewControllerBase, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, FriendsPickerDelegate {
+class AskQuestionViewController: PollingViewControllerBase, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, FriendsPickerDelegate {
 
     @IBOutlet weak var tableView: UITableView!
     let cellIdentifier = "answerOption"
 
 //    var text: NSString = ""
     var options: [NSString] = []
-
     var optionTextFields: NSMutableSet = NSMutableSet()
-
     @IBOutlet weak var questionTextView: UITextView!
+
+    var delegate: AskingNewQuestionDelegate?
 
     override func viewDidLoad() {
         super.viewDidLoad() 
@@ -37,7 +41,6 @@ class CreateQuestionViewController: PollingViewControllerBase, UITableViewDelega
     @IBAction func askClicked(sender: AnyObject) {
         // show friends list to pick who to send to
         self.showFriendsList()
-        // pass question, options and friendlist to datacontroller
         // give user feedback
     }
 
@@ -79,100 +82,59 @@ class CreateQuestionViewController: PollingViewControllerBase, UITableViewDelega
 
     func showFriendsList(){
 
-        let appDelegate = UIApplication.sharedApplication().delegate! as PollingAppDelegate
+//        let appDelegate = UIApplication.sharedApplication().delegate! as PollingAppDelegate
 
-        // TODO: Figure out a way to show Parse friends instead
-        if appDelegate.facebookUser != nil {
-            var storyboard = self.storyboard!
+//        // TODO: Figure out a way to show Parse friends instead
+//        if appDelegate.facebookUser != nil {
 
-            var friendsListViewController = storyboard.instantiateViewControllerWithIdentifier("FriendsListViewController") as FriendsListViewController
+        DataController.sharedInstance.getCurrentUserFriendsWithBlock { (users, error) -> Void in
+            if error == nil {
+                var storyboard = self.storyboard!
 
-            friendsListViewController.delegate = self
+                var friendsListViewController = storyboard.instantiateViewControllerWithIdentifier("FriendsListViewController") as FriendsListViewController
 
+                friendsListViewController.friends = users
+                friendsListViewController.delegate = self
 
-            friendsListViewController.user = appDelegate.facebookUser
-
-            self.presentViewController(friendsListViewController, animated: true, completion: nil)
-
+                
+                self.presentViewController(friendsListViewController, animated: true, completion: nil)
+            }
+            else {
+                NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+                    UIAlertView(title: "Error", message: error.description, delegate: nil, cancelButtonTitle: "OK").show()
+                })
+            }
         }
-        else
-        {
-            UIAlertView(title: "Warning", message: "Must login with Facebook to ask friends", delegate: nil, cancelButtonTitle: "OK").show()
-        }
+
+
     }
 
-    func donePickingFriends(friends: NSArray) {
-        // use the selected friends to submit a question/trigger request to the api
-
+    func donePickingFriends(friends: [PFUser]) {
+        // grab question from the ui
         let text = self.questionTextView.text
-        var options:NSMutableArray = []
 
+        // grab the options list from the ui
+        var options:NSMutableArray = []
         for optionTextField in self.optionTextFields {
             options.addObject((optionTextField as UITextField).text)
         }
 
         DataController.sharedInstance.askQuestion(text, options: options, friends: friends)
+        // re-write this here ^
 
-        
+        // dismiss friends picker
+        self.dismissViewControllerAnimated(true, completion: nil)
+
+        // dismiss
+        self.presentingViewController?.dismissViewControllerAnimated(false, completion: { () -> Void in
+            self.delegate!.doneAskingNewQuestion()
+        })
     }
-
-    func saveOptionsToSql(){
-//        let appDelegate = UIApplication.sharedApplication().delegate as PollingAppDelegate
-//        let managedContext = appDelegate.managedObjectContext!
-
-//        let question =   NSEntityDescription.insertNewObjectForEntityForName("Question",
-//            inManagedObjectContext:
-//            managedContext) as Question
-
-
-
-        // why do we make this copy?
-//        var optionsSet = question.options.mutableCopy() as NSMutableOrderedSet
-
-//        for optionTextField in self.optionTextFields {
-//            var option = NSEntityDescription.insertNewObjectForEntityForName("Option",
-//                inManagedObjectContext:
-//                managedContext) as Option
-//            option.text = optionTextField.text
-//            optionsSet.addObject(option)
-//        }
-//        question.options = optionsSet.copy() as NSOrderedSet
-
-//        self.options = []
-//        question.options.enumerateObjectsUsingBlock({ (option, index, stop) -> Void in
-//            var managedOption = (option as Option)
-//            self.options.append(managedOption.text)
-//        })
-//
-//        var error: NSError?
-//        if !managedContext.save(&error) {
-//            println("Could not save \(error), \(error?.userInfo)")
-//        }
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
         return options.count + 1
     }
-
-    // Row display. Implementers should *always* try to reuse cells by setting each cell's reuseIdentifier and querying for available reusable cells with dequeueReusableCellWithIdentifier:
-    // Cell gets various attributes set automatically based on table (separators) and data source (accessory views, editing controls)
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
     {
@@ -181,11 +143,6 @@ class CreateQuestionViewController: PollingViewControllerBase, UITableViewDelega
         cell.backgroundColor = UIColor.clearColor()
 
         var textField = cell.viewWithTag(10) as UITextField
-//        if(indexPath.row == options.count) // the last textbox?
-//        {
-//            textField.backgroundColor = UIColor.redColor()
-//            textField.becomeFirstResponder()
-//        }
 
         var label = cell.viewWithTag(20) as UILabel
 
@@ -231,44 +188,4 @@ class CreateQuestionViewController: PollingViewControllerBase, UITableViewDelega
         textField.resignFirstResponder()
         return true
     }
-
-//    func displayLastQuestion(){
-//        let appDelegate = UIApplication.sharedApplication().delegate as PollingAppDelegate
-//        let managedContext = appDelegate.managedObjectContext!
-//
-//        let fetchRequest = NSFetchRequest(entityName:"Question")
-//        var error: NSError?
-//        let fetchedResults = managedContext.executeFetchRequest(fetchRequest,
-//            error: &error) as? [Question]
-//
-//        if let results = fetchedResults {
-//            if results.count > 0
-//            {
-//                let currentQuestion = results.last! as Question!
-//
-//                println(currentQuestion!.text)
-//                self.questionTextField.text = currentQuestion!.text
-//
-//                let currentOptions = currentQuestion!.valueForKey("options") as NSOrderedSet!
-//
-//                self.options = []
-//                currentOptions!.enumerateObjectsUsingBlock({ (option, index, stop) -> Void in
-//                    var managedOption = (option as Option)
-//                    self.options.append(managedOption.text)
-//                })
-//
-//                self.tableView.reloadData()
-//            }
-//        } else {
-//            println("Could not fetch \(error), \(error!.userInfo)")
-//        }
-//    }
-
-    override func viewWillAppear(animated: Bool) {
-//        displayLastQuestion()
-    }
-
-
-    
-
 }
