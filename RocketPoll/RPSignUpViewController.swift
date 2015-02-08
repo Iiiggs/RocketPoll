@@ -9,7 +9,7 @@
 import UIKit
 
 class RPSignUpViewController: PFSignUpViewController {
-    let logoView = UIImageView(image: UIImage(named: "Rocket"))
+    let logoView = UIImageView(image: UIImage(named: "Raccoon"))
 
     override func viewDidLoad() {
         super.viewDidLoad()

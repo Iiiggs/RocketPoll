@@ -24,8 +24,12 @@ class AskQuestionViewController: PollingViewControllerBase, UITableViewDelegate,
     let cellIdentifier = "answerOption"
 
 //    var text: NSString = ""
-    var options: [NSString] = []
+    var options: [NSString] = ["", ""]
     var optionTextFields: NSMutableSet = NSMutableSet()
+
+    var questionText: NSString = ""
+    var questionOptionsText: [NSString] = []
+
     @IBOutlet weak var questionTextView: UITextView!
 
     var delegate: AskingNewQuestionDelegate?
@@ -39,12 +43,43 @@ class AskQuestionViewController: PollingViewControllerBase, UITableViewDelegate,
 //        self.displayLastQuestion()
     }
     @IBAction func askClicked(sender: AnyObject) {
+
+        self.questionText = self.questionTextView.text as NSString
+        if self.questionText.length == 0 {
+            UIAlertView(title: "Error", message: "Please enter a question", delegate: nil, cancelButtonTitle: "OK").show()
+
+            return
+        }
+
+
+
+        // grab the options list from the ui
+        if optionTextFields.count == 0 {
+            UIAlertView(title: "Error", message: "Please add some options", delegate: nil, cancelButtonTitle: "OK").show()
+
+            return
+        }
+
+        for optionTextField in self.optionTextFields {
+            let option_text = (optionTextField as UITextField).text as NSString
+
+            if(option_text.length == 0){
+                UIAlertView(title: "Error", message: "Please fill out every option", delegate: nil, cancelButtonTitle: "OK").show()
+
+                return
+            }
+            
+            questionOptionsText.append(option_text)
+        }
+
+
         // show friends list to pick who to send to
         self.showFriendsList()
         // give user feedback
     }
 
     func showFriendsList(){
+
         DataController.sharedInstance.getCurrentUserFriendsWithBlock { (users, error) -> Void in
             if error == nil {
                 var storyboard = self.storyboard!
@@ -69,25 +104,20 @@ class AskQuestionViewController: PollingViewControllerBase, UITableViewDelegate,
 
     func donePickingFriends(friends: [PFUser]) {
         // grab question from the ui
-        let text = self.questionTextView.text
-
-        // grab the options list from the ui
-        var options:[String] = []
-        for optionTextField in self.optionTextFields {
-            options.append((optionTextField as UITextField).text)
-        }
 
         var question = Question()
-        question.text = text
-        question.options = options
+        question.text = self.questionText
+        question.options = self.questionOptionsText
         question.askedOf = friends
         question.askedBy = PFUser.currentUser()
         question.saveInBackgroundWithBlock { (succeeded, error) -> Void in
             if succeeded {
                 for friend in friends {
+                    var data = ["alert": "You have a new question from \(PFUser.currentUser().username)",
+                        "badge":"Increment"]
                     var push = PFPush()
+                    push.setData(data)
                     push.setChannel("questions_to_\(friend.objectId)")
-                    push.setMessage("You have a new question from \(PFUser.currentUser().username)")
                     push.sendPushInBackgroundWithBlock(nil)
                 }
             }

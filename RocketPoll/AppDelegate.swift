@@ -76,7 +76,7 @@ class PollingAppDelegate: UIResponder, UIApplicationDelegate {
                 if PFUser.currentUser() != nil {
                     // if all went well, register for our own channel
                     var install = PFInstallation.currentInstallation()
-                    install.setObject(["questions_to_\(PFUser.currentUser().objectId)"], forKey: "channels")
+                    install.setObject(["questions_to_\(PFUser.currentUser().objectId)", "answers_to_\(PFUser.currentUser().objectId)"], forKey: "channels")
                     install.saveInBackgroundWithBlock({ (success, error) -> Void in
                         if error != nil {
                             NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
@@ -119,6 +119,11 @@ class PollingAppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationDidBecomeActive(application: UIApplication) {
         FBAppCall.handleDidBecomeActiveWithSession(PFFacebookUtils.session())
+
+        if(PFInstallation.currentInstallation().badge != 0){
+            PFInstallation.currentInstallation().badge = 0
+            PFInstallation.currentInstallation().saveEventually()
+        }
     }
 
     func applicationWillTerminate(application: UIApplication) {

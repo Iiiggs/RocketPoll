@@ -36,16 +36,19 @@ class SeeResultsViewController: PollingViewControllerBase,
 
     func getResponseData(){
 
-        var createdByQuery = PFQuery(className: "Answer")
-        createdByQuery.whereKey("answeredBy", equalTo: PFUser.currentUser())
+//        var createdByQuery = PFQuery(className: "Answer")
+//        createdByQuery.whereKey("answeredBy", equalTo: PFUser.currentUser())
+//
+//        var myQuestions = PFQuery(className: "Question")
+//        myQuestions.whereKey("askedBy", equalTo: PFUser.currentUser())
+//
+//        var askedByQuery = PFQuery(className: "Answer")
+//        askedByQuery.whereKey("question", matchesQuery: myQuestions)
+//
+//        var query = PFQuery.orQueryWithSubqueries([createdByQuery, askedByQuery])
+//        query.includeKey("question")
 
-        var myQuestions = PFQuery(className: "Question")
-        myQuestions.whereKey("askedBy", equalTo: PFUser.currentUser())
-
-        var askedByQuery = PFQuery(className: "Answer")
-        askedByQuery.whereKey("question", matchesQuery: myQuestions)
-
-        var query = PFQuery.orQueryWithSubqueries([createdByQuery, askedByQuery])
+        var query = PFQuery(className: "Answer")
         query.includeKey("question")
 
         query.findObjectsInBackgroundWithBlock { (answers, error) -> Void in

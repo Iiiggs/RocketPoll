@@ -54,6 +54,17 @@ class AnswerQuestionViewController: PollingViewControllerBase, UITableViewDataSo
                     self.question!.answers!.append(answer)
                     self.question!.answeredBy!.append(PFUser.currentUser())
                     self.question?.saveInBackgroundWithBlock(nil)
+
+                    var data = ["alert":"You have a new response to \"\(answer.question.text)\" from \(PFUser.currentUser().username)",
+                    "badge":"Increment"]
+                    var push = PFPush()
+                    push.setData(data)
+                    push.setChannel("answers_to_\(answer.question.askedBy.objectId)")
+                    push.sendPushInBackgroundWithBlock(nil)
+
+                    // navigate back to question list
+                    self.delegate!.doneAnsweringQuestion()
+                    self.dismissViewControllerAnimated(true, completion: nil)
                 }
                 else{
                     NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
@@ -62,15 +73,6 @@ class AnswerQuestionViewController: PollingViewControllerBase, UITableViewDataSo
                 }
             })
 
-            let asker = answer
-            var push = PFPush()
-            push.setChannel("answers_to_\(answer.question.askedBy.objectId)")
-            push.setMessage("You have a new response to \"\(answer.question.text)\"")
-            push.sendPushInBackgroundWithBlock(nil)
-
-            // navigate back to question list
-            self.delegate!.doneAnsweringQuestion()
-            self.dismissViewControllerAnimated(true, completion: nil)
         }
     }
 

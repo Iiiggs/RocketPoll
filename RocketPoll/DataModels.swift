@@ -97,18 +97,18 @@ class Option {
 
 class Question: PFObject, PFSubclassing{
 
-    var text: String {
+    var text: NSString {
         get {
-            return objectForKey("text") as String
+            return objectForKey("text") as NSString
         }
         set {
             setObject(newValue, forKey: "text")
         }
     }
 
-    var options: Array<String> {
+    var options: Array<NSString> {
         get {
-            return objectForKey("options") as Array<String>
+            return objectForKey("options") as Array<NSString>
         }
         set {
             setObject(newValue, forKey: "options")

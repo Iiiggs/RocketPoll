@@ -8,10 +8,10 @@
 
 import UIKit
 
-let rpColor = UIColor(red: 212.0/255.0, green: 255.0/255.0, blue: 217.0/255.0, alpha: 1.0)
+let rpColor = UIColor(red: 239.0/255.0, green: 239.0/255.0, blue: 244.0/255.0, alpha: 1.0)
 
 class RPLoginViewController: PFLogInViewController {
-    let logoView = UIImageView(image: UIImage(named: "Rocket"))
+    let logoView = UIImageView(image: UIImage(named: "Raccoon"))
 
     override func viewDidLoad() {
         super.viewDidLoad()

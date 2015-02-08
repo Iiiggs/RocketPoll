@@ -51,6 +51,24 @@ UITableViewDataSource, UITableViewDelegate
             }
         })
 
+        if self.question!.askedBy.objectForKey("profile_picture") != nil {
+            let profilePictureFile = self.question!.askedBy.objectForKey("profile_picture") as PFFile
+            profilePictureFile.getDataInBackgroundWithBlock({ (profilePicData, error) -> Void in
+                if error == nil {
+                    NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+                        self.askedByImageView.image = UIImage(data: profilePicData)
+                    })
+                }
+                else {
+                    NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+                        UIAlertView(title: "Error", message: error.description, delegate: nil, cancelButtonTitle: "OK").show()
+                    })
+                }
+            })
+
+        }
+
+
 //        var totalAnswersQuery = PFQuery(className: "Answer")
 //        totalAnswersQuery.whereKey("question", equalTo: question!)
 //        totalAnswersQuery.countObjectsInBackgroundWithBlock { (totalAnswersCount, error) -> Void in
@@ -84,26 +102,33 @@ UITableViewDataSource, UITableViewDelegate
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell{
 
-        var cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier) as UITableViewCell
+        var cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier) as QuestionResultTableViewCell
         cell.backgroundColor = UIColor.clearColor()
 
         var label = cell.viewWithTag(2) as UILabel
         let option = self.question!.options[indexPath.row]
         label.text = option
 
-        var resultBar = cell.viewWithTag(1)!
-        resultBar.setTranslatesAutoresizingMaskIntoConstraints(false)
-
         if responseCounts.objectForKey(option) != nil {
             let count = (responseCounts[option] as NSNumber).integerValue
+            if count == 1 {
+                label.text = "\(option): \(count)"
+            }
+            else
+            {
+                label.text = "\(option): \(count)"
+            }
+
             let width = CGFloat(count) / CGFloat(self.totalAnswers) * CGFloat(tableView.frame.width)
 
-            var constWidth = NSLayoutConstraint(item: resultBar, attribute: NSLayoutAttribute.Width, relatedBy: NSLayoutRelation.Equal, toItem: nil, attribute: NSLayoutAttribute.NotAnAttribute, multiplier: 1, constant:width)
-            cell.addConstraint(constWidth)
+            cell.constWidth?.constant = width
+            UIView.animateWithDuration(1.0, animations: { () -> Void in
+                cell.layoutIfNeeded()
+            })
 
         }
 
-        var constHeight = NSLayoutConstraint(item: resultBar, attribute: NSLayoutAttribute.Height, relatedBy: NSLayoutRelation.Equal, toItem: cell.contentView, attribute: NSLayoutAttribute.Height,                 multiplier: 0.5, constant:0)
+        var constHeight = NSLayoutConstraint(item: cell.resultBar!, attribute: NSLayoutAttribute.Height, relatedBy: NSLayoutRelation.Equal, toItem: cell.contentView, attribute: NSLayoutAttribute.Height,                 multiplier: 0.5, constant:0)
         cell.addConstraint(constHeight)
 
 
