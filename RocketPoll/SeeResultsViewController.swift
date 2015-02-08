@@ -35,8 +35,43 @@ class SeeResultsViewController: PollingViewControllerBase,
     }
 
     func getResponseData(){
-        DataController.sharedInstance.countAnswersWithBlock { (responseCounts, error) -> Void in
+
+        var createdByQuery = PFQuery(className: "Answer")
+        createdByQuery.whereKey("answeredBy", equalTo: PFUser.currentUser())
+
+        var myQuestions = PFQuery(className: "Question")
+        myQuestions.whereKey("askedBy", equalTo: PFUser.currentUser())
+
+        var askedByQuery = PFQuery(className: "Answer")
+        askedByQuery.whereKey("question", matchesQuery: myQuestions)
+
+        var query = PFQuery.orQueryWithSubqueries([createdByQuery, askedByQuery])
+        query.includeKey("question")
+
+        query.findObjectsInBackgroundWithBlock { (answers, error) -> Void in
             if error == nil {
+                // group by the answers and make a dict
+                var responseCounts =  Dictionary<String, Dictionary<String, Int>>()
+
+                for answer in answers as [Answer]{
+                    if responseCounts[answer.question.text] == nil {
+                        var qdict = Dictionary<String, Int>()
+                        qdict[answer.selection] = 1
+                        responseCounts[answer.question.text] = qdict
+                    }
+                    else {
+                        var qdict = responseCounts[answer.question.text]!
+                        if qdict[answer.selection] != nil{
+                            let count = qdict[answer.selection]! + 1
+                            qdict[answer.selection] = count
+                        }
+                        else {
+                            qdict[answer.selection] = 1
+                        }
+                        responseCounts[answer.question.text] = qdict
+                    }
+                }
+
                 self.questionsWithResponseCounts = responseCounts
                 NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
                     self.tableView.reloadData()
@@ -47,24 +82,15 @@ class SeeResultsViewController: PollingViewControllerBase,
                     UIAlertView(title: "Error", message: error.description, delegate: nil, cancelButtonTitle: "OK").show()
                 })
             }
-        }
 
-//        DataController.sharedInstance.getAnswersWithBlock { (answers, error) -> Void in
-//            if error == nil {
-//                self.answers = answers
-//            }
-//            else {
-//                NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
-//                    UIAlertView(title: "Error", message: error.description, delegate: nil, cancelButtonTitle: "OK").show()
-//                })
-//            }
-//        }
+        }
     }
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         var cell = tableView.dequeueReusableCellWithIdentifier(self.cellIdentifier) as ResponseCountCell
         cell.backgroundColor = UIColor.clearColor()
 
+        // can this code be simplified?
         let questionKey = questionsWithResponseCounts.allKeys[indexPath.section] as String
         let responses = questionsWithResponseCounts[questionKey] as NSDictionary
         let responsesKey = responses.allKeys[indexPath.row] as String
@@ -72,19 +98,6 @@ class SeeResultsViewController: PollingViewControllerBase,
 
         cell.responseLabel.text = "\(responsesKey) (\(Int(responsesValue)))"
         cell.responseLabel.font = UIFont(name: "Chalkboard SE", size: 10 + responsesValue)
-//        cell.responseLabel.font = UIFont.(10 + responsesValue)
-
-        // basic label of option and count
-//        let key = self.responseCounts.allKeys[indexPath.row] as String
-//        cell.textLabel!.text = key
-//        cell.detailTextLabel!.text = self.responseCounts.objectForKey(key)?.description
-
-
-        // group table view by question
-        // cell for each option with count
-        // or
-        // size cell option size by count
-
 
         return cell
     }
@@ -94,10 +107,6 @@ class SeeResultsViewController: PollingViewControllerBase,
         let responses = questionsWithResponseCounts[key] as NSDictionary
         return responses.count
     }
-
-//    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-//        return 100
-//    }
 
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return questionsWithResponseCounts.count

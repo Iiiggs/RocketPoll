@@ -35,7 +35,6 @@ class FriendsListViewController: UIViewController, UITableViewDataSource, UITabl
     func sendRequestsToFriends(){
         FBWebDialogs.presentFeedDialogModallyWithSession(PFFacebookUtils.session(), parameters: nil, handler: { (result, url, error) -> Void in
             if error == nil{
-                println(result)
             }
             else {
                 NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in

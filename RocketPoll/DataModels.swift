@@ -10,23 +10,71 @@ import Foundation
 import CoreData
 
 class Answer : PFObject, PFSubclassing{
-    var option: String {
+
+    var selection: String {
         get {
-            return objectForKey("option") as String
+            return objectForKey("selection") as String
         }
         set {
-            setObject(newValue, forKey: "option")
+            setObject(newValue, forKey: "selection")
         }
     }
 
-    var question: String {
+    var question: Question {
         get {
-            return objectForKey("question") as String
+            return objectForKey("question") as Question
         }
         set {
             setObject(newValue, forKey: "question")
         }
     }
+
+
+//    var question_text: String {
+//        get {
+//            return objectForKey("question_text") as String
+//        }
+//        set {
+//            setObject(newValue, forKey: "question_text")
+//        }
+//    }
+
+//    var questionObject: Question {
+//        get{
+//            return objectForKey("question") as Question
+//        }
+//        set {
+//            setObject(newValue, forKey: "question")
+//        }
+//    }
+
+    var answeredBy: PFUser {
+        get {
+            return objectForKey("answeredBy") as PFUser
+        }
+        set {
+            setObject(newValue, forKey: "answeredBy")
+        }
+    }
+
+//    var askedBy: PFUser? {
+//        get {
+//            return objectForKey("askedBy") as? PFUser
+//        }
+//        set {
+//            setObject(newValue, forKey: "askedBy")
+//        }
+//    }
+
+
+//    var askedBy: PFUser {
+//        get {
+//            return objectForKey("askedBy") as PFUser
+//        }
+//        set {
+//            setObject(newValue, forKey: "askedBy")
+//        }
+//    }
 
     class func parseClassName() -> String! {
         return "Answer"
@@ -67,6 +115,43 @@ class Question: PFObject, PFSubclassing{
         }
     }
 
+    var askedOf: Array<PFUser> {
+        get {
+            return objectForKey("askedOf") as Array<PFUser>
+        }
+        set {
+            setObject(newValue, forKey: "askedOf")
+        }
+    }
+
+    var askedBy: PFUser {
+        get {
+            return objectForKey("askedBy") as PFUser
+        }
+        set {
+            setObject(newValue, forKey: "askedBy")
+        }
+    }
+
+    var answers: [Answer]? {
+        get {
+            return objectForKey("answers") as? [Answer]
+        }
+        set {
+            setObject(newValue, forKey: "answers")
+        }
+    }
+
+    var answeredBy: [PFUser]? {
+        get {
+            return objectForKey("answeredBy") as? [PFUser]
+        }
+        set {
+            setObject(newValue, forKey: "answeredBy")
+        }
+    }
+
+
     class func parseClassName() -> String! {
         return "Question"
     }
@@ -74,17 +159,6 @@ class Question: PFObject, PFSubclassing{
     override class func load(){
         self.registerSubclass()
     }
-
-
-//    var text: String
-//    var options: NSOrderedSet
-//    var askedBy: PFUser
-//
-//    init(text: String, options: NSOrderedSet, askedBy: PFUser){
-//        self.text = text
-//        self.options = options
-//        self.askedBy = askedBy
-//    }
 }
 
 

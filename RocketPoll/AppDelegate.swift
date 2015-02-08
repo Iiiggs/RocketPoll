@@ -26,14 +26,6 @@ class PollingAppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     var facebookUser: FBGraphUser?
 
-    func delay(delay:Double, closure:()->()) {
-        dispatch_after(
-            dispatch_time(
-                DISPATCH_TIME_NOW,
-                Int64(delay * Double(NSEC_PER_SEC))
-            ),
-            dispatch_get_main_queue(), closure)
-    }
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
@@ -41,7 +33,12 @@ class PollingAppDelegate: UIResponder, UIApplicationDelegate {
 
         ParseCrashReporting.enable();
 
-        Parse.setApplicationId("HzV2hHIkPkjzIRyAfsVPozcB9ZemavFNurRqliYB", clientKey: "BoR07Tovxpg1hpJ6Q5ypmm6YESeObx4gStaWmdnf")
+
+//        SocialPolling (Beta)
+//Parse.setApplicationId("HzV2hHIkPkjzIRyAfsVPozcB9ZemavFNurRqliYB", clientKey: "BoR07Tovxpg1hpJ6Q5ypmm6YESeObx4gStaWmdnf")
+
+//        RocketPoll (Dev)
+        Parse.setApplicationId("hh0OVgMMPgDaS2b6cmSY7RweUZDu09NtYF0LuOUS", clientKey: "cUzd7P3xSY54V2O6pA6oQ6RK0QOHGR2qEKHfSrDx")
 
         PFFacebookUtils.initializeFacebook()
 
@@ -79,7 +76,6 @@ class PollingAppDelegate: UIResponder, UIApplicationDelegate {
                 if PFUser.currentUser() != nil {
                     // if all went well, register for our own channel
                     var install = PFInstallation.currentInstallation()
-                    println(PFUser.currentUser().objectId)
                     install.setObject(["questions_to_\(PFUser.currentUser().objectId)"], forKey: "channels")
                     install.saveInBackgroundWithBlock({ (success, error) -> Void in
                         if error != nil {
@@ -93,14 +89,14 @@ class PollingAppDelegate: UIResponder, UIApplicationDelegate {
             else
             {
                 NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
-                    UIAlertView(title: "\(success)", message: error.description, delegate: nil, cancelButtonTitle: "OK").show()
+                    UIAlertView(title: "Error", message: error.description, delegate: nil, cancelButtonTitle: "OK").show()
                 })
             }
         }
     }
 
     func application(application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: NSError) {
-        UIAlertView(title: "Error", message: error.description, delegate: nil, cancelButtonTitle: "OK").show()
+//        UIAlertView(title: "Error", message: error.description, delegate: nil, cancelButtonTitle: "OK").show()
     }
 
     func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {

@@ -8,11 +8,11 @@
 
 import UIKit
 
-class RootViewController: UIViewController, UIPageViewControllerDelegate, PFLogInViewControllerDelegate, PFSignUpViewControllerDelegate {
+class RootViewController: UIViewController, UIPageViewControllerDelegate {
 
     var pageViewController: UIPageViewController?
 
-    let landingViewControllerIndex = 1
+    let landingViewControllerIndex = 0
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,76 +47,7 @@ class RootViewController: UIViewController, UIPageViewControllerDelegate, PFLogI
 
     // Show login
     override func viewDidAppear(animated: Bool) {
-        if PFUser.currentUser() == nil{
 
-            // login/signup view controller customization
-            var login = RPLoginViewController()
-            login.delegate = self
-            login.fields = PFLogInFields.UsernameAndPassword | PFLogInFields.LogInButton | PFLogInFields.SignUpButton | PFLogInFields.PasswordForgotten | PFLogInFields.Facebook | PFLogInFields.Twitter
-            self.presentViewController(login, animated: true) { () -> Void in
-                login.signUpController = RPSignUpViewController()
-                login.signUpController.delegate = self
-            }
-        }
-
-    }
-
-    // Login stuff
-    func logInViewController(logInController: PFLogInViewController!, didLogInUser user: PFUser!) {
-        // if we did a Facebook signin, grab some additional data
-        // such as the username
-        if PFFacebookUtils.isLinkedWithUser(user){
-            var request = FBRequest.requestForMe()
-            request.startWithCompletionHandler { (connection, fbUser, error) -> Void in
-                if error == nil {
-                    if (user.username != fbUser["name"] as? String){
-                        user.username = fbUser["name"] as String
-                        user["gender"] = fbUser["gender"] as String
-                        println(user)
-                        user.saveEventually()
-                    }
-                }
-                else {
-                    NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
-                        UIAlertView(title: "Error", message: error.description, delegate: nil, cancelButtonTitle: "OK").show()
-                    })
-                }
-            }
-        }
-        else if PFTwitterUtils.isLinkedWithUser(user) // do the same with Twitter user login
-        {
-            var verify = NSURL(string: "https://api.twitter.com/1.1/account/verify_credentials.json")!
-            var request = NSMutableURLRequest(URL: verify)
-            PFTwitterUtils.twitter().signRequest(request)
-            println(request.description)
-            NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue(), completionHandler: { (response, data, error) -> Void in
-                if error == nil {
-                    let result = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: nil) as NSDictionary
-                    user.username = result["name"] as String
-                    user.saveEventually()
-                }
-                else {
-                    NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
-                        UIAlertView(title: "Error", message: error.description, delegate: nil, cancelButtonTitle: "OK").show()
-                    })
-                }
-            })
-        }
-
-        self.dismissViewControllerAnimated(true, completion: nil)
-    }
-
-    func logInViewController(logInController: PFLogInViewController!, didFailToLogInWithError error: NSError!) {
-        UIAlertView(title: "Error", message: error.description, delegate: nil, cancelButtonTitle: "OK").show()
-    }
-
-    // Signup stuff
-    func signUpViewController(signUpController: PFSignUpViewController!, didSignUpUser user: PFUser!) {
-        self.dismissViewControllerAnimated(true, completion: nil)
-    }
-
-    func signUpViewController(signUpController: PFSignUpViewController!, didFailToSignUpWithError error: NSError!) {
-            UIAlertView(title: "Error", message: error.description, delegate: nil, cancelButtonTitle: "OK").show()
     }
 
     override func didReceiveMemoryWarning() {
@@ -173,6 +104,7 @@ class RootViewController: UIViewController, UIPageViewControllerDelegate, PFLogI
         self.pageViewController!.setViewControllers([vc!], direction: UIPageViewControllerNavigationDirection.Forward, animated: true, { (res) -> Void in
                                     })
     }
+
 
 }
 

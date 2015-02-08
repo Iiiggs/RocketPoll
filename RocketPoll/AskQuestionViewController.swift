@@ -44,49 +44,7 @@ class AskQuestionViewController: PollingViewControllerBase, UITableViewDelegate,
         // give user feedback
     }
 
-//    @IBAction func click(sender: AnyObject){
-//        self.text = questionTextField.text
-//        self.options
-
-
-
-//        var question = PFObject(className: "Question")
-
-
-
-//        question.setObject(self.text, forKey: "text")
-
-//        var relation = question.relationForKey("options")
-//        for o in self.options{
-//            var option = PFObject(className: "Option")
-//            option.setObject(o, forKey: "text")
-//            option.save()
-//            relation.addObject(option)
-//        }
-//        question.save()
-
-//        var trigger =  PFObject(className: "Trigger")
-//        trigger.setObject(question, forKey: "question")
-//        trigger.save()
-        // save text and options to Parse
-
-
-        // show friends list
-//        showFriendsList()
-
-        // for now, go to next page
-//        showSwipeRight()
-
-
-//    }
-
     func showFriendsList(){
-
-//        let appDelegate = UIApplication.sharedApplication().delegate! as PollingAppDelegate
-
-//        // TODO: Figure out a way to show Parse friends instead
-//        if appDelegate.facebookUser != nil {
-
         DataController.sharedInstance.getCurrentUserFriendsWithBlock { (users, error) -> Void in
             if error == nil {
                 var storyboard = self.storyboard!
@@ -114,18 +72,31 @@ class AskQuestionViewController: PollingViewControllerBase, UITableViewDelegate,
         let text = self.questionTextView.text
 
         // grab the options list from the ui
-        var options:NSMutableArray = []
+        var options:[String] = []
         for optionTextField in self.optionTextFields {
-            options.addObject((optionTextField as UITextField).text)
+            options.append((optionTextField as UITextField).text)
         }
 
-        DataController.sharedInstance.askQuestion(text, options: options, friends: friends)
-        // re-write this here ^
+        var question = Question()
+        question.text = text
+        question.options = options
+        question.askedOf = friends
+        question.askedBy = PFUser.currentUser()
+        question.saveInBackgroundWithBlock { (succeeded, error) -> Void in
+            if succeeded {
+                for friend in friends {
+                    var push = PFPush()
+                    push.setChannel("questions_to_\(friend.objectId)")
+                    push.setMessage("You have a new question from \(PFUser.currentUser().username)")
+                    push.sendPushInBackgroundWithBlock(nil)
+                }
+            }
+        }
 
         // dismiss friends picker
         self.dismissViewControllerAnimated(true, completion: nil)
 
-        // dismiss
+        // dismiss ask questions view controller
         self.presentingViewController?.dismissViewControllerAnimated(false, completion: { () -> Void in
             self.delegate!.doneAskingNewQuestion()
         })
@@ -188,4 +159,10 @@ class AskQuestionViewController: PollingViewControllerBase, UITableViewDelegate,
         textField.resignFirstResponder()
         return true
     }
+
+    @IBAction func cancel(sender: AnyObject) {
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
+
+    
 }

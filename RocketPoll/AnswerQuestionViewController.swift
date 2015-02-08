@@ -9,6 +9,11 @@
 import UIKit
 import CoreData
 
+protocol AnswerQuestionDelegate{
+    func doneAnsweringQuestion()
+}
+
+
 class AnswerQuestionViewController: PollingViewControllerBase, UITableViewDataSource, UITableViewDelegate {
 
     @IBOutlet weak var questionLabel: UILabel!
@@ -16,13 +21,15 @@ class AnswerQuestionViewController: PollingViewControllerBase, UITableViewDataSo
 
     let cellIdentifier = "answerOption"
 
-    var currentQuestion: Question?
+    var question: Question?
     var selectedOptionIndex: Int = -1
+
+    var delegate : AnswerQuestionDelegate?
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.questionLabel.text = self.currentQuestion?.text
+        self.questionLabel.text = self.question?.text
     }
 
 
@@ -31,11 +38,38 @@ class AnswerQuestionViewController: PollingViewControllerBase, UITableViewDataSo
         {
             // submit
             let answer = Answer()
-            answer.question = self.currentQuestion!.text
-            answer.option = self.currentQuestion?.options[self.selectedOptionIndex] as String!
-            answer.saveInBackgroundWithBlock(nil)
+            answer.question = self.question!
+            answer.question = self.question!
+            answer.selection = self.question!.options[self.selectedOptionIndex] as String!
+            answer.answeredBy = PFUser.currentUser()
+            
+            answer.saveInBackgroundWithBlock({ (success, error) -> Void in
+                if error == nil {
+                    if self.question!.answers == nil {
+                        self.question!.answers = []
+                    }
+                    if self.question!.answeredBy == nil {
+                        self.question!.answeredBy = []
+                    }
+                    self.question!.answers!.append(answer)
+                    self.question!.answeredBy!.append(PFUser.currentUser())
+                    self.question?.saveInBackgroundWithBlock(nil)
+                }
+                else{
+                    NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+                        UIAlertView(title: "Error", message: error.description, delegate: nil, cancelButtonTitle: "OK").show()
+                    })
+                }
+            })
+
+            let asker = answer
+            var push = PFPush()
+            push.setChannel("answers_to_\(answer.question.askedBy.objectId)")
+            push.setMessage("You have a new response to \"\(answer.question.text)\"")
+            push.sendPushInBackgroundWithBlock(nil)
 
             // navigate back to question list
+            self.delegate!.doneAnsweringQuestion()
             self.dismissViewControllerAnimated(true, completion: nil)
         }
     }
@@ -47,15 +81,8 @@ class AnswerQuestionViewController: PollingViewControllerBase, UITableViewDataSo
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
-        return self.currentQuestion!.options.count
+        return self.question!.options.count
     }
-
-    override func viewWillAppear(animated: Bool) {
-//        displayLastQuestion()
-    }
-
-    // Row display. Implementers should *always* try to reuse cells by setting each cell's reuseIdentifier and querying for available reusable cells with dequeueReusableCellWithIdentifier:
-    // Cell gets various attributes set automatically based on table (separators) and data source (accessory views, editing controls)
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
     {
@@ -63,7 +90,7 @@ class AnswerQuestionViewController: PollingViewControllerBase, UITableViewDataSo
 
         cell.backgroundColor = UIColor.clearColor()
 
-        cell.textLabel!.text = self.currentQuestion?.options[indexPath.row] as String!
+        cell.textLabel!.text = self.question!.options[indexPath.row] as String!
 
         cell.accessoryType = .None
         if(indexPath.row == selectedOptionIndex)
@@ -73,6 +100,9 @@ class AnswerQuestionViewController: PollingViewControllerBase, UITableViewDataSo
 
         return cell
     }
+    @IBAction func cancelTapped(sender: AnyObject) {
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
 
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: false)
@@ -80,6 +110,7 @@ class AnswerQuestionViewController: PollingViewControllerBase, UITableViewDataSo
 //        self.currentOption = self.currentOptions.objectAtIndex(selectedOptionIndex) as Option!
         tableView.reloadData()
     }
+
 
 
 }

@@ -19,28 +19,35 @@ class MyQuestionsViewController: PollingViewControllerBase, UITableViewDataSourc
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
-//        myQuestionsTableView.registerClass(MyQuestionTableViewCell.self, forCellReuseIdentifier: cellIdentifier)
 
+    }
+
+    override func viewWillAppear(animated: Bool) {
         getMyQuestions()
     }
 
     func getMyQuestions(){
-        var query = PFQuery(className: "Question")
-//        query.whereKey("createdBy", equalTo: PFUser.currentUser())
-        query.findObjectsInBackgroundWithBlock { (myQuestions, error) -> Void in
-            if error == nil {
-                self.myQuestions = myQuestions as [Question]
+        if(PFUser.currentUser() != nil){
+            var query = PFQuery(className: "Question")
+            query.whereKey("askedBy", equalTo: PFUser.currentUser())
+            query.includeKey("askedBy")
+            query.findObjectsInBackgroundWithBlock { (myQuestions, error) -> Void in
+                if error == nil {
+                    self.myQuestions = myQuestions as [Question]
 
-                NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
-                    self.myQuestionsTableView.reloadData()
-                })
+                    NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+                        self.myQuestionsTableView.reloadData()
+                    })
+                }
+                else {
+                    NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+                        UIAlertView(title: "Error", message: error.description, delegate: nil, cancelButtonTitle: "OK").show()
+                    })
+                }
             }
-            else {
-                NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
-                    UIAlertView(title: "Error", message: error.description, delegate: nil, cancelButtonTitle: "OK").show()
-                })
-            }
+        }
+        else {
+            presentLoginViewController()
         }
     }
 
@@ -52,10 +59,7 @@ class MyQuestionsViewController: PollingViewControllerBase, UITableViewDataSourc
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         var cell = tableView.dequeueReusableCellWithIdentifier(self.cellIdentifier) as MyQuestionTableViewCell
 
-        println(myQuestions[indexPath.row].text)
         cell.questionLabel.text = myQuestions[indexPath.row].text
-
-
         cell.backgroundColor = UIColor.clearColor()
 
         return cell
@@ -65,11 +69,16 @@ class MyQuestionsViewController: PollingViewControllerBase, UITableViewDataSourc
         return myQuestions.count
     }
 
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let options = self.myQuestions[indexPath.row].options
-
-        UIAlertView(title: "Options", message: options.description, delegate: nil, cancelButtonTitle: "OK").show()
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return 100
     }
+
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let questionResult = self.storyboard!.instantiateViewControllerWithIdentifier("QuestionResultViewController") as QuestionResultViewController
+        questionResult.question = self.myQuestions[indexPath.row]
+        self.presentViewController(questionResult, animated: true, completion: nil)
+    }
+
 
     @IBAction func askNewQuestion(sender: AnyObject) {
         let askQuestion = self.storyboard!.instantiateViewControllerWithIdentifier("AskQuestionViewController") as AskQuestionViewController
