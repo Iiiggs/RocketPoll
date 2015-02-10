@@ -18,7 +18,7 @@ protocol AskingNewQuestionDelegate{
 }
 
 
-class AskQuestionViewController: PollingViewControllerBase, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, FriendsPickerDelegate {
+class AskQuestionViewController: PollingViewControllerBase, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, FriendsPickerDelegate, UIGestureRecognizerDelegate {
 
     @IBOutlet weak var tableView: UITableView!
     let cellIdentifier = "answerOption"
@@ -32,6 +32,8 @@ class AskQuestionViewController: PollingViewControllerBase, UITableViewDelegate,
 
     @IBOutlet weak var questionTextView: UITextView!
 
+    @IBOutlet weak var backButton: UIBarButtonItem!
+    
     var delegate: AskingNewQuestionDelegate?
 
     override func viewDidLoad() {
@@ -40,8 +42,37 @@ class AskQuestionViewController: PollingViewControllerBase, UITableViewDelegate,
         // Do any additional setup after loading the view.
         self.optionTextFields = NSMutableSet()
 
-//        self.displayLastQuestion()
+        let tap = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
+        tap.delegate = self
+        self.view.addGestureRecognizer(tap)
     }
+
+    func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldReceiveTouch touch: UITouch) -> Bool {
+        if touch.view.isKindOfClass(UIControl.self) {
+            return false
+        }
+        else if touch.view.superview!.isKindOfClass(UITableViewCell.self) {
+            return false
+        }
+//        else if touch.view.superview?.superview?.isKindOfClass(UITableViewCell.self) {
+//            return false
+//        }
+
+
+
+        return true
+    }
+
+    func dismissKeyboard(){
+        questionTextView.resignFirstResponder()
+
+        for tf in optionTextFields {
+            tf.resignFirstResponder()
+        }
+    }
+
+
+
     @IBAction func askClicked(sender: AnyObject) {
 
         self.questionText = self.questionTextView.text as NSString
@@ -158,6 +189,7 @@ class AskQuestionViewController: PollingViewControllerBase, UITableViewDelegate,
             label.hidden = true
             textField.delegate = self
             textField.text = options[indexPath.row]
+
             optionTextFields.addObject(textField)
         }
 
@@ -190,7 +222,7 @@ class AskQuestionViewController: PollingViewControllerBase, UITableViewDelegate,
         return true
     }
 
-    @IBAction func cancel(sender: AnyObject) {
+    @IBAction func back(sender: AnyObject) {
         self.dismissViewControllerAnimated(true, completion: nil)
     }
 

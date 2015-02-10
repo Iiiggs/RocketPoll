@@ -30,7 +30,9 @@ class MyQuestionsViewController: PollingViewControllerBase, UITableViewDataSourc
         if(PFUser.currentUser() != nil){
             var query = PFQuery(className: "Question")
             query.whereKey("askedBy", equalTo: PFUser.currentUser())
+            query.orderByDescending("createdAt")
             query.includeKey("askedBy")
+
             query.findObjectsInBackgroundWithBlock { (myQuestions, error) -> Void in
                 if error == nil {
                     self.myQuestions = myQuestions as [Question]
@@ -62,6 +64,20 @@ class MyQuestionsViewController: PollingViewControllerBase, UITableViewDataSourc
         cell.questionLabel.text = myQuestions[indexPath.row].text
         cell.backgroundColor = UIColor.clearColor()
 
+        var questionId = myQuestions[indexPath.row].objectId
+        PFCloud.callFunctionInBackground("countAnswerForQuestion", withParameters: ["questionId":questionId]) { (result, error) -> Void in
+            if error == nil {
+                let count = result["totalResponses"] as NSNumber
+
+                cell.responseCount.text = count.description
+            }
+            else {
+                NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+                    UIAlertView(title: "Error", message: error.description, delegate: nil, cancelButtonTitle: "OK").show()
+                })
+            }
+        }
+
         return cell
     }
 
@@ -70,7 +86,7 @@ class MyQuestionsViewController: PollingViewControllerBase, UITableViewDataSourc
     }
 
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return 100
+        return 40
     }
 
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {

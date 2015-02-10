@@ -12,6 +12,7 @@ class MyQuestionTableViewCell: UITableViewCell {
 
     @IBOutlet weak var questionLabel: UILabel!
     
+    @IBOutlet weak var responseCount: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
