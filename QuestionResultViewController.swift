@@ -139,5 +139,22 @@ UITableViewDataSource, UITableViewDelegate
         return tableView.frame.height / CGFloat(self.question!.options.count)
     }
 
+    @IBAction func commentTapped(sender: AnyObject) {
+        // present comment view controller?
+        let comments = self.storyboard!.instantiateViewControllerWithIdentifier("CommentsViewController") as CommentsViewController
+        // set the questoin?
+
+        let navigation = UINavigationController(rootViewController: comments)
+
+        let backButton = UIBarButtonItem(title: "Back", style: UIBarButtonItemStyle.Plain, target: self, action: "backPressed:")
+
+        comments.navigationItem.leftBarButtonItem = backButton
+
+        self.presentViewController(navigation, animated: true, completion: nil)
+    }
+
+    func backPressed(sender: AnyObject!){
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
 
 }
