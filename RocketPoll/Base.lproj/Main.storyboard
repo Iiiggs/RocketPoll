@@ -283,39 +283,98 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EUS-Jh-6rc">
-                                <rect key="frame" x="0.0" y="483" width="600" height="44"/>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EUS-Jh-6rc">
+                                <rect key="frame" x="0.0" y="556" width="600" height="44"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="fYE-qq-S99"/>
                                 </constraints>
                                 <items>
                                     <barButtonItem style="plain" id="z4o-OD-aga">
                                         <textField key="customView" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="q1g-sP-qJp">
-                                            <rect key="frame" x="16" y="7" width="238" height="30"/>
+                                            <rect key="frame" x="16" y="7" width="237" height="30"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <textInputTraits key="textInputTraits"/>
                                         </textField>
                                     </barButtonItem>
-                                    <barButtonItem width="42" style="plain" systemItem="fixedSpace" id="Jc1-Vz-QG2"/>
-                                    <barButtonItem title="Post" id="7fY-sW-q3A"/>
+                                    <barButtonItem width="15" style="plain" systemItem="fixedSpace" id="Jc1-Vz-QG2"/>
+                                    <barButtonItem title="Post" id="7fY-sW-q3A">
+                                        <connections>
+                                            <action selector="postTapped:" destination="9dk-aC-3TM" id="nyb-A7-d8a"/>
+                                        </connections>
+                                    </barButtonItem>
                                 </items>
                             </toolbar>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="100" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="YxA-Dz-Iiu">
+                                <rect key="frame" x="0.0" y="28" width="600" height="528"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="commentCell" rowHeight="100" id="V1c-e1-VNZ" customClass="CommentsTableViewCell" customModule="RocketPoll" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="V1c-e1-VNZ" id="RLx-rd-Sdb">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Comment" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tR6-p3-rdJ">
+                                                    <rect key="frame" x="8" y="9" width="477" height="58"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="by" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sSx-Lc-rBr">
+                                                    <rect key="frame" x="412" y="71" width="180" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="raccoon_silhuttte" translatesAutoresizingMaskIntoConstraints="NO" id="q6A-Ky-h0q">
+                                                    <rect key="frame" x="542" y="8" width="49" height="50"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="50" id="Bwy-au-JNy"/>
+                                                        <constraint firstAttribute="height" constant="65" id="S3b-iw-xni"/>
+                                                    </constraints>
+                                                </imageView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="tR6-p3-rdJ" firstAttribute="trailing" secondItem="RLx-rd-Sdb" secondAttribute="trailingMargin" constant="-100" id="54u-oC-zep"/>
+                                                <constraint firstItem="q6A-Ky-h0q" firstAttribute="trailing" secondItem="sSx-Lc-rBr" secondAttribute="trailing" id="8CV-0g-PJ1"/>
+                                                <constraint firstItem="sSx-Lc-rBr" firstAttribute="trailing" secondItem="RLx-rd-Sdb" secondAttribute="trailingMargin" constant="-10" id="Jbw-VN-Iut"/>
+                                                <constraint firstItem="tR6-p3-rdJ" firstAttribute="leading" secondItem="RLx-rd-Sdb" secondAttribute="leadingMargin" id="STE-vn-cVV"/>
+                                                <constraint firstItem="tR6-p3-rdJ" firstAttribute="top" secondItem="RLx-rd-Sdb" secondAttribute="topMargin" id="k7j-MV-BNA"/>
+                                                <constraint firstItem="sSx-Lc-rBr" firstAttribute="bottom" secondItem="RLx-rd-Sdb" secondAttribute="bottomMargin" id="lf4-HT-fga"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="byTextLabel" destination="sSx-Lc-rBr" id="eBV-JU-5zF"/>
+                                            <outlet property="commentTextLabel" destination="tR6-p3-rdJ" id="V7t-C1-Dxb"/>
+                                            <outlet property="profilePictureImageView" destination="q6A-Ky-h0q" id="bku-Jy-Xr4"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="9dk-aC-3TM" id="bq8-ZU-EH1"/>
+                                    <outlet property="delegate" destination="9dk-aC-3TM" id="7ct-bQ-bCJ"/>
+                                </connections>
+                            </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="YxA-Dz-Iiu" firstAttribute="top" secondItem="Qho-rT-HmR" secondAttribute="bottom" constant="8" id="RsL-uC-WVy"/>
+                            <constraint firstItem="YxA-Dz-Iiu" firstAttribute="width" secondItem="FsM-di-H2f" secondAttribute="width" id="bgN-32-kOO"/>
+                            <constraint firstItem="EUS-Jh-6rc" firstAttribute="top" secondItem="YxA-Dz-Iiu" secondAttribute="bottom" id="d3b-cE-VGK"/>
                             <constraint firstItem="699-Zj-osM" firstAttribute="top" secondItem="EUS-Jh-6rc" secondAttribute="bottom" id="mUS-gE-CUK"/>
                             <constraint firstAttribute="width" secondItem="EUS-Jh-6rc" secondAttribute="width" id="wVo-Dp-Tm6"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="commentTextField" destination="q1g-sP-qJp" id="AfR-sW-Ny7"/>
+                        <outlet property="tableView" destination="YxA-Dz-Iiu" id="4fY-h5-X5R"/>
                         <outlet property="toolbar" destination="EUS-Jh-6rc" id="9tj-fN-cAr"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yrV-Fg-gLd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-154" y="461"/>
+            <point key="canvasLocation" x="-154" y="453"/>
         </scene>
         <!--Friends List View Controller-->
         <scene sceneID="agq-of-oo1">

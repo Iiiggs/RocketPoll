@@ -9,6 +9,46 @@
 import Foundation
 import CoreData
 
+class Comment : PFObject, PFSubclassing{
+
+    var text: String {
+        get {
+            return objectForKey("text") as String
+        }
+        set {
+            setObject(newValue, forKey: "text")
+        }
+    }
+
+    var question: Question {
+        get {
+            return objectForKey("question") as Question
+        }
+        set {
+            setObject(newValue, forKey: "question")
+        }
+    }
+
+    var by: PFUser {
+        get {
+            return objectForKey("answeredBy") as PFUser
+        }
+        set {
+            setObject(newValue, forKey: "answeredBy")
+        }
+    }
+
+    class func parseClassName() -> String! {
+        return "Comment"
+    }
+
+    override class func load(){
+        self.registerSubclass()
+    }
+    
+}
+
+
 class Answer : PFObject, PFSubclassing{
 
     var selection: String {
@@ -29,25 +69,6 @@ class Answer : PFObject, PFSubclassing{
         }
     }
 
-
-//    var question_text: String {
-//        get {
-//            return objectForKey("question_text") as String
-//        }
-//        set {
-//            setObject(newValue, forKey: "question_text")
-//        }
-//    }
-
-//    var questionObject: Question {
-//        get{
-//            return objectForKey("question") as Question
-//        }
-//        set {
-//            setObject(newValue, forKey: "question")
-//        }
-//    }
-
     var answeredBy: PFUser {
         get {
             return objectForKey("answeredBy") as PFUser
@@ -57,40 +78,12 @@ class Answer : PFObject, PFSubclassing{
         }
     }
 
-//    var askedBy: PFUser? {
-//        get {
-//            return objectForKey("askedBy") as? PFUser
-//        }
-//        set {
-//            setObject(newValue, forKey: "askedBy")
-//        }
-//    }
-
-
-//    var askedBy: PFUser {
-//        get {
-//            return objectForKey("askedBy") as PFUser
-//        }
-//        set {
-//            setObject(newValue, forKey: "askedBy")
-//        }
-//    }
-
     class func parseClassName() -> String! {
         return "Answer"
     }
 
     override class func load(){
         self.registerSubclass()
-    }
-
-}
-
-class Option {
-    var text: String
-
-    init(text: String){
-        self.text = text
     }
 
 }

@@ -8,7 +8,12 @@
 
 import UIKit
 
-class CommentsViewController: UIViewController {
+class CommentsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+
+    @IBOutlet weak var tableView: UITableView!
+    let cellIdentifier = "commentCell"
+    var question:Question!
+    var comments:[Comment] = []
 
     @IBOutlet weak var toolbar: UIToolbar!
     @IBOutlet weak var commentTextField: UITextField!
@@ -18,6 +23,8 @@ class CommentsViewController: UIViewController {
         // Do any additional setup after loading the view.
         let tap = UITapGestureRecognizer(target: self, action: "dissmissKeyboard")
         self.view.addGestureRecognizer(tap)
+
+        loadComments()
     }
 
     override func didReceiveMemoryWarning() {
@@ -69,14 +76,72 @@ class CommentsViewController: UIViewController {
     }
 
 
-    /*
-    // MARK: - Navigation
+    @IBAction func postTapped(sender: AnyObject) {
+        var comment = Comment()
+        comment.text = self.commentTextField.text
+        comment.by = PFUser.currentUser()
+        comment.question = self.question
+        comment.saveEventually()
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        var data = ["alert":"Your question got a new comment from \(PFUser.currentUser().username): \"\(comment.text)\"",
+            "badge":"Increment"]
+        var push = PFPush()
+        push.setData(data)
+        push.setChannel("answers_to_\(question.askedBy.objectId)")
+        push.sendPushInBackgroundWithBlock(nil)
+
+
+        self.comments.append(comment)
+        self.tableView.reloadData()
     }
-    */
 
+
+    func loadComments(){
+        var query = PFQuery(className: "Comment")
+        query.whereKey("question", equalTo: self.question!)
+        query.includeKey("answeredBy")
+        query.findObjectsInBackgroundWithBlock { (comments, error) -> Void in
+            if error == nil {
+                self.comments = comments as [Comment]!
+            }
+            else {
+                NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+                    UIAlertView(title: "Error", message: error.description, delegate: nil, cancelButtonTitle: "OK").show()
+                })
+            }
+
+            self.tableView.reloadData()
+
+            println("Found \(self.comments.count) comments")
+
+        }
+    }
+
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return self.comments.count
+    }
+
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        var cell = tableView.dequeueReusableCellWithIdentifier(self.cellIdentifier) as CommentsTableViewCell
+
+        cell.commentTextLabel.text = self.comments[indexPath.row].text
+        cell.byTextLabel.text = self.comments[indexPath.row].by.username
+        if self.comments[indexPath.row].by.objectForKey("profile_picture") != nil {
+            let profilePictureFile = self.comments[indexPath.row].by.objectForKey("profile_picture") as PFFile
+            profilePictureFile.getDataInBackgroundWithBlock({ (profilePicData, error) -> Void in
+                if error == nil {
+                    NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+                        cell.profilePictureImageView.image = UIImage(data:profilePicData)
+                    })
+                }
+                else {
+                    NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+                        UIAlertView(title: "Error", message: error.description, delegate: nil, cancelButtonTitle: "OK").show()
+                    })
+                }
+            })
+        }
+
+        return cell
+    }
 }

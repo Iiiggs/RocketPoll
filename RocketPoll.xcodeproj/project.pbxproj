@@ -49,6 +49,7 @@
 		2FCDD6B014A573F500295AAC /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FCDD6AF14A573F500295AAC /* QuartzCore.framework */; };
 		2FD50CCD1A4A2684007D72B2 /* FriendsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FD50CCC1A4A2684007D72B2 /* FriendsListViewController.swift */; };
 		2FD74BE31A62EC1C0093BC03 /* FacebookFriendsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FD74BE21A62EC1C0093BC03 /* FacebookFriendsTableViewCell.swift */; };
+		2FE526E61AB4F32300B64C2D /* CommentsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FE526E51AB4F32300B64C2D /* CommentsTableViewCell.swift */; };
 		2FE665471A49ECAC0057BEC4 /* RocketPoll.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2FE665451A49ECAC0057BEC4 /* RocketPoll.xcdatamodeld */; };
 		2FF4087F1A741B110017FD3F /* RPLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF4087E1A741B110017FD3F /* RPLoginViewController.swift */; };
 		2FF408811A741FAB0017FD3F /* RPSignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF408801A741FAB0017FD3F /* RPSignUpViewController.swift */; };
@@ -111,6 +112,7 @@
 		2FCDD6AF14A573F500295AAC /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		2FD50CCC1A4A2684007D72B2 /* FriendsListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FriendsListViewController.swift; path = RocketPoll/FriendsListViewController.swift; sourceTree = SOURCE_ROOT; };
 		2FD74BE21A62EC1C0093BC03 /* FacebookFriendsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FacebookFriendsTableViewCell.swift; path = RocketPoll/FacebookFriendsTableViewCell.swift; sourceTree = SOURCE_ROOT; };
+		2FE526E51AB4F32300B64C2D /* CommentsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentsTableViewCell.swift; sourceTree = SOURCE_ROOT; };
 		2FE665461A49ECAC0057BEC4 /* RocketPoll.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = RocketPoll.xcdatamodel; sourceTree = "<group>"; };
 		2FF4087E1A741B110017FD3F /* RPLoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RPLoginViewController.swift; path = RocketPoll/RPLoginViewController.swift; sourceTree = SOURCE_ROOT; };
 		2FF408801A741FAB0017FD3F /* RPSignUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RPSignUpViewController.swift; path = RocketPoll/RPSignUpViewController.swift; sourceTree = SOURCE_ROOT; };
@@ -283,6 +285,7 @@
 				2F8E94731A82F4C6005AEF79 /* QuestionResultViewController.swift */,
 				2F8E94751A82FED8005AEF79 /* QuestionResultTableViewCell.swift */,
 				2F2DB44A1AB4AD190045FF16 /* CommentsViewController.swift */,
+				2FE526E51AB4F32300B64C2D /* CommentsTableViewCell.swift */,
 			);
 			name = Results;
 			sourceTree = "<group>";
@@ -465,6 +468,7 @@
 				2F84990D1A49E6A4008A9586 /* ModelController.swift in Sources */,
 				2F2DB44B1AB4AD190045FF16 /* CommentsViewController.swift in Sources */,
 				2F76703A1A61B32600F56955 /* DataController.swift in Sources */,
+				2FE526E61AB4F32300B64C2D /* CommentsTableViewCell.swift in Sources */,
 				2F84990B1A49E699008A9586 /* SeeResultsViewController.swift in Sources */,
 				2FD74BE31A62EC1C0093BC03 /* FacebookFriendsTableViewCell.swift in Sources */,
 			);

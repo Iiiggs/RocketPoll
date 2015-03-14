@@ -142,6 +142,7 @@ UITableViewDataSource, UITableViewDelegate
     @IBAction func commentTapped(sender: AnyObject) {
         // present comment view controller?
         let comments = self.storyboard!.instantiateViewControllerWithIdentifier("CommentsViewController") as CommentsViewController
+        comments.question = self.question!
         // set the questoin?
 
         let navigation = UINavigationController(rootViewController: comments)
