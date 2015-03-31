@@ -68,20 +68,25 @@ UITableViewDataSource, UITableViewDelegate
 
         }
 
+        var totalCommentsQuery = PFQuery(className:"Comment")
+        totalCommentsQuery.whereKey("question", equalTo: question!)
+        totalCommentsQuery.countObjectsInBackgroundWithBlock { (commentsCount, error) -> Void in
+            if error == nil {
+                // once nav bar is implemented, assign this number to the right button item
+//                self.navigationController!.navigationBar.
+            }
+            else {
+                NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+                    UIAlertView(title: "Error", message: error.description, delegate: nil, cancelButtonTitle: "OK").show()
+                })
+            }
+        }
 
-//        var totalAnswersQuery = PFQuery(className: "Answer")
-//        totalAnswersQuery.whereKey("question", equalTo: question!)
-//        totalAnswersQuery.countObjectsInBackgroundWithBlock { (totalAnswersCount, error) -> Void in
-//            if error == nil {
-//                self.totalAnswers = totalAnswersCount
-//                self.votesLabel.text = "\(totalAnswersCount) votes"
-//            }
-//            else {
-//                NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
-//                    UIAlertView(title: "Error", message: error.description, delegate: nil, cancelButtonTitle: "OK").show()
-//                })
-//            }
-//        }
+
+        self.title = "Results"
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Back", style: UIBarButtonItemStyle.Done, target: self, action: "back")
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Comment", style: UIBarButtonItemStyle.Done, target: self, action: "comment")
+
 
     }
 
@@ -139,7 +144,7 @@ UITableViewDataSource, UITableViewDelegate
         return tableView.frame.height / CGFloat(self.question!.options.count)
     }
 
-    @IBAction func commentTapped(sender: AnyObject) {
+    func comment() {
         // present comment view controller?
         let comments = self.storyboard!.instantiateViewControllerWithIdentifier("CommentsViewController") as CommentsViewController
         comments.question = self.question!
@@ -147,14 +152,10 @@ UITableViewDataSource, UITableViewDelegate
 
         let navigation = UINavigationController(rootViewController: comments)
 
-        let backButton = UIBarButtonItem(title: "Back", style: UIBarButtonItemStyle.Plain, target: self, action: "backPressed:")
-
-        comments.navigationItem.leftBarButtonItem = backButton
-
         self.presentViewController(navigation, animated: true, completion: nil)
     }
 
-    func backPressed(sender: AnyObject!){
+    func back(){
         self.dismissViewControllerAnimated(true, completion: nil)
     }
 

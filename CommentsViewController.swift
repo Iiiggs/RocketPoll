@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CommentsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class CommentsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIBarPositioningDelegate {
 
     @IBOutlet weak var tableView: UITableView!
     let cellIdentifier = "commentCell"
@@ -25,6 +25,17 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
         self.view.addGestureRecognizer(tap)
 
         loadComments()
+
+        self.title = "New Comment"
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.Done, target: self, action: "cancel")
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Post", style: UIBarButtonItemStyle.Done, target: self, action: "post")
+
+        self.commentTextField.becomeFirstResponder()
+
+    }
+
+    func cancel(){
+        self.dismissViewControllerAnimated(true, completion: nil)
     }
 
     override func didReceiveMemoryWarning() {
@@ -51,7 +62,7 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
 
             self.toolbar.frame = CGRectMake(self.toolbar.frame.origin.x,
                                             endFrame.CGRectValue().origin.y - self.toolbar.bounds.size.height,
-                                            self.toolbar.frame.size.width,
+                                            self.view.frame.size.width,
                                             self.toolbar.frame.size.height)
         })
     }
@@ -76,7 +87,7 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
     }
 
 
-    @IBAction func postTapped(sender: AnyObject) {
+    func post() {
         var comment = Comment()
         comment.text = self.commentTextField.text
         comment.by = PFUser.currentUser()
@@ -93,6 +104,10 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
 
         self.comments.append(comment)
         self.tableView.reloadData()
+
+        self.commentTextField.text = ""
+
+        dissmissKeyboard()
     }
 
 
@@ -143,5 +158,9 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
         }
 
         return cell
+    }
+
+    func positionForBar(bar: UIBarPositioning) -> UIBarPosition {
+        return UIBarPosition.Bottom
     }
 }

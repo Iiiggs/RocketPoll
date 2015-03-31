@@ -30,10 +30,18 @@ class AnswerQuestionViewController: PollingViewControllerBase, UITableViewDataSo
         super.viewDidLoad()
 
         self.questionLabel.text = self.question?.text
+        self.title = "Answer Question"
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.Done, target: self, action: "cancel")
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Answer", style: UIBarButtonItemStyle.Done, target: self, action: "answer")
+
+    }
+
+    func cancel() {
+        self.dismissViewControllerAnimated(true, completion: nil)
     }
 
 
-    @IBAction func click(sender: AnyObject) {
+    func answer() {
         if(selectedOptionIndex != -1)
         {
             // submit
@@ -101,9 +109,6 @@ class AnswerQuestionViewController: PollingViewControllerBase, UITableViewDataSo
         }
 
         return cell
-    }
-    @IBAction func cancelTapped(sender: AnyObject) {
-        self.dismissViewControllerAnimated(true, completion: nil)
     }
 
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {

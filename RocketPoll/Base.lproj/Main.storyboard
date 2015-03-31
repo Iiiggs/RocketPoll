@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="703-4V-yAM">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14C1514" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="703-4V-yAM">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -35,21 +35,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Answer Question" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cxd-6F-ZA2">
-                                <rect key="frame" x="235" y="51" width="131" height="21"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="46" id="Ph8-sj-8b0"/>
-                                    <constraint firstAttribute="height" constant="20" id="Yay-1l-PfW"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="ChalkboardSE-Regular" family="Chalkboard SE" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="Ph8-sj-8b0"/>
-                                    </mask>
-                                </variation>
-                            </label>
                             <tableView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="vZ3-b6-gOq">
                                 <rect key="frame" x="150" y="138" width="300" height="300"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -68,7 +53,7 @@
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="V8t-oP-7YF">
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" name="ChalkboardSE-Regular" family="Chalkboard SE" pointSize="16"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -93,7 +78,7 @@
                                     <constraint firstAttribute="height" constant="48" id="jB2-ub-ACY"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="ChalkboardSE-Regular" family="Chalkboard SE" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                                 <variation key="default">
                                     <mask key="constraints">
@@ -101,60 +86,25 @@
                                     </mask>
                                 </variation>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="okh-H7-tGW">
-                                <rect key="frame" x="259" y="548" width="83" height="42"/>
-                                <fontDescription key="fontDescription" name="ChalkboardSE-Regular" family="Chalkboard SE" pointSize="20"/>
-                                <state key="normal" title="Answer">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="click:" destination="gp5-zd-Q4C" eventType="touchUpInside" id="NkR-JN-Tqw"/>
-                                </connections>
-                            </button>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OCP-0Z-ebd">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
-                                <items>
-                                    <barButtonItem title="Back" id="qwx-bR-NwC">
-                                        <connections>
-                                            <action selector="cancelTapped:" destination="gp5-zd-Q4C" id="yUN-8F-eXa"/>
-                                        </connections>
-                                    </barButtonItem>
-                                </items>
-                            </toolbar>
                         </subviews>
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="okh-H7-tGW" firstAttribute="top" secondItem="vZ3-b6-gOq" secondAttribute="bottom" constant="15" id="46r-wA-O8f"/>
-                            <constraint firstItem="OCP-0Z-ebd" firstAttribute="top" secondItem="S5j-Dp-VsS" secondAttribute="bottom" constant="-13" id="4WE-yj-hVM"/>
+                            <constraint firstItem="EK2-rR-R4A" firstAttribute="top" secondItem="S5j-Dp-VsS" secondAttribute="bottom" constant="50" id="5NM-w0-73S"/>
                             <constraint firstItem="vZ3-b6-gOq" firstAttribute="top" secondItem="EK2-rR-R4A" secondAttribute="bottom" constant="10" id="83J-wZ-ADL"/>
-                            <constraint firstItem="OCP-0Z-ebd" firstAttribute="top" secondItem="S5j-Dp-VsS" secondAttribute="bottom" id="BmN-73-PjM"/>
-                            <constraint firstItem="OCP-0Z-ebd" firstAttribute="leading" secondItem="p6n-qP-nKF" secondAttribute="leadingMargin" constant="-16" id="DYZ-AC-Hpv"/>
+                            <constraint firstItem="oEt-Gc-ALj" firstAttribute="top" secondItem="vZ3-b6-gOq" secondAttribute="bottom" constant="30" id="8tC-cI-mcz"/>
                             <constraint firstAttribute="centerX" secondItem="vZ3-b6-gOq" secondAttribute="centerX" id="Eys-Ug-doL"/>
                             <constraint firstItem="vZ3-b6-gOq" firstAttribute="top" secondItem="S5j-Dp-VsS" secondAttribute="top" constant="120" id="FSw-hA-Qvm"/>
                             <constraint firstItem="vZ3-b6-gOq" firstAttribute="width" secondItem="p6n-qP-nKF" secondAttribute="width" id="N47-LG-h2K"/>
                             <constraint firstItem="EK2-rR-R4A" firstAttribute="leading" secondItem="p6n-qP-nKF" secondAttribute="leadingMargin" constant="10" id="Ul1-TZ-3rg"/>
                             <constraint firstAttribute="width" secondItem="EK2-rR-R4A" secondAttribute="width" multiplier="0.8" id="UrR-kb-g97"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="OCP-0Z-ebd" secondAttribute="trailing" constant="-16" id="aXW-Cr-EDa"/>
                             <constraint firstAttribute="trailingMargin" secondItem="EK2-rR-R4A" secondAttribute="trailing" constant="10" id="axg-xM-5hn"/>
-                            <constraint firstItem="OCP-0Z-ebd" firstAttribute="top" secondItem="S5j-Dp-VsS" secondAttribute="top" id="fFS-rq-LsZ"/>
-                            <constraint firstItem="oEt-Gc-ALj" firstAttribute="top" secondItem="okh-H7-tGW" secondAttribute="bottom" constant="20" id="glA-0z-3gJ"/>
                             <constraint firstAttribute="centerX" secondItem="EK2-rR-R4A" secondAttribute="centerX" id="hUn-bG-xeB"/>
-                            <constraint firstItem="oEt-Gc-ALj" firstAttribute="top" secondItem="okh-H7-tGW" secondAttribute="bottom" constant="60" id="hqS-RL-N8q"/>
-                            <constraint firstItem="Cxd-6F-ZA2" firstAttribute="top" secondItem="S5j-Dp-VsS" secondAttribute="top" constant="50" id="iXd-up-jWO"/>
-                            <constraint firstAttribute="centerX" secondItem="Cxd-6F-ZA2" secondAttribute="centerX" id="pwH-Cf-5YO"/>
-                            <constraint firstAttribute="centerX" secondItem="okh-H7-tGW" secondAttribute="centerX" constant="-0.5" id="sRR-ZW-Ckq"/>
-                            <constraint firstItem="Cxd-6F-ZA2" firstAttribute="top" secondItem="OCP-0Z-ebd" secondAttribute="bottom" id="ubS-US-6j7"/>
-                            <constraint firstItem="EK2-rR-R4A" firstAttribute="top" secondItem="Cxd-6F-ZA2" secondAttribute="bottom" constant="20" id="wYd-t3-Rml"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
-                                <exclude reference="4WE-yj-hVM"/>
-                                <exclude reference="fFS-rq-LsZ"/>
                                 <exclude reference="FSw-hA-Qvm"/>
-                                <exclude reference="iXd-up-jWO"/>
                                 <exclude reference="UrR-kb-g97"/>
                                 <exclude reference="hUn-bG-xeB"/>
-                                <exclude reference="hqS-RL-N8q"/>
                             </mask>
                         </variation>
                     </view>
@@ -200,11 +150,11 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="All Questions" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sxv-g0-gAN">
                                 <rect key="frame" x="247" y="40" width="106" height="25"/>
                                 <fontDescription key="fontDescription" name="ChalkboardSE-Regular" family="Chalkboard SE" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <tableView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" translatesAutoresizingMaskIntoConstraints="NO" id="bVv-WQ-13u">
-                                <rect key="frame" x="140" y="99" width="320" height="500"/>
+                            <tableView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" translatesAutoresizingMaskIntoConstraints="NO" id="bVv-WQ-13u">
+                                <rect key="frame" x="140" y="99.5" width="320" height="500.5"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="320" id="wI6-If-bhi"/>
@@ -236,6 +186,11 @@
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="wLu-aO-MxL"/>
+                                    </mask>
+                                </variation>
                                 <connections>
                                     <outlet property="dataSource" destination="gYu-vi-PuZ" id="Ht5-Pf-vXx"/>
                                     <outlet property="delegate" destination="gYu-vi-PuZ" id="GWP-yn-wic"/>
@@ -255,6 +210,7 @@
                             <constraint firstAttribute="centerX" secondItem="cQc-An-7tj" secondAttribute="centerX" constant="-0.5" id="Odq-ks-ifT"/>
                             <constraint firstItem="bVv-WQ-13u" firstAttribute="top" secondItem="sxv-g0-gAN" secondAttribute="bottom" constant="30" id="bxy-Eh-Mum"/>
                             <constraint firstAttribute="centerX" secondItem="bVv-WQ-13u" secondAttribute="centerX" id="kKs-3e-eKH"/>
+                            <constraint firstItem="V6g-eY-Uww" firstAttribute="top" secondItem="bVv-WQ-13u" secondAttribute="bottom" id="s1a-4k-5f7"/>
                             <constraint firstItem="sxv-g0-gAN" firstAttribute="top" secondItem="lf0-YJ-pjM" secondAttribute="top" constant="25" id="wMl-5S-L6W"/>
                         </constraints>
                         <variation key="default">
@@ -283,30 +239,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EUS-Jh-6rc">
-                                <rect key="frame" x="0.0" y="556" width="600" height="44"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="fYE-qq-S99"/>
-                                </constraints>
-                                <items>
-                                    <barButtonItem style="plain" id="z4o-OD-aga">
-                                        <textField key="customView" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="q1g-sP-qJp">
-                                            <rect key="frame" x="16" y="7" width="237" height="30"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                            <textInputTraits key="textInputTraits"/>
-                                        </textField>
-                                    </barButtonItem>
-                                    <barButtonItem width="15" style="plain" systemItem="fixedSpace" id="Jc1-Vz-QG2"/>
-                                    <barButtonItem title="Post" id="7fY-sW-q3A">
-                                        <connections>
-                                            <action selector="postTapped:" destination="9dk-aC-3TM" id="nyb-A7-d8a"/>
-                                        </connections>
-                                    </barButtonItem>
-                                </items>
-                            </toolbar>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="100" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="YxA-Dz-Iiu">
-                                <rect key="frame" x="0.0" y="28" width="600" height="528"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="100" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="YxA-Dz-Iiu">
+                                <rect key="frame" x="0.0" y="28" width="600" height="481"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="commentCell" rowHeight="100" id="V1c-e1-VNZ" customClass="CommentsTableViewCell" customModule="RocketPoll" customModuleProvider="target">
@@ -318,13 +252,13 @@
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Comment" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tR6-p3-rdJ">
                                                     <rect key="frame" x="8" y="9" width="477" height="58"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="by" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sSx-Lc-rBr">
                                                     <rect key="frame" x="412" y="71" width="180" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="raccoon_silhuttte" translatesAutoresizingMaskIntoConstraints="NO" id="q6A-Ky-h0q">
@@ -356,15 +290,48 @@
                                     <outlet property="delegate" destination="9dk-aC-3TM" id="7ct-bQ-bCJ"/>
                                 </connections>
                             </tableView>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EUS-Jh-6rc">
+                                <rect key="frame" x="0.0" y="556" width="600" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="600" id="T7e-Fq-wnr"/>
+                                    <constraint firstAttribute="height" constant="44" id="fYE-qq-S99"/>
+                                </constraints>
+                                <items>
+                                    <barButtonItem style="plain" id="z4o-OD-aga">
+                                        <textField key="customView" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="q1g-sP-qJp">
+                                            <rect key="frame" x="16" y="7" width="333" height="30"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <textInputTraits key="textInputTraits"/>
+                                        </textField>
+                                    </barButtonItem>
+                                </items>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="T7e-Fq-wnr"/>
+                                    </mask>
+                                </variation>
+                                <connections>
+                                    <outlet property="delegate" destination="9dk-aC-3TM" id="N1k-9l-4Sb"/>
+                                </connections>
+                            </toolbar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstAttribute="width" secondItem="EUS-Jh-6rc" secondAttribute="width" id="ArF-Rg-0j1"/>
                             <constraint firstItem="YxA-Dz-Iiu" firstAttribute="top" secondItem="Qho-rT-HmR" secondAttribute="bottom" constant="8" id="RsL-uC-WVy"/>
                             <constraint firstItem="YxA-Dz-Iiu" firstAttribute="width" secondItem="FsM-di-H2f" secondAttribute="width" id="bgN-32-kOO"/>
                             <constraint firstItem="EUS-Jh-6rc" firstAttribute="top" secondItem="YxA-Dz-Iiu" secondAttribute="bottom" id="d3b-cE-VGK"/>
+                            <constraint firstAttribute="width" secondItem="EUS-Jh-6rc" secondAttribute="width" id="dUY-vU-EpN"/>
                             <constraint firstItem="699-Zj-osM" firstAttribute="top" secondItem="EUS-Jh-6rc" secondAttribute="bottom" id="mUS-gE-CUK"/>
                             <constraint firstAttribute="width" secondItem="EUS-Jh-6rc" secondAttribute="width" id="wVo-Dp-Tm6"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="dUY-vU-EpN"/>
+                                <exclude reference="wVo-Dp-Tm6"/>
+                            </mask>
+                        </variation>
                     </view>
                     <connections>
                         <outlet property="commentTextField" destination="q1g-sP-qJp" id="AfR-sW-Ny7"/>
@@ -391,7 +358,7 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Select Friends" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rz4-Ei-IZi">
                                 <rect key="frame" x="245" y="40" width="110" height="21"/>
                                 <fontDescription key="fontDescription" name="ChalkboardSE-Regular" family="Chalkboard SE" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsMultipleSelection="YES" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="P6b-qv-QiS">
@@ -478,7 +445,7 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Questions for Me" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YkQ-hE-DPZ">
                                 <rect key="frame" x="216" y="40" width="169" height="21"/>
                                 <fontDescription key="fontDescription" name="ChalkboardSE-Regular" family="Chalkboard SE" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <pageControl opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="4" currentPage="2" translatesAutoresizingMaskIntoConstraints="NO" id="XIj-po-1l3">
@@ -503,13 +470,13 @@
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="OH8-Lz-WPx">
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" name="ChalkboardSE-Regular" family="Chalkboard SE" pointSize="16"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="aCX-IY-77e">
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" name="ChalkboardSE-Regular" family="Chalkboard SE" pointSize="11"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -518,18 +485,24 @@
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </tableViewCell>
                                 </prototypes>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="uTG-sy-ZKl"/>
+                                    </mask>
+                                </variation>
                                 <connections>
                                     <outlet property="dataSource" destination="cB4-w2-kEg" id="UHC-GO-7iN"/>
                                     <outlet property="delegate" destination="cB4-w2-kEg" id="SfH-Hl-Rb2"/>
                                 </connections>
                             </tableView>
                         </subviews>
-                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803926" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="PbF-4C-6rR" firstAttribute="width" secondItem="ERy-2f-fXe" secondAttribute="width" id="4Uj-Lh-K4D"/>
                             <constraint firstItem="PbF-4C-6rR" firstAttribute="top" secondItem="YkQ-hE-DPZ" secondAttribute="bottom" constant="30" id="5mz-RI-los"/>
                             <constraint firstItem="XIj-po-1l3" firstAttribute="top" secondItem="JW8-wp-Hcq" secondAttribute="top" constant="5" id="Ai3-JP-GYE"/>
                             <constraint firstItem="PbF-4C-6rR" firstAttribute="top" secondItem="YkQ-hE-DPZ" secondAttribute="bottom" constant="30" id="E9L-n6-ckD"/>
+                            <constraint firstItem="eFO-is-At7" firstAttribute="top" secondItem="PbF-4C-6rR" secondAttribute="bottom" id="KIM-Wr-X9a"/>
                             <constraint firstItem="YkQ-hE-DPZ" firstAttribute="top" secondItem="JW8-wp-Hcq" secondAttribute="top" constant="25" id="Ms5-Ba-MKa"/>
                             <constraint firstAttribute="centerX" secondItem="PbF-4C-6rR" secondAttribute="centerX" id="fvw-f8-fSn"/>
                             <constraint firstItem="PbF-4C-6rR" firstAttribute="top" secondItem="YkQ-hE-DPZ" secondAttribute="bottom" constant="40" id="hb4-as-xl5"/>
@@ -583,12 +556,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Ask Question" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lUh-4J-rFR">
-                                <rect key="frame" x="249" y="40" width="103" height="21"/>
-                                <fontDescription key="fontDescription" name="ChalkboardSE-Regular" family="Chalkboard SE" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <tableView opaque="NO" clipsSubviews="YES" alpha="0.64999999999999969" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="pqT-EZ-WJT">
                                 <rect key="frame" x="150" y="150" width="300" height="388"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -614,7 +581,7 @@
                                                 <label opaque="NO" userInteractionEnabled="NO" tag="20" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a0w-n4-bj4">
                                                     <rect key="frame" x="129" y="9" width="42" height="21"/>
                                                     <fontDescription key="fontDescription" name="ChalkboardSE-Regular" family="Chalkboard SE" pointSize="17"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -642,7 +609,7 @@
                                 </connections>
                             </tableView>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.49999999999999961" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DGl-Jo-hVN">
-                                <rect key="frame" x="16" y="74" width="568" height="59"/>
+                                <rect key="frame" x="16" y="40" width="568" height="59"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="zBr-Lr-xam"/>
@@ -650,53 +617,22 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Qh-9E-lwJ">
-                                <rect key="frame" x="250" y="546" width="101" height="46"/>
-                                <fontDescription key="fontDescription" name="ChalkboardSE-Regular" family="Chalkboard SE" pointSize="20"/>
-                                <state key="normal" title="Ask">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="askClicked:" destination="OmI-TZ-r7I" eventType="touchUpInside" id="YlE-aA-EnX"/>
-                                </connections>
-                            </button>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="x9T-7b-NoA">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
-                                <items>
-                                    <barButtonItem title="Back" id="clF-ai-YiZ">
-                                        <connections>
-                                            <action selector="back:" destination="OmI-TZ-r7I" id="mB1-h3-bes"/>
-                                        </connections>
-                                    </barButtonItem>
-                                </items>
-                            </toolbar>
                         </subviews>
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                         <gestureRecognizers/>
                         <constraints>
-                            <constraint firstItem="28j-Mb-wTB" firstAttribute="top" secondItem="8Qh-9E-lwJ" secondAttribute="bottom" constant="20" id="1nl-0Q-b0B"/>
-                            <constraint firstItem="x9T-7b-NoA" firstAttribute="leading" secondItem="Man-Ax-URY" secondAttribute="leadingMargin" constant="-16" id="9KO-id-ziB"/>
-                            <constraint firstItem="x9T-7b-NoA" firstAttribute="top" secondItem="GNM-nW-3P7" secondAttribute="bottom" id="Dsa-hq-R4H"/>
-                            <constraint firstItem="x9T-7b-NoA" firstAttribute="top" secondItem="GNM-nW-3P7" secondAttribute="bottom" id="IL9-kM-PEc"/>
+                            <constraint firstItem="DGl-Jo-hVN" firstAttribute="top" secondItem="GNM-nW-3P7" secondAttribute="bottom" constant="20" id="45G-Fq-oTH"/>
+                            <constraint firstItem="28j-Mb-wTB" firstAttribute="top" secondItem="pqT-EZ-WJT" secondAttribute="bottom" constant="10" id="8UV-xH-e8t"/>
                             <constraint firstItem="pqT-EZ-WJT" firstAttribute="top" secondItem="DGl-Jo-hVN" secondAttribute="bottom" constant="15" id="KfV-Ep-hcG"/>
                             <constraint firstAttribute="centerX" secondItem="pqT-EZ-WJT" secondAttribute="centerX" id="MPD-UN-KJ4"/>
                             <constraint firstAttribute="centerX" secondItem="DGl-Jo-hVN" secondAttribute="centerX" id="P9c-Sc-dxs"/>
                             <constraint firstItem="DGl-Jo-hVN" firstAttribute="width" secondItem="Man-Ax-URY" secondAttribute="width" constant="-40" id="VxL-Cj-wvW"/>
-                            <constraint firstItem="lUh-4J-rFR" firstAttribute="top" secondItem="GNM-nW-3P7" secondAttribute="top" constant="20" id="WC8-4d-wqt"/>
                             <constraint firstItem="pqT-EZ-WJT" firstAttribute="top" secondItem="GNM-nW-3P7" secondAttribute="top" constant="120" id="aP6-9U-cHY"/>
-                            <constraint firstItem="DGl-Jo-hVN" firstAttribute="top" secondItem="lUh-4J-rFR" secondAttribute="bottom" constant="20" id="gvx-jx-E63"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="x9T-7b-NoA" secondAttribute="trailing" constant="-16" id="lRt-ns-1V1"/>
-                            <constraint firstItem="8Qh-9E-lwJ" firstAttribute="top" secondItem="pqT-EZ-WJT" secondAttribute="bottom" constant="15" id="ldW-nc-OSa"/>
                             <constraint firstItem="pqT-EZ-WJT" firstAttribute="width" secondItem="Man-Ax-URY" secondAttribute="width" id="qyj-Ca-EQY"/>
-                            <constraint firstItem="lUh-4J-rFR" firstAttribute="top" secondItem="x9T-7b-NoA" secondAttribute="bottom" id="w4R-KF-b7f"/>
-                            <constraint firstAttribute="centerX" secondItem="lUh-4J-rFR" secondAttribute="centerX" constant="-0.5" id="yew-oH-FCm"/>
-                            <constraint firstAttribute="centerX" secondItem="8Qh-9E-lwJ" secondAttribute="centerX" id="yrG-7V-tDd"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
-                                <exclude reference="Dsa-hq-R4H"/>
                                 <exclude reference="aP6-9U-cHY"/>
-                                <exclude reference="WC8-4d-wqt"/>
                             </mask>
                         </variation>
                     </view>
@@ -707,7 +643,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zkX-hG-ej8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="483" y="-195"/>
+            <point key="canvasLocation" x="483" y="-207"/>
         </scene>
         <!--Account View Controller-->
         <scene sceneID="hJd-w0-GhJ">
@@ -731,7 +667,7 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Guest" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5NQ-zg-gfn">
                                 <rect key="frame" x="229" y="115" width="143" height="21"/>
                                 <fontDescription key="fontDescription" name="ChalkboardSE-Regular" family="Chalkboard SE" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XVG-Hy-54E">
@@ -747,19 +683,19 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Questions Created: 0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3yn-xP-B3u">
                                 <rect key="frame" x="219" y="342" width="163" height="21"/>
                                 <fontDescription key="fontDescription" name="ChalkboardSE-Regular" family="Chalkboard SE" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Questions Answered: 0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QNg-NH-tOT">
                                 <rect key="frame" x="211" y="393" width="178" height="21"/>
                                 <fontDescription key="fontDescription" name="ChalkboardSE-Regular" family="Chalkboard SE" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gUd-N2-uau">
-                                <rect key="frame" x="275" y="266" width="50" height="30"/>
+                                <rect key="frame" x="250" y="266" width="100" height="34"/>
                                 <fontDescription key="fontDescription" name="ChalkboardSE-Regular" family="Chalkboard SE" pointSize="15"/>
-                                <state key="normal" title="Upload">
+                                <state key="normal" title="Upload Picture">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -774,11 +710,11 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Rocket Poll" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ADi-cj-ZS0">
                                 <rect key="frame" x="210" y="39" width="187" height="45"/>
                                 <fontDescription key="fontDescription" name="ChalkboardSE-Regular" family="Chalkboard SE" pointSize="36"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
-                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803926" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="QNg-NH-tOT" firstAttribute="top" secondItem="3yn-xP-B3u" secondAttribute="bottom" constant="30" id="4Wn-g7-7Hg"/>
                             <constraint firstAttribute="centerX" secondItem="QNg-NH-tOT" secondAttribute="centerX" id="7YK-y8-4eJ"/>
@@ -833,7 +769,7 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="My Questions" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wmm-ct-mBq">
                                 <rect key="frame" x="216" y="40" width="169" height="25"/>
                                 <fontDescription key="fontDescription" name="ChalkboardSE-Regular" family="Chalkboard SE" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RgD-Xg-B8X">
@@ -842,7 +778,7 @@
                                     <constraint firstAttribute="height" constant="44" id="y8t-ap-rS3"/>
                                 </constraints>
                                 <items>
-                                    <barButtonItem title="Ask New Question" id="DBO-pJ-PcO">
+                                    <barButtonItem title="Ask Question" id="DBO-pJ-PcO">
                                         <connections>
                                             <action selector="askNewQuestion:" destination="ccq-Di-hP0" id="CNl-49-Gzk"/>
                                         </connections>
@@ -854,7 +790,7 @@
                                 <color key="pageIndicatorTintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="currentPageIndicatorTintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             </pageControl>
-                            <tableView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="jLt-KA-c5T">
+                            <tableView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="jLt-KA-c5T">
                                 <rect key="frame" x="0.0" y="100" width="600" height="457"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -911,6 +847,7 @@
                             <constraint firstAttribute="centerX" secondItem="YJk-SB-ey7" secondAttribute="centerX" id="aMf-w3-iMa"/>
                             <constraint firstItem="YJk-SB-ey7" firstAttribute="top" secondItem="Krm-0K-kzR" secondAttribute="top" constant="5" id="b69-lm-xjt"/>
                             <constraint firstAttribute="centerX" secondItem="jLt-KA-c5T" secondAttribute="centerX" id="lbR-jC-vSA"/>
+                            <constraint firstItem="RgD-Xg-B8X" firstAttribute="width" secondItem="jes-Gf-4Ak" secondAttribute="width" id="pMy-U1-jbe"/>
                             <constraint firstItem="jLt-KA-c5T" firstAttribute="width" secondItem="jes-Gf-4Ak" secondAttribute="width" id="sBK-rn-haQ"/>
                             <constraint firstAttribute="centerX" secondItem="Wmm-ct-mBq" secondAttribute="centerX" constant="-0.5" id="sJY-UD-KQq"/>
                             <constraint firstItem="Wmm-ct-mBq" firstAttribute="top" secondItem="Krm-0K-kzR" secondAttribute="top" constant="25" id="yIR-5F-4pW"/>
@@ -947,19 +884,19 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Asked By" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tV9-oQ-Syh">
                                 <rect key="frame" x="264" y="165" width="73" height="18"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Question Text" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mIy-oi-NNB">
                                 <rect key="frame" x="247" y="191" width="106" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="x votes" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dWZ-92-XE0">
                                 <rect key="frame" x="272" y="569" width="56" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <tableView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="129" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="fB5-eF-1I0">
@@ -1044,39 +981,21 @@
                                     <outlet property="delegate" destination="RUg-lB-7HU" id="vp1-ZH-DwG"/>
                                 </connections>
                             </tableView>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Uqf-MB-0dv">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
-                                <items>
-                                    <barButtonItem title="Back" id="nMt-gP-C4p">
-                                        <connections>
-                                            <action selector="cancelTapped:" destination="RUg-lB-7HU" id="PL7-vE-gz0"/>
-                                        </connections>
-                                    </barButtonItem>
-                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="XgY-s4-MlK"/>
-                                    <barButtonItem title="Comment" id="kQ2-F6-acG">
-                                        <connections>
-                                            <action selector="commentTapped:" destination="RUg-lB-7HU" id="pLw-ei-6c6"/>
-                                        </connections>
-                                    </barButtonItem>
-                                </items>
-                            </toolbar>
                         </subviews>
-                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803926" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="PRD-KL-NFW" firstAttribute="top" secondItem="dWZ-92-XE0" secondAttribute="bottom" constant="10" id="0Cb-hN-nbx"/>
                             <constraint firstAttribute="centerX" secondItem="tV9-oQ-Syh" secondAttribute="centerX" constant="-0.5" id="0hf-gE-jMK"/>
                             <constraint firstAttribute="centerX" secondItem="mIy-oi-NNB" secondAttribute="centerX" id="30Y-EG-0iR"/>
                             <constraint firstItem="fB5-eF-1I0" firstAttribute="top" secondItem="mIy-oi-NNB" secondAttribute="bottom" constant="10" id="Qj3-UE-SuZ"/>
                             <constraint firstItem="mIy-oi-NNB" firstAttribute="top" secondItem="tV9-oQ-Syh" secondAttribute="bottom" constant="8" id="VDV-AY-iIy"/>
-                            <constraint firstItem="szK-eg-wtC" firstAttribute="top" secondItem="Uqf-MB-0dv" secondAttribute="bottom" id="VN1-79-3CB"/>
                             <constraint firstItem="mIy-oi-NNB" firstAttribute="leading" secondItem="44z-ao-mp4" secondAttribute="leadingMargin" constant="10" id="YFn-op-ZtI"/>
-                            <constraint firstItem="Uqf-MB-0dv" firstAttribute="width" secondItem="44z-ao-mp4" secondAttribute="width" id="YTA-IF-pXI"/>
                             <constraint firstAttribute="centerX" secondItem="szK-eg-wtC" secondAttribute="centerX" id="jgl-YS-xTb"/>
                             <constraint firstAttribute="centerX" secondItem="dWZ-92-XE0" secondAttribute="centerX" id="ncE-nZ-K9S"/>
                             <constraint firstItem="tV9-oQ-Syh" firstAttribute="top" secondItem="szK-eg-wtC" secondAttribute="bottom" constant="5" id="oIk-2s-VAK"/>
+                            <constraint firstItem="szK-eg-wtC" firstAttribute="top" secondItem="oiw-ka-CWc" secondAttribute="bottom" constant="37" id="qMq-qw-NZL"/>
                             <constraint firstItem="dWZ-92-XE0" firstAttribute="top" secondItem="fB5-eF-1I0" secondAttribute="bottom" constant="5" id="sml-i6-UET"/>
                             <constraint firstAttribute="centerX" secondItem="fB5-eF-1I0" secondAttribute="centerX" id="ui0-dJ-q0C"/>
-                            <constraint firstItem="Uqf-MB-0dv" firstAttribute="top" secondItem="oiw-ka-CWc" secondAttribute="bottom" id="yhK-Rh-Ff0"/>
                             <constraint firstAttribute="trailingMargin" secondItem="mIy-oi-NNB" secondAttribute="trailing" constant="10" id="zsU-n3-Fli"/>
                         </constraints>
                     </view>
@@ -1107,13 +1026,13 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Dev Tools" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4HG-pU-zof">
                                 <rect key="frame" x="263" y="40" width="75" height="21"/>
                                 <fontDescription key="fontDescription" name="ChalkboardSE-Regular" family="Chalkboard SE" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Parse" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tNa-fr-fK2">
                                 <rect key="frame" x="279" y="78" width="44" height="21"/>
                                 <fontDescription key="fontDescription" name="ChalkboardSE-Regular" family="Chalkboard SE" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yES-tE-1tw">

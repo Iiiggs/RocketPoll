@@ -31,10 +31,12 @@ class AskQuestionViewController: PollingViewControllerBase, UITableViewDelegate,
     var questionOptionsText: [NSString] = []
 
     @IBOutlet weak var questionTextView: UITextView!
-
-    @IBOutlet weak var backButton: UIBarButtonItem!
     
     var delegate: AskingNewQuestionDelegate?
+
+
+    @IBOutlet weak var navigationBar: UINavigationBar!
+    
 
     override func viewDidLoad() {
         super.viewDidLoad() 
@@ -45,6 +47,11 @@ class AskQuestionViewController: PollingViewControllerBase, UITableViewDelegate,
         let tap = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
         tap.delegate = self
         self.view.addGestureRecognizer(tap)
+
+        self.title = "New Question"
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.Done, target: self, action: "cancel")
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Ask", style: UIBarButtonItemStyle.Done, target: self, action: "ask")
+
     }
 
     func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldReceiveTouch touch: UITouch) -> Bool {
@@ -54,11 +61,6 @@ class AskQuestionViewController: PollingViewControllerBase, UITableViewDelegate,
         else if touch.view.superview!.isKindOfClass(UITableViewCell.self) {
             return false
         }
-//        else if touch.view.superview?.superview?.isKindOfClass(UITableViewCell.self) {
-//            return false
-//        }
-
-
 
         return true
     }
@@ -71,9 +73,11 @@ class AskQuestionViewController: PollingViewControllerBase, UITableViewDelegate,
         }
     }
 
+    func cancel() {
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
 
-
-    @IBAction func askClicked(sender: AnyObject) {
+    func ask() {
 
         self.questionText = self.questionTextView.text as NSString
         if self.questionText.length == 0 {
@@ -222,9 +226,5 @@ class AskQuestionViewController: PollingViewControllerBase, UITableViewDelegate,
         return true
     }
 
-    @IBAction func back(sender: AnyObject) {
-        self.dismissViewControllerAnimated(true, completion: nil)
-    }
 
-    
 }

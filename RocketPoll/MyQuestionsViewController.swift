@@ -92,14 +92,18 @@ class MyQuestionsViewController: PollingViewControllerBase, UITableViewDataSourc
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let questionResult = self.storyboard!.instantiateViewControllerWithIdentifier("QuestionResultViewController") as QuestionResultViewController
         questionResult.question = self.myQuestions[indexPath.row]
-        self.presentViewController(questionResult, animated: true, completion: nil)
+        var navigation = UINavigationController(rootViewController: questionResult)
+        self.presentViewController(navigation, animated: true, completion: nil)
     }
 
 
     @IBAction func askNewQuestion(sender: AnyObject) {
-        let askQuestion = self.storyboard!.instantiateViewControllerWithIdentifier("AskQuestionViewController") as AskQuestionViewController
+        var askQuestion = self.storyboard!.instantiateViewControllerWithIdentifier("AskQuestionViewController") as AskQuestionViewController
         askQuestion.delegate = self
-        self.presentViewController(askQuestion, animated: true, completion: nil)
+
+        var navigation = UINavigationController(rootViewController: askQuestion)
+
+        self.presentViewController(navigation, animated: true, completion: nil)
     }
 
     func doneAskingNewQuestion(){

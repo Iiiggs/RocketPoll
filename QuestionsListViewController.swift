@@ -27,15 +27,24 @@ class QuestionsListViewController: PollingViewControllerBase, UITableViewDelegat
         getQuestions()
     }
 
+    var fetchingAnsweredQuestions = false
+    var fetchingUnansweredQuestions = false
 
     func getQuestions(){
         if PFUser.currentUser() != nil {
 
+            self.fetchingUnansweredQuestions = true
             PFCloud.callFunctionInBackground("unansweredQuestions", withParameters: [:], block: { (result, error) -> Void in
                 if error == nil {
+                    // assign the results locally and flag that we're done
                     self.unansweredQuestions = result as [Question]
+                    self.fetchingUnansweredQuestions = false
+
+                    // update the ui if we're done with both queries
                     NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
-                        self.questionsTableView.reloadData()
+                        if (!self.fetchingAnsweredQuestions && !self.fetchingUnansweredQuestions){
+                            self.questionsTableView.reloadData()
+                        }
                     })
                 }
                 else {
@@ -45,11 +54,19 @@ class QuestionsListViewController: PollingViewControllerBase, UITableViewDelegat
                 }
             })
 
+            self.fetchingAnsweredQuestions = true
             PFCloud.callFunctionInBackground("answeredQuestions", withParameters: [:], block: { (result, error) -> Void in
                 if error == nil {
+                    // assign the results locally and flag that we're done
                     self.answeredQuestions = result as [Question]
+                    self.fetchingAnsweredQuestions = false
+
+                    // update the ui if we're done with both queries
                     NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
-                        self.questionsTableView.reloadData()
+                        if (!self.fetchingAnsweredQuestions && !self.fetchingUnansweredQuestions){
+                            self.questionsTableView.reloadData()
+                        }
+
                     })
                 }
                 else {
@@ -63,39 +80,6 @@ class QuestionsListViewController: PollingViewControllerBase, UITableViewDelegat
         else {
             presentLoginViewController()
         }
-
-
-//        var query = PFQuery(className:"Question")
-//        query.whereKey("askedOf", equalTo: PFUser.currentUser())
-//
-//        // exclude ones I've already answered - how to handle parse limits here?
-//        var myAnswers = PFQuery(className: "Answer")
-//        myAnswers.whereKey("answeredBy", equalTo: PFUser.currentUser())
-//
-//        let answers = myAnswers.findObjects()
-//
-//        query.orderByAscending("createdAt")
-//
-//        query.includeKey("askedBy")
-
-
-
-
-//        query.findObjectsInBackgroundWithBlock{ (questions, error) -> Void in
-//            if error == nil {
-//                self.questions = questions as [Question]
-//                NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
-//                    self.questionsTableView.reloadData()
-//                })
-//            }
-//            else {
-//                NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
-//                    UIAlertView(title: "Error", message: error.description, delegate: nil, cancelButtonTitle: "OK").show()
-//                })
-//            }
-//        }
-//        }
-
     }
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
@@ -156,13 +140,15 @@ class QuestionsListViewController: PollingViewControllerBase, UITableViewDelegat
             var answerQuestionViewController = storyboard.instantiateViewControllerWithIdentifier("AnswerQuestionViewController") as AnswerQuestionViewController
             answerQuestionViewController.question = question
             answerQuestionViewController.delegate = self
-            self.presentViewController(answerQuestionViewController, animated: true, completion: nil)
+            var navigation = UINavigationController(rootViewController: answerQuestionViewController)
+            self.presentViewController(navigation, animated: true, completion: nil)
         } else {
             let index = indexPath.row - unansweredQuestions.count
 
             let questionResult = self.storyboard!.instantiateViewControllerWithIdentifier("QuestionResultViewController") as QuestionResultViewController
             questionResult.question = self.answeredQuestions[index]
-            self.presentViewController(questionResult, animated: true, completion: nil)
+            let navigation = UINavigationController(rootViewController: questionResult)
+            self.presentViewController(navigation, animated: true, completion: nil)
 
         }
     }
