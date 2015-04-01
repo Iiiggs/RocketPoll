@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CommentsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIBarPositioningDelegate {
+class CommentsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIBarPositioningDelegate , UITextFieldDelegate{
 
     @IBOutlet weak var tableView: UITableView!
     let cellIdentifier = "commentCell"
@@ -31,8 +31,15 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Post", style: UIBarButtonItemStyle.Done, target: self, action: "post")
 
         self.commentTextField.becomeFirstResponder()
+        self.commentTextField.delegate = self
 
     }
+
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+
 
     func cancel(){
         self.dismissViewControllerAnimated(true, completion: nil)
@@ -159,6 +166,29 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
         }
 
         return cell
+    }
+
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        let text = self.comments[indexPath.row].text
+        let font = UIFont.systemFontOfSize(17)
+        let suggestedHeight = heightForView(
+            text,
+            font: font,
+            width: self.tableView.frame.width - 100// roughly what's configured in the auto layout contstraints
+            ) + 60 // for top/bottom margin
+
+        return max(suggestedHeight, 100)
+    }
+
+    func heightForView(text:String, font:UIFont, width:CGFloat) -> CGFloat{
+        let label:UILabel = UILabel(frame: CGRectMake(0, 0, width, CGFloat.max))
+        label.numberOfLines = 0
+        label.lineBreakMode = NSLineBreakMode.ByWordWrapping
+        label.font = font
+        label.text = text
+
+        label.sizeToFit()
+        return label.frame.height
     }
 
     func positionForBar(bar: UIBarPositioning) -> UIBarPosition {

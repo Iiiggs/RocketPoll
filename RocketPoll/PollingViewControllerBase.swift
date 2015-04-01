@@ -36,8 +36,8 @@ class PollingViewControllerBase: UIViewController, PFLogInViewControllerDelegate
             login.delegate = self
             login.fields = PFLogInFields.UsernameAndPassword | PFLogInFields.LogInButton | PFLogInFields.SignUpButton | PFLogInFields.PasswordForgotten | PFLogInFields.Facebook | PFLogInFields.Twitter
             self.presentViewController(login, animated: true) { () -> Void in
-            login.signUpController = RPSignUpViewController()
-            login.signUpController.delegate = self
+                login.signUpController = RPSignUpViewController()
+                login.signUpController.delegate = self
             }
         }
     }

@@ -124,8 +124,10 @@ class AskQuestionViewController: PollingViewControllerBase, UITableViewDelegate,
                 friendsListViewController.friends = users
                 friendsListViewController.delegate = self
 
-                
-                self.presentViewController(friendsListViewController, animated: true, completion: nil)
+
+                let navigation = UINavigationController(rootViewController: friendsListViewController)
+
+                self.presentViewController(navigation, animated: true, completion: nil)
             }
             else {
                 NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in

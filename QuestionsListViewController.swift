@@ -11,9 +11,36 @@ import UIKit
 class QuestionsListViewController: PollingViewControllerBase, UITableViewDelegate, UITableViewDataSource, AnswerQuestionDelegate {
 
     var answeredQuestions:[Question] = []
+    var visibleAnsweredQuestoin:[Question] {
+        return answeredQuestions.filter { (question) -> Bool in
+            for q in self.hiddenQuestions {
+                if (q.objectId == question.objectId) {
+                    return false
+                }
+            }
+
+            return true
+        }
+    }
     var unansweredQuestions:[Question] = []
+    var visibleUnansweredQuestoin:[Question] {
+        return unansweredQuestions.filter { (question) -> Bool in
+            for q in self.hiddenQuestions {
+                if (q.objectId == question.objectId) {
+                    return false
+                }
+            }
 
+            return true
+        }
+    }
 
+    var hiddenQuestions:[Question] = []
+    var combinedQuestions:[Question] {
+        get {
+            return (visibleUnansweredQuestoin + visibleAnsweredQuestoin)
+        }
+    }
 
     @IBOutlet weak var questionsTableView: UITableView!
 
@@ -24,14 +51,23 @@ class QuestionsListViewController: PollingViewControllerBase, UITableViewDelegat
     }
 
     override func viewWillAppear(animated: Bool) {
-        getQuestions()
+        //getQuestions()
     }
 
     var fetchingAnsweredQuestions = false
     var fetchingUnansweredQuestions = false
 
     func getQuestions(){
-        if PFUser.currentUser() != nil {
+        let user = PFUser.currentUser()
+        if user != nil {
+            if (user.objectForKey("hiddenQuestions") != nil){
+                let hiddenQuestions =  user.objectForKey("hiddenQuestions") as [Question]
+                self.hiddenQuestions = hiddenQuestions
+
+                NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+                    self.questionsTableView.reloadData()
+                })
+            }
 
             self.fetchingUnansweredQuestions = true
             PFCloud.callFunctionInBackground("unansweredQuestions", withParameters: [:], block: { (result, error) -> Void in
@@ -43,6 +79,7 @@ class QuestionsListViewController: PollingViewControllerBase, UITableViewDelegat
                     // update the ui if we're done with both queries
                     NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
                         if (!self.fetchingAnsweredQuestions && !self.fetchingUnansweredQuestions){
+//                            self.hiddenQuestions = []
                             self.questionsTableView.reloadData()
                         }
                     })
@@ -64,6 +101,7 @@ class QuestionsListViewController: PollingViewControllerBase, UITableViewDelegat
                     // update the ui if we're done with both queries
                     NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
                         if (!self.fetchingAnsweredQuestions && !self.fetchingUnansweredQuestions){
+//                            self.hiddenQuestions = []
                             self.questionsTableView.reloadData()
                         }
 
@@ -82,9 +120,13 @@ class QuestionsListViewController: PollingViewControllerBase, UITableViewDelegat
         }
     }
 
+    func doneAnsweringQuestion() {
+        getQuestions()
+    }
+
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
-        return unansweredQuestions.count + answeredQuestions.count
+        return combinedQuestions.count
     }
 
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
@@ -97,45 +139,37 @@ class QuestionsListViewController: PollingViewControllerBase, UITableViewDelegat
 
         cell.backgroundColor = UIColor.clearColor()
 
-        if indexPath.row < unansweredQuestions.count {
-            cell.textLabel!.text = unansweredQuestions[indexPath.row].text
-            cell.accessoryType = UITableViewCellAccessoryType.None
-            let createdByUser = unansweredQuestions[indexPath.row].askedBy
-            createdByUser.fetchIfNeededInBackgroundWithBlock { (user, error) -> Void in
-                if error == nil {
-                    cell.detailTextLabel!.text = createdByUser.username
-                }
-                else {
-                    NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
-                        UIAlertView(title: "Error", message: error.description, delegate: nil, cancelButtonTitle: "OK").show()
-                    })
-                }
-            }
+        cell.textLabel!.text = combinedQuestions[indexPath.row].text
+        cell.accessoryType = UITableViewCellAccessoryType.None
+
+
+        if indexPath.row < visibleUnansweredQuestoin.count {
+            cell.accessoryType = .None
         }
         else {
-            let index = indexPath.row - unansweredQuestions.count
-            cell.textLabel!.text = answeredQuestions[index].text
-            cell.accessoryType = UITableViewCellAccessoryType.Checkmark
-            let createdByUser = answeredQuestions[index].askedBy
-            createdByUser.fetchIfNeededInBackgroundWithBlock { (user, error) -> Void in
-                if error == nil {
-                    cell.detailTextLabel!.text = createdByUser.username
-                }
-                else {
-                    NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
-                        UIAlertView(title: "Error", message: error.description, delegate: nil, cancelButtonTitle: "OK").show()
-                    })
-                }
-            }
+            cell.accessoryType = .Checkmark
+        }
 
+        let createdByUser = combinedQuestions[indexPath.row].askedBy
+
+        createdByUser.fetchIfNeededInBackgroundWithBlock { (user, error) -> Void in
+            if error == nil {
+                cell.detailTextLabel!.text = createdByUser.username
+            }
+            else {
+                NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+                    UIAlertView(title: "Error", message: error.description, delegate: nil, cancelButtonTitle: "OK").show()
+                })
+            }
         }
 
         return cell
     }
 
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if indexPath.row < unansweredQuestions.count {
-            let question = unansweredQuestions[indexPath.row]
+        let question = self.combinedQuestions[indexPath.row]
+
+        if indexPath.row < visibleUnansweredQuestoin.count {
             var storyboard = self.storyboard!
             var answerQuestionViewController = storyboard.instantiateViewControllerWithIdentifier("AnswerQuestionViewController") as AnswerQuestionViewController
             answerQuestionViewController.question = question
@@ -143,19 +177,33 @@ class QuestionsListViewController: PollingViewControllerBase, UITableViewDelegat
             var navigation = UINavigationController(rootViewController: answerQuestionViewController)
             self.presentViewController(navigation, animated: true, completion: nil)
         } else {
-            let index = indexPath.row - unansweredQuestions.count
-
             let questionResult = self.storyboard!.instantiateViewControllerWithIdentifier("QuestionResultViewController") as QuestionResultViewController
-            questionResult.question = self.answeredQuestions[index]
+            questionResult.question = question
             let navigation = UINavigationController(rootViewController: questionResult)
             self.presentViewController(navigation, animated: true, completion: nil)
 
         }
     }
 
+    func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [AnyObject]? {
+        return [
+            UITableViewRowAction(style: .Default, title: "Hide", handler: { (action: UITableViewRowAction!, indexPath: NSIndexPath!) -> Void in
+                let question = self.combinedQuestions[indexPath.row]
+                self.hiddenQuestions.append(question)
 
-    func doneAnsweringQuestion() {
-        getQuestions()
+                // submit this as opted out
+                PFUser.currentUser().setObject(self.hiddenQuestions, forKey: "hiddenQuestions")
+                PFUser.currentUser().saveInBackgroundWithBlock(nil)
+
+                // hide it from the ui
+                self.questionsTableView.beginUpdates()
+                self.questionsTableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Left)
+                self.questionsTableView.endUpdates()
+            }),
+        ]
     }
 
+    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        // Intentionally blank. Required to use UITableViewRowActions
+    }
 }
