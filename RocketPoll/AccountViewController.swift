@@ -15,13 +15,11 @@ class AccountViewController: PollingViewControllerBase, UINavigationControllerDe
     @IBOutlet weak var profilePictureImage: UIImageView!
     @IBOutlet weak var questionsCreatedLabel: UILabel!
     @IBOutlet weak var questionsAnsweredLabel: UILabel!
-
     @IBOutlet weak var login: UIButton!
-
     @IBOutlet weak var uploadProfilePictureButton: UIButton!
-
     @IBOutlet weak var pageControl: UIPageControl!
 
+    @IBOutlet weak var commentsPostedLabel: UILabel!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -85,6 +83,22 @@ class AccountViewController: PollingViewControllerBase, UINavigationControllerDe
                 if error == nil {
                     NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
                         self.questionsAnsweredLabel.text = "Questions Answered: \(count)"
+                    })
+                }
+                else {
+                    NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+                        UIAlertView(title: "Error", message: error.description, delegate: nil, cancelButtonTitle: "OK").show()
+                    })
+                }
+            })
+
+            // count comments posted
+            var commentsCountQuery = PFQuery(className: "Comment")
+            commentsCountQuery.whereKey("answeredBy", equalTo: PFUser.currentUser())
+            commentsCountQuery.countObjectsInBackgroundWithBlock({ (count, error) -> Void in
+                if error == nil {
+                    NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+                        self.commentsPostedLabel.text = "Comments Posted: \(count)"
                     })
                 }
                 else {

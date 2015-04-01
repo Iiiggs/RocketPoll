@@ -72,8 +72,7 @@ UITableViewDataSource, UITableViewDelegate
         totalCommentsQuery.whereKey("question", equalTo: question!)
         totalCommentsQuery.countObjectsInBackgroundWithBlock { (commentsCount, error) -> Void in
             if error == nil {
-                // once nav bar is implemented, assign this number to the right button item
-//                self.navigationController!.navigationBar.
+                self.navigationItem.rightBarButtonItem?.title = "\(commentsCount) Comments"
             }
             else {
                 NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
