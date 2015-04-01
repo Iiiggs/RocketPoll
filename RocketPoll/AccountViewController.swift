@@ -41,6 +41,7 @@ class AccountViewController: PollingViewControllerBase, UINavigationControllerDe
             self.profilePictureImage.hidden = false
             self.questionsAnsweredLabel.hidden = false
             self.questionsCreatedLabel.hidden = false
+            self.commentsPostedLabel.hidden = false
             self.uploadProfilePictureButton.hidden = false
 
             if PFUser.currentUser().objectForKey("profile_picture") != nil {
@@ -115,6 +116,7 @@ class AccountViewController: PollingViewControllerBase, UINavigationControllerDe
             self.profilePictureImage.hidden = true
             self.questionsAnsweredLabel.hidden = true
             self.questionsCreatedLabel.hidden = true
+            self.commentsPostedLabel.hidden = true
             self.uploadProfilePictureButton.hidden = true
         }
     }

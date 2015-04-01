@@ -115,6 +115,7 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
         var query = PFQuery(className: "Comment")
         query.whereKey("question", equalTo: self.question!)
         query.includeKey("answeredBy")
+        query.orderByDescending("createdAt")
         query.findObjectsInBackgroundWithBlock { (comments, error) -> Void in
             if error == nil {
                 self.comments = comments as [Comment]!
