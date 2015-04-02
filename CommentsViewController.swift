@@ -8,97 +8,60 @@
 
 import UIKit
 
-class CommentsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIBarPositioningDelegate , UITextFieldDelegate{
+class CommentsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIBarPositioningDelegate , UITextFieldDelegate, UITextViewDelegate{
 
     @IBOutlet weak var tableView: UITableView!
     let cellIdentifier = "commentCell"
     var question:Question!
     var comments:[Comment] = []
 
-    @IBOutlet weak var toolbar: UIToolbar!
-    @IBOutlet weak var commentTextField: UITextField!
+    @IBOutlet weak var commentTextView: UITextView!
+    
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        let tap = UITapGestureRecognizer(target: self, action: "dissmissKeyboard")
+        let tap = UITapGestureRecognizer(target: self, action: "hideKeyboard")
         self.view.addGestureRecognizer(tap)
 
         loadComments()
 
-        self.title = "New Comment"
+        self.title = "Comments"
+
+        hideCommentView()
+    }
+
+    func hideCommentView(){
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.Done, target: self, action: "cancel")
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Post", style: UIBarButtonItemStyle.Done, target: self, action: "post")
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Add", style: UIBarButtonItemStyle.Done, target: self, action: "showCommentView")
 
-        self.commentTextField.becomeFirstResponder()
-        self.commentTextField.delegate = self
-
+        self.commentTextView.resignFirstResponder()
+        self.commentTextView.delegate = self
+        self.commentTextView.hidden = true
     }
 
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        return true
+    func showCommentView(){
+        self.commentTextView.becomeFirstResponder()
+        self.commentTextView.hidden = false
+
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.Done, target: self, action: "hideCommentView")
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Post", style: UIBarButtonItemStyle.Done, target: self, action: "postComment")
     }
 
+    func hideKeyboard(){
+        self.commentTextView.resignFirstResponder()
+    }
 
     func cancel(){
         self.dismissViewControllerAnimated(true, completion: nil)
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "liftMainViewWhenKeyboardAppears:", name:UIKeyboardWillShowNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "returnMainViewWhenKeyboardAppears:", name:UIKeyboardWillHideNotification, object: nil)
-
-    }
-
-    func liftMainViewWhenKeyboardAppears(notification:NSNotification){
-        let info = notification.userInfo as NSDictionary!
-        let durationValue = info[UIKeyboardAnimationDurationUserInfoKey] as NSNumber!
-        let curveValue = info[UIKeyboardAnimationCurveUserInfoKey] as NSNumber!
-        let endFrame = info[UIKeyboardFrameEndUserInfoKey] as NSValue!
-
-        UIView.animateWithDuration(durationValue.doubleValue, animations: { () -> Void in
-            self.toolbar.setTranslatesAutoresizingMaskIntoConstraints(true)
-
-            self.toolbar.frame = CGRectMake(self.toolbar.frame.origin.x,
-                                            endFrame.CGRectValue().origin.y - self.toolbar.bounds.size.height,
-                                            self.view.frame.size.width,
-                                            self.toolbar.frame.size.height)
-        })
-    }
-
-    func returnMainViewWhenKeyboardAppears(notification:NSNotification){
-        let info = notification.userInfo as NSDictionary!
-        let durationValue = info[UIKeyboardAnimationDurationUserInfoKey] as NSNumber!
-        let curveValue = info[UIKeyboardAnimationCurveUserInfoKey] as NSNumber!
-
-
-        UIView.animateWithDuration(durationValue.doubleValue, animations: { () -> Void in
-            self.toolbar.setTranslatesAutoresizingMaskIntoConstraints(true)
-            self.toolbar.frame = CGRectMake(self.toolbar.frame.origin.x,
-                self.view.bounds.size.height - self.toolbar.bounds.size.height,
-                self.toolbar.frame.size.width,
-                self.toolbar.frame.size.height)
-        })
-    }
-
-    func dissmissKeyboard(){
-        self.commentTextField.resignFirstResponder()
-    }
-
-
-    func post() {
-        if !self.commentTextField.text.isEmpty {
+    func postComment() {
+        if !self.commentTextView.text.isEmpty {
             var comment = Comment()
-            comment.text = self.commentTextField.text
-                comment.by = PFUser.currentUser()
+            comment.text = self.commentTextView.text
+            comment.by = PFUser.currentUser()
             comment.question = self.question
             comment.saveEventually()
 
@@ -111,14 +74,19 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
 
 
             self.comments.insert(comment, atIndex:0)
-            self.tableView.reloadData()
-            
-            self.commentTextField.text = ""
-            
-            dissmissKeyboard()
+            self.tableView.insertRowsAtIndexPaths([NSIndexPath(forRow: 0, inSection: 0)], withRowAnimation: UITableViewRowAnimation.Fade)
+
+            self.commentTextView.text = ""
+
+            hideCommentView()
         }
     }
 
+
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
 
     func loadComments(){
         var query = PFQuery(className: "Comment")
@@ -191,9 +159,5 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
 
         label.sizeToFit()
         return label.frame.height
-    }
-
-    func positionForBar(bar: UIBarPositioning) -> UIBarPosition {
-        return UIBarPosition.Bottom
     }
 }
