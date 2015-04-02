@@ -95,26 +95,28 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
 
 
     func post() {
-        var comment = Comment()
-        comment.text = self.commentTextField.text
-        comment.by = PFUser.currentUser()
-        comment.question = self.question
-        comment.saveEventually()
+        if !self.commentTextField.text.isEmpty {
+            var comment = Comment()
+            comment.text = self.commentTextField.text
+                comment.by = PFUser.currentUser()
+            comment.question = self.question
+            comment.saveEventually()
 
-        var data = ["alert":"Your question got a new comment from \(PFUser.currentUser().username): \"\(comment.text)\"",
-            "badge":"Increment"]
-        var push = PFPush()
-        push.setData(data)
-        push.setChannel("answers_to_\(question.askedBy.objectId)")
-        push.sendPushInBackgroundWithBlock(nil)
+            var data = ["alert":"Your question got a new comment from \(PFUser.currentUser().username): \"\(comment.text)\"",
+                "badge":"Increment"]
+            var push = PFPush()
+            push.setData(data)
+            push.setChannel("answers_to_\(question.askedBy.objectId)")
+            push.sendPushInBackgroundWithBlock(nil)
 
 
-        self.comments.append(comment)
-        self.tableView.reloadData()
-
-        self.commentTextField.text = ""
-
-        dissmissKeyboard()
+            self.comments.insert(comment, atIndex:0)
+            self.tableView.reloadData()
+            
+            self.commentTextField.text = ""
+            
+            dissmissKeyboard()
+        }
     }
 
 
