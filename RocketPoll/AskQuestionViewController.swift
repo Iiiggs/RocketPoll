@@ -30,13 +30,11 @@ class AskQuestionViewController: PollingViewControllerBase, UITableViewDelegate,
     var questionText: NSString = ""
     var questionOptionsText: [NSString] = []
 
+    var activeTextField: UITextField?
+
     @IBOutlet weak var questionTextView: UITextView!
     
     var delegate: AskingNewQuestionDelegate?
-
-
-    @IBOutlet weak var navigationBar: UINavigationBar!
-    
 
     override func viewDidLoad() {
         super.viewDidLoad() 
@@ -51,7 +49,46 @@ class AskQuestionViewController: PollingViewControllerBase, UITableViewDelegate,
         self.title = "New Question"
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.Done, target: self, action: "cancel")
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Ask", style: UIBarButtonItemStyle.Done, target: self, action: "ask")
+    }
 
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "liftMainViewWhenKeyboardAppears:", name:UIKeyboardWillShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "returnMainViewWhenKeyboardAppears:", name:UIKeyboardWillHideNotification, object: nil)
+    }
+
+
+    func liftMainViewWhenKeyboardAppears(notification:NSNotification){
+        if activeTextField == nil { // because it means we're typing in the question text view
+            return
+        }
+
+        let info = notification.userInfo as NSDictionary!
+        let kbSize = info[UIKeyboardFrameBeginUserInfoKey]?.CGRectValue().size
+        let contentInsets = UIEdgeInsets(top:0.0, left:0.0, bottom:kbSize!.height, right:0.0)
+        self.tableView.contentInset = contentInsets
+
+        let textViewPosition = activeTextField!.convertPoint(CGPointZero, toView: self.tableView)
+        let indexPath = self.tableView.indexPathForRowAtPoint(textViewPosition)
+        self.tableView.scrollToRowAtIndexPath(indexPath!, atScrollPosition: UITableViewScrollPosition.None, animated: true)
+    }
+
+    func returnMainViewWhenKeyboardAppears(notification:NSNotification){
+        self.tableView.contentInset = UIEdgeInsetsZero
+    }
+
+    func textFieldDidBeginEditing(textField: UITextField) {
+        self.activeTextField = textField
+    }
+
+    func textFieldDidEndEditing(textField: UITextField) {
+        self.activeTextField = nil
+    }
+
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
 
     func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldReceiveTouch touch: UITouch) -> Bool {
@@ -66,14 +103,12 @@ class AskQuestionViewController: PollingViewControllerBase, UITableViewDelegate,
     }
 
     func dismissKeyboard(){
-        questionTextView.resignFirstResponder()
-
-        for tf in optionTextFields {
-            tf.resignFirstResponder()
-        }
+        self.questionTextView.resignFirstResponder()
+        self.activeTextField?.resignFirstResponder()
     }
 
     func cancel() {
+        dismissKeyboard()
         self.dismissViewControllerAnimated(true, completion: nil)
     }
 
@@ -182,7 +217,10 @@ class AskQuestionViewController: PollingViewControllerBase, UITableViewDelegate,
 
         var textField = cell.viewWithTag(10) as UITextField
 
+
         var label = cell.viewWithTag(20) as UILabel
+
+
 
         if(indexPath.row == options.count)
         {
@@ -203,6 +241,7 @@ class AskQuestionViewController: PollingViewControllerBase, UITableViewDelegate,
         return cell
     }
 
+    var currentIndexPath:NSIndexPath?
 
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: false)
@@ -219,14 +258,8 @@ class AskQuestionViewController: PollingViewControllerBase, UITableViewDelegate,
         }
         else
         {
-
+            currentIndexPath = indexPath
         }
     }
-
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        return true
-    }
-
 
 }
