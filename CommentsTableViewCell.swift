@@ -17,6 +17,9 @@ class CommentsTableViewCell: UITableViewCell {
 
     @IBOutlet weak var byTextLabel: UILabel!
 
+    @IBOutlet weak var commentDateLabel: UILabel!
+
+
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

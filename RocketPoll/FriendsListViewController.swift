@@ -12,7 +12,7 @@ class FriendsListViewController: UIViewController, UITableViewDataSource, UITabl
 
     var user: FBGraphUser?
     var friends: [PFUser] = []
-    let cellIdentifier = "friendsCell"
+    let cellIdentifier = "friendCell"
     var delegate: FriendsPickerDelegate?
 
     @IBOutlet weak var tableView: UITableView!
@@ -22,7 +22,12 @@ class FriendsListViewController: UIViewController, UITableViewDataSource, UITabl
         // Do any additional setup after loading the view.
 //        self.getMySocialPollingFriends()
 
-        self.tableView.registerClass(FacebookFriendsTableViewCell.self, forCellReuseIdentifier: cellIdentifier)
+        self.tableView.registerClass(FriendTableViewCell.self, forCellReuseIdentifier: cellIdentifier)
+
+
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.Done, target: self, action: "done")
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.Done, target: self, action: "cancel")
+
     }
 
     override func didReceiveMemoryWarning() {
@@ -68,7 +73,9 @@ class FriendsListViewController: UIViewController, UITableViewDataSource, UITabl
     }
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell{
-        var cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier) as UITableViewCell
+        var cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier) as FriendTableViewCell
+
+        let selectedIndexPaths = self.tableView.indexPathsForSelectedRows() as [NSIndexPath]?
 
         cell.backgroundColor = UIColor.clearColor()
 
@@ -77,7 +84,15 @@ class FriendsListViewController: UIViewController, UITableViewDataSource, UITabl
         return cell
     }
 
-    @IBAction func donePickingFriends(sender: AnyObject) {
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath){
+        var cell = tableView.cellForRowAtIndexPath(indexPath)
+        cell?.accessoryType = UITableViewCellAccessoryType.Checkmark
+        cell?.selected = true
+
+//        tableView.deselectRowAtIndexPath(indexPath, animated: false)
+    }
+
+    func done() {
         let selectedIndexPaths = self.tableView.indexPathsForSelectedRows() as [NSIndexPath]?
         if selectedIndexPaths != nil {
             var selectedUsers: [PFUser] = []
@@ -88,4 +103,9 @@ class FriendsListViewController: UIViewController, UITableViewDataSource, UITabl
             self.delegate?.donePickingFriends(selectedUsers)
         }
     }
+
+    func cancel (){
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
+
 }

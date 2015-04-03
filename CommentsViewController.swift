@@ -16,7 +16,6 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
     var comments:[Comment] = []
 
     @IBOutlet weak var commentTextView: UITextView!
-    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -118,6 +117,7 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
         var cell = tableView.dequeueReusableCellWithIdentifier(self.cellIdentifier) as CommentsTableViewCell
 
         cell.commentTextLabel.text = self.comments[indexPath.row].text
+        cell.commentDateLabel.text = self.comments[indexPath.row].createdAt?.timeAgo
         cell.byTextLabel.text = self.comments[indexPath.row].by.username
         if self.comments[indexPath.row].by.objectForKey("profile_picture") != nil {
             let profilePictureFile = self.comments[indexPath.row].by.objectForKey("profile_picture") as PFFile
