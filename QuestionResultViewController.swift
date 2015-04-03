@@ -135,7 +135,6 @@ UITableViewDataSource, UITableViewDelegate
         var constHeight = NSLayoutConstraint(item: cell.resultBar!, attribute: NSLayoutAttribute.Height, relatedBy: NSLayoutRelation.Equal, toItem: cell.contentView, attribute: NSLayoutAttribute.Height,                 multiplier: 0.5, constant:0)
         cell.addConstraint(constHeight)
 
-
         return cell
     }
 

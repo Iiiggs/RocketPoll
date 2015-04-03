@@ -51,7 +51,7 @@ class QuestionsListViewController: PollingViewControllerBase, UITableViewDelegat
     }
 
     override func viewWillAppear(animated: Bool) {
-        //getQuestions()
+        getQuestions()
     }
 
     var fetchingAnsweredQuestions = false
@@ -129,9 +129,9 @@ class QuestionsListViewController: PollingViewControllerBase, UITableViewDelegat
         return combinedQuestions.count
     }
 
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return 40
-    }
+//    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+//        return 40
+//    }
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
     {
@@ -139,29 +139,18 @@ class QuestionsListViewController: PollingViewControllerBase, UITableViewDelegat
 
         cell.backgroundColor = UIColor.clearColor()
 
-        cell.textLabel!.text = combinedQuestions[indexPath.row].text
-        cell.accessoryType = UITableViewCellAccessoryType.None
+        let question = combinedQuestions[indexPath.row]
 
-
+        cell.questionTextLabel.text = question.text
         if indexPath.row < visibleUnansweredQuestoin.count {
             cell.accessoryType = .None
         }
         else {
             cell.accessoryType = .Checkmark
         }
+        cell.askedByTextLabel.text = question.askedBy.username
+        cell.askedDateTextLabel.text = question.createdAt.timeAgo
 
-        let createdByUser = combinedQuestions[indexPath.row].askedBy
-
-        createdByUser.fetchIfNeededInBackgroundWithBlock { (user, error) -> Void in
-            if error == nil {
-                cell.detailTextLabel!.text = createdByUser.username
-            }
-            else {
-                NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
-                    UIAlertView(title: "Error", message: error.description, delegate: nil, cancelButtonTitle: "OK").show()
-                })
-            }
-        }
 
         return cell
     }
@@ -206,4 +195,5 @@ class QuestionsListViewController: PollingViewControllerBase, UITableViewDelegat
     func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         // Intentionally blank. Required to use UITableViewRowActions
     }
+
 }

@@ -33,11 +33,8 @@ class PollingAppDelegate: UIResponder, UIApplicationDelegate {
 
         ParseCrashReporting.enable();
 
+        //Parse.setApplicationId("HzV2hHIkPkjzIRyAfsVPozcB9ZemavFNurRqliYB", clientKey: "BoR07Tovxpg1hpJ6Q5ypmm6YESeObx4gStaWmdnf")
 
-//        SocialPolling (Beta)
-//Parse.setApplicationId("HzV2hHIkPkjzIRyAfsVPozcB9ZemavFNurRqliYB", clientKey: "BoR07Tovxpg1hpJ6Q5ypmm6YESeObx4gStaWmdnf")
-
-//        RocketPoll (Dev)
         Parse.setApplicationId("hh0OVgMMPgDaS2b6cmSY7RweUZDu09NtYF0LuOUS", clientKey: "cUzd7P3xSY54V2O6pA6oQ6RK0QOHGR2qEKHfSrDx")
 
         PFFacebookUtils.initializeFacebook()
@@ -47,8 +44,6 @@ class PollingAppDelegate: UIResponder, UIApplicationDelegate {
         registerForPush(application)
 
         PFAnalytics.trackAppOpenedWithLaunchOptionsInBackground(launchOptions, block: nil)
-
-
 
         return true
     }
