@@ -385,7 +385,7 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsMultipleSelection="YES" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="P6b-qv-QiS">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsMultipleSelection="YES" rowHeight="100" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="P6b-qv-QiS">
                                 <rect key="frame" x="0.0" y="92" width="600" height="453"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -394,14 +394,44 @@
                                 </constraints>
                                 <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" restorationIdentifier="friendsCell" selectionStyle="none" indentationWidth="10" reuseIdentifier="friendCell" id="M8e-2K-Tcl" customClass="FriendTableViewCell" customModule="RocketPoll" customModuleProvider="target">
+                                    <tableViewCell contentMode="scaleToFill" restorationIdentifier="friendsCell" selectionStyle="none" indentationWidth="10" reuseIdentifier="friendCell" rowHeight="100" id="M8e-2K-Tcl" customClass="FriendTableViewCell" customModule="RocketPoll" customModuleProvider="target">
                                         <rect key="frame" x="135" y="109" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="M8e-2K-Tcl" id="J9i-Cg-bel">
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="rSp-Nd-l6W">
+                                                    <rect key="frame" x="8" y="17" width="50" height="64.5"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="50" id="ebi-oD-yVZ"/>
+                                                        <constraint firstAttribute="height" constant="65" id="j1a-aR-jsu"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oTa-Tf-fuy">
+                                                    <rect key="frame" x="66" y="17" width="42" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                            <constraints>
+                                                <constraint firstItem="rSp-Nd-l6W" firstAttribute="top" secondItem="oTa-Tf-fuy" secondAttribute="top" id="EOX-w0-8Xk"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="rSp-Nd-l6W" secondAttribute="trailing" constant="20" id="MhV-Rr-t0S"/>
+                                                <constraint firstItem="rSp-Nd-l6W" firstAttribute="leading" secondItem="J9i-Cg-bel" secondAttribute="leadingMargin" id="gJ2-tq-0ML"/>
+                                                <constraint firstAttribute="centerY" secondItem="rSp-Nd-l6W" secondAttribute="centerY" constant="0.5" id="p6h-3Z-Kfo"/>
+                                                <constraint firstItem="oTa-Tf-fuy" firstAttribute="leading" secondItem="rSp-Nd-l6W" secondAttribute="trailing" constant="8" id="psE-Pl-Ipw"/>
+                                            </constraints>
+                                            <variation key="default">
+                                                <mask key="constraints">
+                                                    <exclude reference="MhV-Rr-t0S"/>
+                                                </mask>
+                                            </variation>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <connections>
+                                            <outlet property="nameLabel" destination="oTa-Tf-fuy" id="1wv-zx-HJ4"/>
+                                            <outlet property="profilePictureImageView" destination="rSp-Nd-l6W" id="cRk-yg-Kci"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                                 <variation key="default">

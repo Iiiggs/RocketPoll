@@ -10,6 +10,10 @@ import UIKit
 
 class FriendTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var profilePictureImageView: UIImageView!
+
+    @IBOutlet weak var nameLabel: UILabel!
+
     override func setHighlighted(highlighted: Bool, animated: Bool) {
         if(highlighted){
             self.accessoryType = .Checkmark

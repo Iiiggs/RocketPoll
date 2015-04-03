@@ -22,11 +22,10 @@ class FriendsListViewController: UIViewController, UITableViewDataSource, UITabl
         // Do any additional setup after loading the view.
 //        self.getMySocialPollingFriends()
 
-        self.tableView.registerClass(FriendTableViewCell.self, forCellReuseIdentifier: cellIdentifier)
+//        self.tableView.registerClass(FriendTableViewCell.self, forCellReuseIdentifier: cellIdentifier)
 
-
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.Done, target: self, action: "done")
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.Done, target: self, action: "cancel")
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.Done, target: self, action: "done")
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.Done, target: self, action: "cancel")
 
     }
 
@@ -79,17 +78,53 @@ class FriendsListViewController: UIViewController, UITableViewDataSource, UITabl
 
         cell.backgroundColor = UIColor.clearColor()
 
-        cell.textLabel!.text = self.friends[indexPath.row].objectForKey("username") as? String
+        let friend = self.friends[indexPath.row]
+        cell.nameLabel!.text = friend.objectForKey("username") as? String
+        if let profilePictureFile = friend.objectForKey("profile_picture") as? PFFile {
+            profilePictureFile.getDataInBackgroundWithBlock({ (profilePicData, error) -> Void in
+                if error == nil {
+                    NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+                        cell.profilePictureImageView.image = UIImage(data:profilePicData)
+                    })
+                }
+                else {
+                    NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+                        UIAlertView(title: "Error", message: error.description, delegate: nil, cancelButtonTitle: "OK").show()
+                    })
+                }
+            })
+        }
+        else {
+            cell.profilePictureImageView.image = nil
+        }
+
+        cell.selectionStyle = .None
 
         return cell
     }
 
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath){
         var cell = tableView.cellForRowAtIndexPath(indexPath)
-        cell?.accessoryType = UITableViewCellAccessoryType.Checkmark
-        cell?.selected = true
+        cell?.accessoryType = .Checkmark
+    }
 
-//        tableView.deselectRowAtIndexPath(indexPath, animated: false)
+    func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
+        var cell = tableView.cellForRowAtIndexPath(indexPath)
+        cell?.accessoryType = .None
+    }
+
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return 100
+    }
+
+    func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+
+        if (tableView.indexPathsForSelectedRows() != nil && contains(tableView.indexPathsForSelectedRows() as [NSIndexPath], indexPath)){
+            cell.accessoryType = .Checkmark
+        }
+        else {
+            cell.accessoryType = .None
+        }
     }
 
     func done() {
