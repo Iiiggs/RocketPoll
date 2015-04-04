@@ -64,13 +64,14 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
             comment.question = self.question
             comment.saveEventually()
 
-            var data = ["alert":"Your question got a new comment from \(PFUser.currentUser().username): \"\(comment.text)\"",
-                "badge":"Increment"]
-            var push = PFPush()
-            push.setData(data)
-            push.setChannel("answers_to_\(question.askedBy.objectId)")
-            push.sendPushInBackgroundWithBlock(nil)
-
+            if self.question.askedBy != PFUser.currentUser() {
+                var data = ["alert":"Your question got a new comment from \(PFUser.currentUser().username): \"\(comment.text)\"",
+                    "badge":"Increment"]
+                var push = PFPush()
+                push.setData(data)
+                push.setChannel("answers_to_\(question.askedBy.objectId)")
+                push.sendPushInBackgroundWithBlock(nil)
+            }
 
             self.comments.insert(comment, atIndex:0)
             self.tableView.insertRowsAtIndexPaths([NSIndexPath(forRow: 0, inSection: 0)], withRowAnimation: UITableViewRowAnimation.Fade)
@@ -140,12 +141,12 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
 
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         let text = self.comments[indexPath.row].text
-        let font = UIFont.systemFontOfSize(17)
+        let font = UIFont.systemFontOfSize(14)
         let suggestedHeight = heightForView(
             text,
             font: font,
             width: self.tableView.frame.width - 100// roughly what's configured in the auto layout contstraints
-            ) + 60 // for top/bottom margin
+            )  // for top/bottom margin
 
         return max(suggestedHeight, 100)
     }

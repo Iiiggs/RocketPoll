@@ -7,3 +7,4 @@
 #import <ParseFacebookUtils/PFFacebookUtils.h>
 #import <ParseCrashReporting/ParseCrashReporting.h>
 #import <ParseUI/ParseUI.h>
+#import "UIImageEffects.h"

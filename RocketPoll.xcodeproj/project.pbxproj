@@ -31,6 +31,10 @@
 		2F3B0C2E1A49E1FB007E20A8 /* AnswerQuestionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F3B0C2A1A49E1FB007E20A8 /* AnswerQuestionViewController.swift */; };
 		2F3B0C2F1A49E1FB007E20A8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F3B0C2B1A49E1FB007E20A8 /* AppDelegate.swift */; };
 		2F3B0C301A49E1FB007E20A8 /* AskQuestionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F3B0C2C1A49E1FB007E20A8 /* AskQuestionViewController.swift */; };
+		2F5168061ACF76CE0028237E /* poll_icon@2X.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F5168051ACF76CE0028237E /* poll_icon@2X.png */; };
+		2F5168081ACF78F80028237E /* people@2X.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2F5168071ACF78F80028237E /* people@2X.jpg */; };
+		2F51680A1AD05B2B0028237E /* dual-nature@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2F5168091AD05B2B0028237E /* dual-nature@2x.jpg */; };
+		2F51680E1AD060A80028237E /* UIImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F51680D1AD060A80028237E /* UIImageEffects.m */; };
 		2F76703A1A61B32600F56955 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F7670391A61B32600F56955 /* DataController.swift */; };
 		2F806DDC1ACE3C5700D0A633 /* NSDate+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F806DDB1ACE3C5700D0A633 /* NSDate+Extension.swift */; };
 		2F806E081ACE3D1500D0A633 /* NSDateTimeAgo.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 2F806E071ACE3D1500D0A633 /* NSDateTimeAgo.bundle */; };
@@ -99,6 +103,11 @@
 		2F3B0C2A1A49E1FB007E20A8 /* AnswerQuestionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AnswerQuestionViewController.swift; path = RocketPoll/AnswerQuestionViewController.swift; sourceTree = SOURCE_ROOT; };
 		2F3B0C2B1A49E1FB007E20A8 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = RocketPoll/AppDelegate.swift; sourceTree = SOURCE_ROOT; };
 		2F3B0C2C1A49E1FB007E20A8 /* AskQuestionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AskQuestionViewController.swift; path = RocketPoll/AskQuestionViewController.swift; sourceTree = SOURCE_ROOT; };
+		2F5168051ACF76CE0028237E /* poll_icon@2X.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "poll_icon@2X.png"; sourceTree = SOURCE_ROOT; };
+		2F5168071ACF78F80028237E /* people@2X.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "people@2X.jpg"; sourceTree = SOURCE_ROOT; };
+		2F5168091AD05B2B0028237E /* dual-nature@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "dual-nature@2x.jpg"; sourceTree = SOURCE_ROOT; };
+		2F51680C1AD060A80028237E /* UIImageEffects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIImageEffects.h; sourceTree = SOURCE_ROOT; };
+		2F51680D1AD060A80028237E /* UIImageEffects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIImageEffects.m; sourceTree = SOURCE_ROOT; };
 		2F7670391A61B32600F56955 /* DataController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DataController.swift; path = RocketPoll/DataController.swift; sourceTree = SOURCE_ROOT; };
 		2F806DDB1ACE3C5700D0A633 /* NSDate+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSDate+Extension.swift"; sourceTree = SOURCE_ROOT; };
 		2F806E071ACE3D1500D0A633 /* NSDateTimeAgo.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = NSDateTimeAgo.bundle; path = "../../../Downloads/NSDate-TimeAgo-master/NSDateTimeAgo.bundle"; sourceTree = "<group>"; };
@@ -213,6 +222,7 @@
 		09ABC07713A1D52D009C3FCF /* RocketPoll */ = {
 			isa = PBXGroup;
 			children = (
+				2F51680B1AD0609F0028237E /* Utils */,
 				2FF4087D1A741A950017FD3F /* Identity */,
 				2F3687491A708514006F7C4C /* User Interface */,
 				2F9F37441A64C6FA00B77EB9 /* Core */,
@@ -232,6 +242,9 @@
 		09ABC07813A1D52D009C3FCF /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				2F5168091AD05B2B0028237E /* dual-nature@2x.jpg */,
+				2F5168071ACF78F80028237E /* people@2X.jpg */,
+				2F5168051ACF76CE0028237E /* poll_icon@2X.png */,
 				2F23E5521A49DDE900017554 /* Default-568h@2x.png */,
 				2F23E5531A49DDE900017554 /* Default.png */,
 				2F23E5541A49DDE900017554 /* Default@2x.png */,
@@ -259,6 +272,15 @@
 				2F8382471A719889003887F9 /* Launch.storyboard */,
 			);
 			name = "User Interface";
+			sourceTree = "<group>";
+		};
+		2F51680B1AD0609F0028237E /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				2F51680C1AD060A80028237E /* UIImageEffects.h */,
+				2F51680D1AD060A80028237E /* UIImageEffects.m */,
+			);
+			name = Utils;
 			sourceTree = "<group>";
 		};
 		2F9F37411A64C6DC00B77EB9 /* Ask */ = {
@@ -409,6 +431,7 @@
 				2F23E5511A49DDDF00017554 /* RocketPoll-Info.plist in Resources */,
 				2F23E5621A49DDE900017554 /* MainWindow.xib in Resources */,
 				2FF4C7861A88066D003116DD /* Images.xcassets in Resources */,
+				2F5168061ACF76CE0028237E /* poll_icon@2X.png in Resources */,
 				2F23E5631A49DDE900017554 /* ParseStarterProjectViewController.xib in Resources */,
 				2F23E55F1A49DDE900017554 /* Default.png in Resources */,
 				2F8498FF1A49E5DB008A9586 /* Main.storyboard in Resources */,
@@ -416,6 +439,8 @@
 				2F806E081ACE3D1500D0A633 /* NSDateTimeAgo.bundle in Resources */,
 				2F23E55E1A49DDE900017554 /* Default-568h@2x.png in Resources */,
 				2F23E5611A49DDE900017554 /* InfoPlist.strings in Resources */,
+				2F51680A1AD05B2B0028237E /* dual-nature@2x.jpg in Resources */,
+				2F5168081ACF78F80028237E /* people@2X.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -472,6 +497,7 @@
 				2F8E94761A82FED8005AEF79 /* QuestionResultTableViewCell.swift in Sources */,
 				2FE665471A49ECAC0057BEC4 /* RocketPoll.xcdatamodeld in Sources */,
 				2F3B0C2F1A49E1FB007E20A8 /* AppDelegate.swift in Sources */,
+				2F51680E1AD060A80028237E /* UIImageEffects.m in Sources */,
 				2FF4087F1A741B110017FD3F /* RPLoginViewController.swift in Sources */,
 				2F3B0C2E1A49E1FB007E20A8 /* AnswerQuestionViewController.swift in Sources */,
 				2F806E0A1ACE45AD00D0A633 /* FriendTableViewCell.swift in Sources */,

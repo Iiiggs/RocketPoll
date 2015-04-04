@@ -45,6 +45,17 @@ class PollingAppDelegate: UIResponder, UIApplicationDelegate {
 
         PFAnalytics.trackAppOpenedWithLaunchOptionsInBackground(launchOptions, block: nil)
 
+//        FBLoginView.self(()
+
+
+        let defaults = NSUserDefaults.standardUserDefaults()
+        if defaults.boolForKey("welcome_shown") == false {
+            var vc = UIViewController()
+            self.window?.rootViewController = UIViewController()
+
+            defaults.setBool(true, forKey: "welcome_shown")
+        }
+
         return true
     }
 

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14C1514" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="ar9-wd-qbd">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14C1514" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="IQn-L7-GJg">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -9,7 +9,7 @@
         <!--Tab Bar Controller-->
         <scene sceneID="gCs-iT-lQO">
             <objects>
-                <tabBarController id="ar9-wd-qbd" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="TabBarViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="ar9-wd-qbd" sceneMemberID="viewController">
                     <nil key="simulatedBottomBarMetrics"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="1dH-Yu-EyC">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
@@ -27,6 +27,70 @@
             </objects>
             <point key="canvasLocation" x="-922" y="-1031"/>
         </scene>
+        <!--View Controller-->
+        <scene sceneID="Gku-pj-DH3">
+            <objects>
+                <viewController id="drK-Ii-cIV" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="nty-GB-c2Y"/>
+                        <viewControllerLayoutGuide type="bottom" id="uaW-ki-g4U"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="kKp-Bv-aW3">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome to RocketPoll yo!" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NOs-GF-b6u">
+                                <rect key="frame" x="197" y="20" width="206.5" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="NOs-GF-b6u" firstAttribute="top" secondItem="nty-GB-c2Y" secondAttribute="bottom" id="PEJ-MN-Umd"/>
+                            <constraint firstAttribute="centerX" secondItem="NOs-GF-b6u" secondAttribute="centerX" id="ryA-dX-I2h"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="8EE-02-xRO" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1663" y="-1807"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="Q3p-Hg-eyH">
+            <objects>
+                <viewController id="W8V-d8-ezC" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="JcG-Er-8qf"/>
+                        <viewControllerLayoutGuide type="bottom" id="Xnj-lL-xuH"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="VKu-rd-Jfk">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="HTj-yX-jNF" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-927" y="-1801"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="5Me-z7-0jJ">
+            <objects>
+                <navigationController id="IQn-L7-GJg" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="hKa-bd-aLs">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="703-4V-yAM" kind="relationship" relationship="rootViewController" id="nNT-Q5-hGv"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Bok-5L-JSa" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2567" y="-1052"/>
+        </scene>
         <!--Root View Controller-->
         <scene sceneID="clB-vc-fyl">
             <objects>
@@ -38,11 +102,91 @@
                     <view key="view" contentMode="scaleToFill" id="502-Ir-ELC">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="dual-nature.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="7Dz-Bu-4cG">
+                                <rect key="frame" x="73" y="143" width="453" height="255"/>
+                            </imageView>
+                            <view tag="1" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zGW-KR-BzS" customClass="FBLoginView">
+                                <rect key="frame" x="102" y="392" width="397" height="39"/>
+                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="39" id="qE9-a4-khA"/>
+                                </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="qE9-a4-khA"/>
+                                    </mask>
+                                </variation>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xcn-sc-6ko">
+                                <rect key="frame" x="393" y="499" width="107" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="A0u-66-jbQ"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <state key="normal" title="Create Account">
+                                    <color key="titleColor" red="0.34152614813862425" green="0.22618062321117152" blue="0.11602164862182504" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="A0u-66-jbQ"/>
+                                    </mask>
+                                </variation>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jBL-ra-RcP">
+                                <rect key="frame" x="102" y="499" width="117" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="nP8-Q0-oH4"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <state key="normal" title="Log in with Email">
+                                    <color key="titleColor" red="0.60000002379999995" green="0.40000000600000002" blue="0.20000000300000001" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="nP8-Q0-oH4"/>
+                                    </mask>
+                                </variation>
+                            </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="poll_icon@2X.png" translatesAutoresizingMaskIntoConstraints="NO" id="hpv-v5-LIR">
+                                <rect key="frame" x="236" y="88" width="97" height="128"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="centerX" secondItem="7Dz-Bu-4cG" secondAttribute="centerX" id="1F1-S4-zsX"/>
+                            <constraint firstAttribute="centerY" secondItem="7Dz-Bu-4cG" secondAttribute="centerY" constant="-12" id="3ln-Oi-106"/>
+                            <constraint firstItem="IfR-02-kHw" firstAttribute="top" secondItem="jBL-ra-RcP" secondAttribute="bottom" constant="40" id="72i-3y-OTW"/>
+                            <constraint firstItem="zGW-KR-BzS" firstAttribute="width" secondItem="502-Ir-ELC" secondAttribute="width" multiplier="0.8" id="Gow-gR-jZp"/>
+                            <constraint firstAttribute="centerX" secondItem="hpv-v5-LIR" secondAttribute="centerX" id="HcZ-zz-vjD"/>
+                            <constraint firstItem="hpv-v5-LIR" firstAttribute="top" secondItem="I7W-xW-C47" secondAttribute="bottom" constant="100" id="Uku-zf-fys"/>
+                            <constraint firstItem="zGW-KR-BzS" firstAttribute="width" secondItem="jBL-ra-RcP" secondAttribute="width" multiplier="0.3" id="XeV-Jo-AmS"/>
+                            <constraint firstItem="zGW-KR-BzS" firstAttribute="width" secondItem="Xcn-sc-6ko" secondAttribute="width" multiplier="0.3" id="aid-di-TKF"/>
+                            <constraint firstItem="IfR-02-kHw" firstAttribute="top" secondItem="zGW-KR-BzS" secondAttribute="bottom" constant="100" id="cHO-jB-WOm"/>
+                            <constraint firstAttribute="centerX" secondItem="zGW-KR-BzS" secondAttribute="centerX" constant="-0.5" id="kVy-aS-1m3"/>
+                            <constraint firstItem="zGW-KR-BzS" firstAttribute="leading" secondItem="jBL-ra-RcP" secondAttribute="leading" id="m9f-V5-lsR"/>
+                            <constraint firstItem="IfR-02-kHw" firstAttribute="top" secondItem="Xcn-sc-6ko" secondAttribute="bottom" constant="40" id="vCs-yZ-Izk"/>
+                            <constraint firstItem="zGW-KR-BzS" firstAttribute="trailing" secondItem="Xcn-sc-6ko" secondAttribute="trailing" id="wYA-Mj-BKO"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="XeV-Jo-AmS"/>
+                                <exclude reference="aid-di-TKF"/>
+                            </mask>
+                        </variation>
                     </view>
+                    <navigationItem key="navigationItem" id="bUP-qC-nZD"/>
+                    <connections>
+                        <outlet property="facebookLoginView" destination="zGW-KR-BzS" id="CSq-pL-JHt"/>
+                        <outlet property="loginButton" destination="jBL-ra-RcP" id="nAF-mF-pn3"/>
+                        <outlet property="signupButton" destination="Xcn-sc-6ko" id="Xmo-nR-4pT"/>
+                        <outlet property="surveyImage" destination="hpv-v5-LIR" id="zJs-n0-WSH"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Q3h-pU-vEd" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-777" y="-1784"/>
+            <point key="canvasLocation" x="-1642" y="-1052"/>
         </scene>
         <!--Answer Question View Controller-->
         <scene sceneID="eC5-KI-0jO">
@@ -73,7 +217,7 @@
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="V8t-oP-7YF">
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" name="ChalkboardSE-Regular" family="Chalkboard SE" pointSize="16"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -98,7 +242,7 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="48" id="jB2-ub-ACY"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="ChalkboardSE-Regular" family="Chalkboard SE" pointSize="17"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                                 <variation key="default">
@@ -170,7 +314,7 @@
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="All Questions" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sxv-g0-gAN">
                                 <rect key="frame" x="247" y="40" width="106" height="25"/>
-                                <fontDescription key="fontDescription" name="ChalkboardSE-Regular" family="Chalkboard SE" pointSize="17"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -191,7 +335,7 @@
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eFE-CX-HBA">
                                                     <rect key="frame" x="129" y="11" width="42" height="21"/>
-                                                    <fontDescription key="fontDescription" name="ChalkboardSE-Regular" family="Chalkboard SE" pointSize="17"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -380,7 +524,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yrV-Fg-gLd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1665" y="790"/>
+            <point key="canvasLocation" x="1640" y="1368"/>
         </scene>
         <!--Friends List View Controller-->
         <scene sceneID="agq-of-oo1">
@@ -394,9 +538,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Select Friends" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rz4-Ei-IZi">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select Friends" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rz4-Ei-IZi">
                                 <rect key="frame" x="245" y="40" width="110" height="21"/>
-                                <fontDescription key="fontDescription" name="ChalkboardSE-Regular" family="Chalkboard SE" pointSize="17"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -501,7 +645,7 @@
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Questions for Me" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YkQ-hE-DPZ">
                                 <rect key="frame" x="216" y="40" width="169" height="21"/>
-                                <fontDescription key="fontDescription" name="ChalkboardSE-Regular" family="Chalkboard SE" pointSize="17"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -651,7 +795,7 @@
                                                 </textField>
                                                 <label opaque="NO" userInteractionEnabled="NO" tag="20" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a0w-n4-bj4">
                                                     <rect key="frame" x="129" y="9" width="42" height="21"/>
-                                                    <fontDescription key="fontDescription" name="ChalkboardSE-Regular" family="Chalkboard SE" pointSize="17"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -713,6 +857,24 @@
             </objects>
             <point key="canvasLocation" x="2399" y="-195"/>
         </scene>
+        <!--View Controller-->
+        <scene sceneID="rHa-vy-OUe">
+            <objects>
+                <viewController id="il3-ax-V7r" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="W0v-uD-eMT"/>
+                        <viewControllerLayoutGuide type="bottom" id="DFo-vT-5dY"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Y6T-1U-YEa">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="I6h-Eg-oym" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-217" y="-1801"/>
+        </scene>
         <!--Account-->
         <scene sceneID="hJd-w0-GhJ">
             <objects>
@@ -734,13 +896,13 @@
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Guest" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5NQ-zg-gfn">
                                 <rect key="frame" x="229" y="115" width="143" height="21"/>
-                                <fontDescription key="fontDescription" name="ChalkboardSE-Regular" family="Chalkboard SE" pointSize="17"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XVG-Hy-54E">
                                 <rect key="frame" x="276" y="304" width="49" height="30"/>
-                                <fontDescription key="fontDescription" name="ChalkboardSE-Regular" family="Chalkboard SE" pointSize="15"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <state key="normal" title="Logout">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -750,19 +912,19 @@
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Questions Created: 0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3yn-xP-B3u">
                                 <rect key="frame" x="219" y="362" width="163" height="21"/>
-                                <fontDescription key="fontDescription" name="ChalkboardSE-Regular" family="Chalkboard SE" pointSize="17"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Questions Answered: 0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QNg-NH-tOT">
                                 <rect key="frame" x="211" y="391" width="178" height="21"/>
-                                <fontDescription key="fontDescription" name="ChalkboardSE-Regular" family="Chalkboard SE" pointSize="17"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gUd-N2-uau">
-                                <rect key="frame" x="250" y="266" width="100" height="34"/>
-                                <fontDescription key="fontDescription" name="ChalkboardSE-Regular" family="Chalkboard SE" pointSize="15"/>
+                                <rect key="frame" x="250" y="266" width="117" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <state key="normal" title="Upload Picture">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -772,13 +934,13 @@
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Rocket Poll" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ADi-cj-ZS0">
                                 <rect key="frame" x="210" y="39" width="187" height="45"/>
-                                <fontDescription key="fontDescription" name="ChalkboardSE-Regular" family="Chalkboard SE" pointSize="36"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Comments Posted: 0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hsw-gz-jRf">
                                 <rect key="frame" x="214" y="427" width="178" height="25"/>
-                                <fontDescription key="fontDescription" name="ChalkboardSE-Regular" family="Chalkboard SE" pointSize="17"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -842,7 +1004,7 @@
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="My Questions" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wmm-ct-mBq">
                                 <rect key="frame" x="216" y="40" width="169" height="25"/>
-                                <fontDescription key="fontDescription" name="ChalkboardSE-Regular" family="Chalkboard SE" pointSize="17"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -872,7 +1034,7 @@
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.74999999999999978" translatesAutoresizingMaskIntoConstraints="NO" id="pfx-6R-u4C">
                                                     <rect key="frame" x="215" y="11" width="42" height="21"/>
-                                                    <fontDescription key="fontDescription" name="ChalkboardSE-Regular" family="Chalkboard SE" pointSize="17"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W8f-fe-XkE">
@@ -1243,6 +1405,8 @@
         </scene>
     </scenes>
     <resources>
+        <image name="dual-nature.jpg" width="1440" height="900"/>
+        <image name="poll_icon@2X.png" width="194" height="256"/>
         <image name="raccoon_silhuttte" width="350" height="350"/>
     </resources>
 </document>

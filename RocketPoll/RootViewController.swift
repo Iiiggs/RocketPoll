@@ -8,41 +8,119 @@
 
 import UIKit
 
-class RootViewController: UIViewController, UIPageViewControllerDelegate {
+class RootViewController: UIViewController, UIPageViewControllerDelegate, FBLoginViewDelegate {
 
     var pageViewController: UIPageViewController?
 
     let landingViewControllerIndex = 0
 
+    @IBOutlet weak var loginButton: UIButton!
+
+    @IBOutlet weak var signupButton: UIButton!
+
+    @IBOutlet weak var facebookLoginView: FBLoginView!
+
+    @IBOutlet weak var surveyImage: UIImageView!
+
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-        // Configure the page view controller and add it as a child view controller.
-        self.pageViewController = UIPageViewController(transitionStyle: .Scroll, navigationOrientation: .Horizontal, options: nil)
-        self.pageViewController!.delegate = self
 
-        let startingViewController: UIViewController = self.modelController.viewControllerAtIndex(landingViewControllerIndex, storyboard: self.storyboard!)!
-        let viewControllers: NSArray = [startingViewController]
-        self.pageViewController!.setViewControllers(viewControllers, direction: .Forward, animated: false, completion: {done in })
+        self.title = "Rocket Poll"
 
-        self.pageViewController!.dataSource = self.modelController
-
-        self.addChildViewController(self.pageViewController!)
-        self.view.addSubview(self.pageViewController!.view)
-
-        // Set the page view controller's bounds using an inset rect so that self's view is visible around the edges of the pages.
-        var pageViewRect = self.view.bounds
-        if UIDevice.currentDevice().userInterfaceIdiom == .Pad {
-            pageViewRect = CGRectInset(pageViewRect, 40.0, 40.0)
-        }
-        self.pageViewController!.view.frame = pageViewRect
-
-        self.pageViewController!.didMoveToParentViewController(self)
-
-        // Add the page view controller's gesture recognizers to the book view controller's view so that the gestures are started more easily.
-        self.view.gestureRecognizers = self.pageViewController!.gestureRecognizers
+        self.loginButton.contentEdgeInsets = UIEdgeInsets(top: 10.0, left: 10.0, bottom: 10.0, right: 10.0)
+        self.loginButton.layer.cornerRadius = 4.0
+        self.loginButton.clipsToBounds = true
+        applyExtraLightBlurToButtonBackground(self.loginButton, backgroundView: self.view)
+        self.loginButton.layer.borderColor = UIColor.blackColor().CGColor
+        self.loginButton.layer.borderWidth = 1.0
 
 
+        self.signupButton.contentEdgeInsets = UIEdgeInsets(top: 10.0, left: 10.0, bottom: 10.0, right: 10.0)
+        self.signupButton.layer.cornerRadius = 4.0
+        self.signupButton.clipsToBounds = true
+        applyLightBlurToButtonBackground(self.signupButton, backgroundView: self.view)
+        self.signupButton.layer.borderColor = UIColor.whiteColor().CGColor
+        self.signupButton.layer.borderWidth = 1.0
+
+        applyBlurToImageBackground(surveyImage, backgroundView: self.view)
+        surveyImage.layer.cornerRadius = 4.0
+        self.surveyImage.clipsToBounds = true
+    }
+
+    func applyBlurToImageBackground(imageView:UIImageView, backgroundView:UIView){
+        let rect = imageView.convertRect(imageView.bounds, toView: backgroundView)
+        UIGraphicsBeginImageContext(imageView.frame.size)
+        backgroundView.drawViewHierarchyInRect(rect, afterScreenUpdates: true)
+        var backgroundImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+
+        let bluredImage = UIImageEffects.imageByApplyingExtraLightEffectToImage(backgroundImage)
+        let foreGroundImage = imageView.image!
+        UIGraphicsBeginImageContext(rect.size)
+
+        bluredImage.drawInRect(CGRectMake(0,0,rect.size.width,rect.size.height))
+        foreGroundImage.drawInRect(CGRectMake(0,0,rect.size.width,rect.size.height))
+
+
+        var finalImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+
+        imageView.image = finalImage
+
+//        
+//        UIGraphicsBeginImageContext(imageView.frame.size)
+//        image.drawInRect(imageView.frame)
+//        bluredImage.drawInRect(imageView.frame)
+//
+//
+//        var final = UIGraphicsGetImageFromCurrentImageContext()
+//
+//        UIGraphicsEndImageContext()
+//
+//        imageView.image = final
+    }
+
+    func applyLightBlurToButtonBackground(button:UIButton, backgroundView:UIView){
+        let rect = button.convertRect(button.bounds, toView: backgroundView)
+        UIGraphicsBeginImageContext(button.frame.size)
+        backgroundView.drawViewHierarchyInRect(CGRectMake(-rect.origin.x, -rect.origin.y, rect.size.width, rect.size.height), afterScreenUpdates: true)
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+
+        let lightBlurredImage = UIImageEffects.imageByApplyingLightEffectToImage(image)
+
+        button.setBackgroundImage(lightBlurredImage, forState: .Normal)
+    }
+
+    func applyExtraLightBlurToButtonBackground(button:UIButton, backgroundView:UIView){
+        let rect = button.convertRect(button.bounds, toView: backgroundView)
+        UIGraphicsBeginImageContext(button.frame.size)
+        backgroundView.drawViewHierarchyInRect(CGRectMake(-rect.origin.x, -rect.origin.y, rect.size.width, rect.size.height), afterScreenUpdates: true)
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+
+        let lightBlurredImage = UIImageEffects.imageByApplyingExtraLightEffectToImage(image)
+
+        button.setBackgroundImage(lightBlurredImage, forState: .Normal)
+    }
+
+    func applyDarkBlurToButtonBackground(button:UIButton, backgroundView:UIView){
+        let rect = button.convertRect(button.bounds, toView: backgroundView)
+        UIGraphicsBeginImageContext(button.frame.size)
+        backgroundView.drawViewHierarchyInRect(CGRectMake(-rect.origin.x, -rect.origin.y, rect.size.width, rect.size.height), afterScreenUpdates: true)
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+
+        let lightBlurredImage = UIImageEffects.imageByApplyingDarkEffectToImage(image)
+
+        button.setBackgroundImage(lightBlurredImage, forState: .Normal)
+    }
+
+
+
+    func loginView(loginView: FBLoginView!, handleError error: NSError!) {
+        
     }
 
     // Show login
