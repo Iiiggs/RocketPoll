@@ -65,7 +65,7 @@ class AskQuestionViewController: PollingViewControllerBase, UITableViewDelegate,
         }
 
         let info = notification.userInfo as NSDictionary!
-        let kbSize = info[UIKeyboardFrameBeginUserInfoKey]?.CGRectValue().size
+        let kbSize = info[UIKeyboardFrameBeginUserInfoKey]?.CGRectValue.size
         let contentInsets = UIEdgeInsets(top:0.0, left:0.0, bottom:kbSize!.height, right:0.0)
         self.tableView.contentInset = contentInsets
 
@@ -92,10 +92,10 @@ class AskQuestionViewController: PollingViewControllerBase, UITableViewDelegate,
     }
 
     func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldReceiveTouch touch: UITouch) -> Bool {
-        if touch.view.isKindOfClass(UIControl.self) {
+        if touch.view!.isKindOfClass(UIControl.self) {
             return false
         }
-        else if touch.view.superview!.isKindOfClass(UITableViewCell.self) {
+        else if touch.view!.superview!.isKindOfClass(UITableViewCell.self) {
             return false
         }
 
@@ -131,9 +131,9 @@ class AskQuestionViewController: PollingViewControllerBase, UITableViewDelegate,
         }
 
         for optionTextField in self.optionTextFields {
-            let option_text = (optionTextField as UITextField).text as NSString
+            let option_text = (optionTextField as! UITextField).text!
 
-            if(option_text.length == 0){
+            if(option_text.characters.count == 0){
                 UIAlertView(title: "Error", message: "Please fill out every option", delegate: nil, cancelButtonTitle: "OK").show()
 
                 return
@@ -152,9 +152,9 @@ class AskQuestionViewController: PollingViewControllerBase, UITableViewDelegate,
 
         DataController.sharedInstance.getCurrentUserFriendsWithBlock { (users, error) -> Void in
             if error == nil {
-                var storyboard = self.storyboard!
+                let storyboard = self.storyboard!
 
-                var friendsListViewController = storyboard.instantiateViewControllerWithIdentifier("FriendsListViewController") as FriendsListViewController
+                let friendsListViewController = storyboard.instantiateViewControllerWithIdentifier("FriendsListViewController") as! FriendsListViewController
 
                 friendsListViewController.friends = users
                 friendsListViewController.delegate = self
@@ -177,7 +177,7 @@ class AskQuestionViewController: PollingViewControllerBase, UITableViewDelegate,
     func donePickingFriends(friends: [PFUser]) {
         // grab question from the ui
 
-        var question = Question()
+        let question = Question(className:"Question")
         question.text = self.questionText
         question.options = self.questionOptionsText
         question.askedOf = friends
@@ -185,9 +185,9 @@ class AskQuestionViewController: PollingViewControllerBase, UITableViewDelegate,
         question.saveInBackgroundWithBlock { (succeeded, error) -> Void in
             if succeeded {
                 for friend in friends {
-                    var data = ["alert": "You have a new question from \(PFUser.currentUser().username)",
+                    let data = ["alert": "You have a new question from \(PFUser.currentUser().username)",
                         "badge":"Increment"]
-                    var push = PFPush()
+                    let push = PFPush()
                     push.setData(data)
                     push.setChannel("questions_to_\(friend.objectId)")
                     push.sendPushInBackgroundWithBlock(nil)
@@ -211,14 +211,14 @@ class AskQuestionViewController: PollingViewControllerBase, UITableViewDelegate,
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
     {
-        var cell = tableView.dequeueReusableCellWithIdentifier(self.cellIdentifier) as AnswerOptionTableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier(self.cellIdentifier) as! AnswerOptionTableViewCell
 
         cell.backgroundColor = UIColor.clearColor()
 
-        var textField = cell.viewWithTag(10) as UITextField
+        let textField = cell.viewWithTag(10) as! UITextField
 
 
-        var label = cell.viewWithTag(20) as UILabel
+        let label = cell.viewWithTag(20) as! UILabel
 
 
 
@@ -232,7 +232,7 @@ class AskQuestionViewController: PollingViewControllerBase, UITableViewDelegate,
             textField.hidden = false
             label.hidden = true
             textField.delegate = self
-            textField.text = options[indexPath.row]
+            textField.text = options[indexPath.row] as String
 
             optionTextFields.addObject(textField)
         }
@@ -250,7 +250,7 @@ class AskQuestionViewController: PollingViewControllerBase, UITableViewDelegate,
         {
             options = []
             for optionTextField in self.optionTextFields {
-                options.append((optionTextField as UITextField).text)
+                options.append((optionTextField as! UITextField).text!)
             }
 
             options.append("") // will add a new row

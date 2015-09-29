@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14C1514" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="IQn-L7-GJg">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="ar9-wd-qbd">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
@@ -11,21 +11,21 @@
             <objects>
                 <tabBarController storyboardIdentifier="TabBarViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="ar9-wd-qbd" sceneMemberID="viewController">
                     <nil key="simulatedBottomBarMetrics"/>
-                    <tabBar key="tabBar" contentMode="scaleToFill" id="1dH-Yu-EyC">
+                    <tabBar key="tabBar" contentMode="scaleToFill" backgroundImage="home" id="1dH-Yu-EyC">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <color key="tintColor" red="1" green="0.75686274509999996" blue="0.3921568627" alpha="1" colorSpace="calibratedRGB"/>
                     </tabBar>
                     <connections>
-                        <segue destination="rS0-QM-tpb" kind="relationship" relationship="viewControllers" id="3GW-ji-GgR"/>
+                        <segue destination="gYu-vi-PuZ" kind="relationship" relationship="viewControllers" id="kYm-fH-U9h"/>
                         <segue destination="ccq-Di-hP0" kind="relationship" relationship="viewControllers" id="bjk-Eh-D26"/>
                         <segue destination="cB4-w2-kEg" kind="relationship" relationship="viewControllers" id="I28-d0-947"/>
-                        <segue destination="gYu-vi-PuZ" kind="relationship" relationship="viewControllers" id="kYm-fH-U9h"/>
+                        <segue destination="rS0-QM-tpb" kind="relationship" relationship="viewControllers" id="3GW-ji-GgR"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cIf-bL-kb0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-922" y="-1031"/>
+            <point key="canvasLocation" x="-914" y="-1027"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="Gku-pj-DH3">
@@ -40,9 +40,9 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome to RocketPoll yo!" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NOs-GF-b6u">
-                                <rect key="frame" x="197" y="20" width="206.5" height="20.5"/>
+                                <rect key="frame" x="197" y="20" width="207" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
@@ -55,7 +55,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8EE-02-xRO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1663" y="-1807"/>
+            <point key="canvasLocation" x="-3181" y="-1819"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="Q3p-Hg-eyH">
@@ -73,7 +73,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HTj-yX-jNF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-927" y="-1801"/>
+            <point key="canvasLocation" x="-2541" y="-1819"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="5Me-z7-0jJ">
@@ -89,7 +89,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Bok-5L-JSa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2567" y="-1052"/>
+            <point key="canvasLocation" x="-3169" y="-1052"/>
         </scene>
         <!--Root View Controller-->
         <scene sceneID="clB-vc-fyl">
@@ -133,6 +133,9 @@
                                         <exclude reference="A0u-66-jbQ"/>
                                     </mask>
                                 </variation>
+                                <connections>
+                                    <action selector="createAccountPressed:" destination="703-4V-yAM" eventType="touchUpInside" id="Ycv-zx-XUI"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jBL-ra-RcP">
                                 <rect key="frame" x="102" y="499" width="117" height="30"/>
@@ -148,18 +151,33 @@
                                         <exclude reference="nP8-Q0-oH4"/>
                                     </mask>
                                 </variation>
+                                <connections>
+                                    <action selector="loginWithEmailPressed:" destination="703-4V-yAM" eventType="touchUpInside" id="xa8-1t-Y13"/>
+                                </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="poll_icon@2X.png" translatesAutoresizingMaskIntoConstraints="NO" id="hpv-v5-LIR">
                                 <rect key="frame" x="236" y="88" width="97" height="128"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="97" id="78D-YD-rVC"/>
+                                </constraints>
                             </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Ask Friends What They Would Do..." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B3B-Eq-4gj">
+                                <rect key="frame" x="220" y="231" width="271" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="centerX" secondItem="7Dz-Bu-4cG" secondAttribute="centerX" id="1F1-S4-zsX"/>
                             <constraint firstAttribute="centerY" secondItem="7Dz-Bu-4cG" secondAttribute="centerY" constant="-12" id="3ln-Oi-106"/>
                             <constraint firstItem="IfR-02-kHw" firstAttribute="top" secondItem="jBL-ra-RcP" secondAttribute="bottom" constant="40" id="72i-3y-OTW"/>
+                            <constraint firstItem="B3B-Eq-4gj" firstAttribute="top" secondItem="hpv-v5-LIR" secondAttribute="bottom" constant="20" id="Ehf-ip-797"/>
                             <constraint firstItem="zGW-KR-BzS" firstAttribute="width" secondItem="502-Ir-ELC" secondAttribute="width" multiplier="0.8" id="Gow-gR-jZp"/>
                             <constraint firstAttribute="centerX" secondItem="hpv-v5-LIR" secondAttribute="centerX" id="HcZ-zz-vjD"/>
+                            <constraint firstItem="hpv-v5-LIR" firstAttribute="centerX" secondItem="B3B-Eq-4gj" secondAttribute="centerX" id="JEJ-lv-gds"/>
+                            <constraint firstItem="B3B-Eq-4gj" firstAttribute="width" secondItem="hpv-v5-LIR" secondAttribute="width" multiplier="1.5" id="OBd-sR-bHR"/>
                             <constraint firstItem="hpv-v5-LIR" firstAttribute="top" secondItem="I7W-xW-C47" secondAttribute="bottom" constant="100" id="Uku-zf-fys"/>
                             <constraint firstItem="zGW-KR-BzS" firstAttribute="width" secondItem="jBL-ra-RcP" secondAttribute="width" multiplier="0.3" id="XeV-Jo-AmS"/>
                             <constraint firstItem="zGW-KR-BzS" firstAttribute="width" secondItem="Xcn-sc-6ko" secondAttribute="width" multiplier="0.3" id="aid-di-TKF"/>
@@ -179,19 +197,55 @@
                     <navigationItem key="navigationItem" id="bUP-qC-nZD"/>
                     <connections>
                         <outlet property="facebookLoginView" destination="zGW-KR-BzS" id="CSq-pL-JHt"/>
-                        <outlet property="loginButton" destination="jBL-ra-RcP" id="nAF-mF-pn3"/>
-                        <outlet property="signupButton" destination="Xcn-sc-6ko" id="Xmo-nR-4pT"/>
+                        <outlet property="loginButton" destination="jBL-ra-RcP" id="L72-kw-Cx1"/>
+                        <outlet property="signupButton" destination="Xcn-sc-6ko" id="ssO-Ki-wwe"/>
                         <outlet property="surveyImage" destination="hpv-v5-LIR" id="zJs-n0-WSH"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Q3h-pU-vEd" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1642" y="-1052"/>
+            <point key="canvasLocation" x="-2314" y="-1052"/>
+        </scene>
+        <!--Login View Controller-->
+        <scene sceneID="RoU-La-3n0">
+            <objects>
+                <viewController storyboardIdentifier="LoginViewController" id="MUb-ww-bN6" customClass="LoginViewController" customModule="RocketPoll" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="7pY-bz-hue"/>
+                        <viewControllerLayoutGuide type="bottom" id="A9C-9Z-fgs"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="jXc-T3-41e">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Mtq-th-dnm" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1629" y="-1127"/>
+        </scene>
+        <!--Signup View Controller-->
+        <scene sceneID="OJP-1F-4o7">
+            <objects>
+                <viewController storyboardIdentifier="SignupViewController" id="U1G-fU-tQ9" customClass="SignupViewController" customModule="RocketPoll" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="XyS-6a-dFE"/>
+                        <viewControllerLayoutGuide type="bottom" id="U7x-Wn-FA1"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="pAa-F8-Xhq">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="TCT-Ts-yzW" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1761" y="-483"/>
         </scene>
         <!--Answer Question View Controller-->
         <scene sceneID="eC5-KI-0jO">
             <objects>
-                <viewController storyboardIdentifier="AnswerQuestionViewController" id="gp5-zd-Q4C" customClass="AnswerQuestionViewController" customModule="RocketPoll" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AnswerQuestionViewController" automaticallyAdjustsScrollViewInsets="NO" id="gp5-zd-Q4C" customClass="AnswerQuestionViewController" customModule="RocketPoll" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="S5j-Dp-VsS"/>
                         <viewControllerLayoutGuide type="bottom" id="oEt-Gc-ALj"/>
@@ -200,8 +254,22 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="vZ3-b6-gOq">
-                                <rect key="frame" x="150" y="138" width="300" height="300"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Question Label" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EK2-rR-R4A">
+                                <rect key="frame" x="26" y="36" width="548" height="33.5"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="48" id="jB2-ub-ACY"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="28"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="jB2-ub-ACY"/>
+                                    </mask>
+                                </variation>
+                            </label>
+                            <tableView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="114" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="vZ3-b6-gOq">
+                                <rect key="frame" x="0.0" y="77" width="600" height="490.5"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="450" id="1d2-7M-kff"/>
@@ -209,21 +277,45 @@
                                 </constraints>
                                 <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell opaque="NO" contentMode="scaleToFill" restorationIdentifier="answerOption" selectionStyle="default" indentationWidth="10" reuseIdentifier="answerOption" textLabel="V8t-oP-7YF" style="IBUITableViewCellStyleDefault" id="jiK-0e-FHw" customClass="AnswerOptionTableViewCell" customModule="RocketPoll" customModuleProvider="target">
+                                    <tableViewCell opaque="NO" contentMode="scaleToFill" restorationIdentifier="answerOption" selectionStyle="default" indentationWidth="10" reuseIdentifier="answerOption" rowHeight="114" id="jiK-0e-FHw" customClass="AnswerOptionTableViewCell" customModule="RocketPoll" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="300" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="jiK-0e-FHw" id="AM7-AJ-JYO">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="V8t-oP-7YF">
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KzJ-w0-2pN" customClass="CircleView" customModule="RocketPoll" customModuleProvider="target">
+                                                    <rect key="frame" x="18" y="44" width="25" height="25"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="25" id="7go-k3-rE2"/>
+                                                        <constraint firstAttribute="width" constant="25" id="nLl-ZG-zRI"/>
+                                                    </constraints>
+                                                </view>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label with answer option" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uMh-Hp-Gby">
+                                                    <rect key="frame" x="49" y="42" width="262" height="29"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                                    <color key="textColor" red="0.36862745098039218" green="0.70196078431372544" blue="0.89411764705882346" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstItem="KzJ-w0-2pN" firstAttribute="centerY" secondItem="uMh-Hp-Gby" secondAttribute="centerY" id="Noj-Km-JuD"/>
+                                                <constraint firstItem="uMh-Hp-Gby" firstAttribute="leading" secondItem="KzJ-w0-2pN" secondAttribute="trailing" constant="6" id="QlT-c7-a59"/>
+                                                <constraint firstItem="KzJ-w0-2pN" firstAttribute="leading" secondItem="AM7-AJ-JYO" secondAttribute="leadingMargin" constant="10" id="RAx-95-qkD"/>
+                                                <constraint firstAttribute="centerX" secondItem="KzJ-w0-2pN" secondAttribute="centerX" constant="279.5" id="dnP-1f-Cs9"/>
+                                                <constraint firstAttribute="centerY" secondItem="KzJ-w0-2pN" secondAttribute="centerY" id="jbJ-uT-3Op"/>
+                                            </constraints>
+                                            <variation key="default">
+                                                <mask key="constraints">
+                                                    <exclude reference="dnP-1f-Cs9"/>
+                                                </mask>
+                                            </variation>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <connections>
+                                            <outlet property="answerOptionLabel" destination="uMh-Hp-Gby" id="XBb-Xb-7Nj"/>
+                                            <outlet property="optionSelectionView" destination="KzJ-w0-2pN" id="d14-rD-pJn"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                                 <variation key="default">
@@ -237,24 +329,10 @@
                                     <outlet property="delegate" destination="gp5-zd-Q4C" id="OcM-DR-R3q"/>
                                 </connections>
                             </tableView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Question Label" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EK2-rR-R4A">
-                                <rect key="frame" x="242" y="70" width="116" height="48"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="48" id="jB2-ub-ACY"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="jB2-ub-ACY"/>
-                                    </mask>
-                                </variation>
-                            </label>
                         </subviews>
-                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="EK2-rR-R4A" firstAttribute="top" secondItem="S5j-Dp-VsS" secondAttribute="bottom" constant="50" id="5NM-w0-73S"/>
+                            <constraint firstItem="EK2-rR-R4A" firstAttribute="top" secondItem="S5j-Dp-VsS" secondAttribute="bottom" constant="16" id="5NM-w0-73S"/>
                             <constraint firstItem="vZ3-b6-gOq" firstAttribute="top" secondItem="EK2-rR-R4A" secondAttribute="bottom" constant="10" id="83J-wZ-ADL"/>
                             <constraint firstItem="oEt-Gc-ALj" firstAttribute="top" secondItem="vZ3-b6-gOq" secondAttribute="bottom" constant="30" id="8tC-cI-mcz"/>
                             <constraint firstAttribute="centerX" secondItem="vZ3-b6-gOq" secondAttribute="centerX" id="Eys-Ug-doL"/>
@@ -280,7 +358,25 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pTw-4W-qLN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2081" y="-871"/>
+            <point key="canvasLocation" x="1792" y="-1027"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="P8P-ac-INf">
+            <objects>
+                <viewController id="5zB-nz-sUV" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="9gl-Pw-bse"/>
+                        <viewControllerLayoutGuide type="bottom" id="Dk0-W2-EgE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="ZJ2-9z-xSn">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="va5-cD-E2W" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2405" y="-1032"/>
         </scene>
         <!--Result Details View Controller-->
         <scene sceneID="8Lb-4f-BCr">
@@ -300,10 +396,10 @@
             </objects>
             <point key="canvasLocation" x="1809" y="-231"/>
         </scene>
-        <!--Trends-->
+        <!--Explore-->
         <scene sceneID="72q-qh-25D">
             <objects>
-                <viewController storyboardIdentifier="SeeResultsViewController" id="gYu-vi-PuZ" customClass="SeeResultsViewController" customModule="RocketPoll" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SeeResultsViewController" title="Explore" id="gYu-vi-PuZ" customClass="SeeResultsViewController" customModule="RocketPoll" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="lf0-YJ-pjM"/>
                         <viewControllerLayoutGuide type="bottom" id="V6g-eY-Uww"/>
@@ -377,7 +473,7 @@
                             </mask>
                         </variation>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Trends" id="6ZC-Rl-zO1"/>
+                    <tabBarItem key="tabBarItem" title="Trending" image="TrendUpFat" id="6ZC-Rl-zO1"/>
                     <connections>
                         <outlet property="tableView" destination="bVv-WQ-13u" id="LrG-aI-sg8"/>
                     </connections>
@@ -560,7 +656,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="rSp-Nd-l6W">
-                                                    <rect key="frame" x="8" y="17" width="50" height="64.5"/>
+                                                    <rect key="frame" x="8" y="17" width="50" height="65"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="50" id="ebi-oD-yVZ"/>
                                                         <constraint firstAttribute="height" constant="65" id="j1a-aR-jsu"/>
@@ -631,10 +727,10 @@
             </objects>
             <point key="canvasLocation" x="1571" y="558"/>
         </scene>
-        <!--Question Inbox-->
+        <!--Answer-->
         <scene sceneID="shc-Xh-v1l">
             <objects>
-                <viewController storyboardIdentifier="QuestionsListViewController" id="cB4-w2-kEg" customClass="QuestionsListViewController" customModule="RocketPoll" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="QuestionsListViewController" title="Answer" id="cB4-w2-kEg" customClass="QuestionsListViewController" customModule="RocketPoll" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="JW8-wp-Hcq"/>
                         <viewControllerLayoutGuide type="bottom" id="eFO-is-At7"/>
@@ -731,7 +827,7 @@
                             </mask>
                         </variation>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Question Inbox" id="Hu9-hl-uda"/>
+                    <tabBarItem key="tabBarItem" title="Answer" image="Check" id="Hu9-hl-uda"/>
                     <connections>
                         <outlet property="questionsTableView" destination="PbF-4C-6rR" id="Zdz-Wh-8jV"/>
                     </connections>
@@ -873,9 +969,9 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="I6h-Eg-oym" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-217" y="-1801"/>
+            <point key="canvasLocation" x="-1853" y="-1819"/>
         </scene>
-        <!--Account-->
+        <!--Profile-->
         <scene sceneID="hJd-w0-GhJ">
             <objects>
                 <viewController storyboardIdentifier="AccountViewController" id="rS0-QM-tpb" customClass="AccountViewController" customModule="RocketPoll" customModuleProvider="target" sceneMemberID="viewController">
@@ -945,7 +1041,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
-                        <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803926" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="QNg-NH-tOT" firstAttribute="top" secondItem="3yn-xP-B3u" secondAttribute="bottom" constant="10" id="4Wn-g7-7Hg"/>
                             <constraint firstAttribute="centerX" secondItem="QNg-NH-tOT" secondAttribute="centerX" id="7YK-y8-4eJ"/>
@@ -975,7 +1071,7 @@
                             </mask>
                         </variation>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Account" id="gG4-6Q-5nF"/>
+                    <tabBarItem key="tabBarItem" title="Profile" image="Person" id="gG4-6Q-5nF"/>
                     <connections>
                         <outlet property="commentsPostedLabel" destination="hsw-gz-jRf" id="4dg-R5-Jix"/>
                         <outlet property="login" destination="XVG-Hy-54E" id="Dcw-4p-mMX"/>
@@ -990,10 +1086,10 @@
             </objects>
             <point key="canvasLocation" x="455" y="-1600"/>
         </scene>
-        <!--My Questions-->
+        <!--Ask-->
         <scene sceneID="ftx-38-lii">
             <objects>
-                <viewController storyboardIdentifier="MyQuestionsViewController" id="ccq-Di-hP0" customClass="MyQuestionsViewController" customModule="RocketPoll" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MyQuestionsViewController" title="Ask" id="ccq-Di-hP0" customClass="MyQuestionsViewController" customModule="RocketPoll" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Krm-0K-kzR"/>
                         <viewControllerLayoutGuide type="bottom" id="Ipy-uh-qan"/>
@@ -1083,7 +1179,7 @@
                             <constraint firstItem="RgD-Xg-B8X" firstAttribute="top" secondItem="jLt-KA-c5T" secondAttribute="bottom" id="yoG-MC-5NF"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="My Questions" id="82C-mH-v1b"/>
+                    <tabBarItem key="tabBarItem" title="Ask" image="Question" id="82C-mH-v1b"/>
                     <connections>
                         <outlet property="myQuestionsTableView" destination="jLt-KA-c5T" id="YFm-Dr-dGO"/>
                     </connections>
@@ -1239,7 +1335,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Cij-zi-SPc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1600" y="-195"/>
+            <point key="canvasLocation" x="1217" y="-13"/>
         </scene>
         <!--Dev Tools View Controller-->
         <scene sceneID="boK-Ti-QDE">
@@ -1405,7 +1501,12 @@
         </scene>
     </scenes>
     <resources>
+        <image name="Check" width="25" height="25"/>
+        <image name="Person" width="25" height="25"/>
+        <image name="Question" width="25" height="25"/>
+        <image name="TrendUpFat" width="25" height="25"/>
         <image name="dual-nature.jpg" width="1440" height="900"/>
+        <image name="home" width="350" height="350"/>
         <image name="poll_icon@2X.png" width="194" height="256"/>
         <image name="raccoon_silhuttte" width="350" height="350"/>
     </resources>

@@ -27,7 +27,7 @@ public class DataController{
 // A user should be able to:
     // Trigger question to friends
     func askQuestion(text: NSString, options:[AnyObject], friends:[AnyObject]){
-        var backendQuestion = PFObject(className:"Question")
+        let backendQuestion = PFObject(className:"Question")
         backendQuestion["text"] = text
         backendQuestion["options"] = options
         backendQuestion["askedOf"] = friends
@@ -36,7 +36,7 @@ public class DataController{
             if succeeded {
 
                 // save to users asked questions list
-                var questions = PFUser.currentUser().objectForKey("questions") as NSMutableArray?
+                var questions = PFUser.currentUser().objectForKey("questions") as! NSMutableArray?
 
                 if questions == nil {
                     questions = NSMutableArray()
@@ -47,7 +47,7 @@ public class DataController{
                 PFUser.currentUser().saveInBackgroundWithBlock(nil)
 
                 for friend in friends {
-                    var push = PFPush()
+                    let push = PFPush()
                     push.setChannel("questions_to_\(friend.objectId)")
                     push.setMessage("You have a new question from \(PFUser.currentUser().username)")
                     push.sendPushInBackgroundWithBlock(nil)

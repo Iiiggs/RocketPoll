@@ -10,8 +10,10 @@ import UIKit
 
 class AnswerOptionTableViewCell: UITableViewCell {
     @IBOutlet weak var answerLabel: UILabel!
-    
-    @IBOutlet weak var textField: UITextField!
+
+    @IBOutlet weak var answerOptionLabel: UILabel!
+
+    @IBOutlet weak var optionSelectionView: CircleView!
 
     override func awakeFromNib() {
         super.awakeFromNib()

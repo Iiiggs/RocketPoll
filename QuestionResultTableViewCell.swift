@@ -17,7 +17,7 @@ class QuestionResultTableViewCell: UITableViewCell {
         // Initialization code
 
         self.resultBar = self.viewWithTag(1)!
-        self.resultBar!.setTranslatesAutoresizingMaskIntoConstraints(false)
+        self.resultBar!.translatesAutoresizingMaskIntoConstraints = false
 
         self.constWidth = NSLayoutConstraint(item: self.resultBar!, attribute: NSLayoutAttribute.Width, relatedBy: NSLayoutRelation.Equal, toItem: nil, attribute: NSLayoutAttribute.NotAnAttribute, multiplier: 1, constant:1)
 

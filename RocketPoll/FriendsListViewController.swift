@@ -72,9 +72,9 @@ class FriendsListViewController: UIViewController, UITableViewDataSource, UITabl
     }
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell{
-        var cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier) as FriendTableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier) as! FriendTableViewCell
 
-        let selectedIndexPaths = self.tableView.indexPathsForSelectedRows() as [NSIndexPath]?
+        let selectedIndexPaths = self.tableView.indexPathsForSelectedRows 
 
         cell.backgroundColor = UIColor.clearColor()
 
@@ -104,12 +104,12 @@ class FriendsListViewController: UIViewController, UITableViewDataSource, UITabl
     }
 
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath){
-        var cell = tableView.cellForRowAtIndexPath(indexPath)
+        let cell = tableView.cellForRowAtIndexPath(indexPath)
         cell?.accessoryType = .Checkmark
     }
 
     func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
-        var cell = tableView.cellForRowAtIndexPath(indexPath)
+        let cell = tableView.cellForRowAtIndexPath(indexPath)
         cell?.accessoryType = .None
     }
 
@@ -119,7 +119,7 @@ class FriendsListViewController: UIViewController, UITableViewDataSource, UITabl
 
     func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
 
-        if (tableView.indexPathsForSelectedRows() != nil && contains(tableView.indexPathsForSelectedRows() as [NSIndexPath], indexPath)){
+        if (tableView.indexPathsForSelectedRows != nil && (tableView.indexPathsForSelectedRows!).contains(indexPath)){
             cell.accessoryType = .Checkmark
         }
         else {
@@ -128,7 +128,7 @@ class FriendsListViewController: UIViewController, UITableViewDataSource, UITabl
     }
 
     func done() {
-        let selectedIndexPaths = self.tableView.indexPathsForSelectedRows() as [NSIndexPath]?
+        let selectedIndexPaths = self.tableView.indexPathsForSelectedRows 
         if selectedIndexPaths != nil {
             var selectedUsers: [PFUser] = []
             for i:NSIndexPath in selectedIndexPaths!{

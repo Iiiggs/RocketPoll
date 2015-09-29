@@ -29,8 +29,8 @@ class AnswerQuestionViewController: PollingViewControllerBase, UITableViewDataSo
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.questionLabel.text = self.question?.text
-        self.title = "Answer Question"
+        self.questionLabel.text = self.question?.text as! String
+        self.title = "Answer"
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.Done, target: self, action: "cancel")
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Answer", style: UIBarButtonItemStyle.Done, target: self, action: "answer")
 
@@ -63,9 +63,9 @@ class AnswerQuestionViewController: PollingViewControllerBase, UITableViewDataSo
                     self.question!.answeredBy!.append(PFUser.currentUser())
                     self.question?.saveInBackgroundWithBlock(nil)
 
-                    var data = ["alert":"You have a new response to \"\(answer.question.text)\" from \(PFUser.currentUser().username)",
+                    let data = ["alert":"You have a new response to \"\(answer.question.text)\" from \(PFUser.currentUser().username)",
                     "badge":"Increment"]
-                    var push = PFPush()
+                    let push = PFPush()
                     push.setData(data)
                     push.setChannel("answers_to_\(answer.question.askedBy.objectId)")
                     push.sendPushInBackgroundWithBlock(nil)
@@ -96,17 +96,13 @@ class AnswerQuestionViewController: PollingViewControllerBase, UITableViewDataSo
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
     {
-        var cell = tableView.dequeueReusableCellWithIdentifier(self.cellIdentifier) as UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier(self.cellIdentifier) as! AnswerOptionTableViewCell
 
-        cell.backgroundColor = UIColor.clearColor()
+        cell.answerOptionLabel.text = self.question!.options[indexPath.row] as String!
 
-        cell.textLabel!.text = self.question!.options[indexPath.row] as String!
+        cell.optionSelectionView.selected = indexPath.row == selectedOptionIndex
+        cell.optionSelectionView.setNeedsDisplay()
 
-        cell.accessoryType = .None
-        if(indexPath.row == selectedOptionIndex)
-        {
-            cell.accessoryType = .Checkmark
-        }
 
         return cell
     }

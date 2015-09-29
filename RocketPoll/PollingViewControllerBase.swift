@@ -32,9 +32,9 @@ class PollingViewControllerBase: UIViewController, PFLogInViewControllerDelegate
     func presentLoginViewController(){
         if PFUser.currentUser() == nil{
             // login/signup view controller customization
-            var login = RPLoginViewController()
+            let login = RPLoginViewController()
             login.delegate = self
-            login.fields = PFLogInFields.UsernameAndPassword | PFLogInFields.LogInButton | PFLogInFields.SignUpButton | PFLogInFields.PasswordForgotten | PFLogInFields.Facebook | PFLogInFields.Twitter
+            login.fields = [PFLogInFields.UsernameAndPassword, PFLogInFields.LogInButton, PFLogInFields.SignUpButton, PFLogInFields.PasswordForgotten, PFLogInFields.Facebook, PFLogInFields.Twitter]
             self.presentViewController(login, animated: true) { () -> Void in
                 login.signUpController = RPSignUpViewController()
                 login.signUpController.delegate = self
@@ -52,8 +52,8 @@ class PollingViewControllerBase: UIViewController, PFLogInViewControllerDelegate
             request.startWithCompletionHandler { (connection, fbUser, error) -> Void in
                 if error == nil {
                     if (user.username != fbUser["name"] as? String){
-                        user.username = fbUser["name"] as String
-                        user["gender"] = fbUser["gender"] as String
+                        user.username = fbUser["name"] as! String
+                        user["gender"] = fbUser["gender"] as! String
                         user.saveEventually()
                     }
                 }
@@ -66,18 +66,18 @@ class PollingViewControllerBase: UIViewController, PFLogInViewControllerDelegate
         }
         else if PFTwitterUtils.isLinkedWithUser(user) // do the same with Twitter user login
         {
-            var verify = NSURL(string: "https://api.twitter.com/1.1/account/verify_credentials.json")!
-            var request = NSMutableURLRequest(URL: verify)
+            let verify = NSURL(string: "https://api.twitter.com/1.1/account/verify_credentials.json")!
+            let request = NSMutableURLRequest(URL: verify)
             PFTwitterUtils.twitter().signRequest(request)
             NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue(), completionHandler: { (response, data, error) -> Void in
                 if error == nil {
-                    let result = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: nil) as NSDictionary
-                    user.username = result["name"] as String
+                    let result = (try! NSJSONSerialization.JSONObjectWithData(data!, options: [])) as! NSDictionary
+                    user.username = result["name"] as! String
                     user.saveEventually()
                 }
                 else {
                     NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
-                        UIAlertView(title: "Error", message: error.description, delegate: nil, cancelButtonTitle: "OK").show()
+                        UIAlertView(title: "Error", message: error!.description, delegate: nil, cancelButtonTitle: "OK").show()
                     })
                 }
             })

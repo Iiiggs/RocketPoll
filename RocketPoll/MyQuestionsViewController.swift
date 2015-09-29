@@ -28,14 +28,14 @@ class MyQuestionsViewController: PollingViewControllerBase, UITableViewDataSourc
 
     func getMyQuestions(){
         if(PFUser.currentUser() != nil){
-            var query = PFQuery(className: "Question")
+            let query = PFQuery(className: "Question")
             query.whereKey("askedBy", equalTo: PFUser.currentUser())
             query.orderByDescending("createdAt")
             query.includeKey("askedBy")
 
             query.findObjectsInBackgroundWithBlock { (myQuestions, error) -> Void in
                 if error == nil {
-                    self.myQuestions = myQuestions as [Question]
+                    self.myQuestions = myQuestions as! [Question]
 
                     NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
                         self.myQuestionsTableView.reloadData()
@@ -59,15 +59,15 @@ class MyQuestionsViewController: PollingViewControllerBase, UITableViewDataSourc
     }
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        var cell = tableView.dequeueReusableCellWithIdentifier(self.cellIdentifier) as MyQuestionTableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier(self.cellIdentifier) as! MyQuestionTableViewCell
 
-        cell.questionLabel.text = myQuestions[indexPath.row].text
+        cell.questionLabel.text = myQuestions[indexPath.row].text as String
         cell.backgroundColor = UIColor.clearColor()
 
-        var questionId = myQuestions[indexPath.row].objectId
+        let questionId = myQuestions[indexPath.row].objectId
         PFCloud.callFunctionInBackground("countAnswerForQuestion", withParameters: ["questionId":questionId]) { (result, error) -> Void in
             if error == nil {
-                let count = result["totalResponses"] as NSNumber
+                let count = result["totalResponses"] as! NSNumber
 
                 cell.responseCount.text = count.description
             }
@@ -90,18 +90,18 @@ class MyQuestionsViewController: PollingViewControllerBase, UITableViewDataSourc
     }
 
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let questionResult = self.storyboard!.instantiateViewControllerWithIdentifier("QuestionResultViewController") as QuestionResultViewController
+        let questionResult = self.storyboard!.instantiateViewControllerWithIdentifier("QuestionResultViewController") as! QuestionResultViewController
         questionResult.question = self.myQuestions[indexPath.row]
-        var navigation = UINavigationController(rootViewController: questionResult)
+        let navigation = UINavigationController(rootViewController: questionResult)
         self.presentViewController(navigation, animated: true, completion: nil)
     }
 
 
     @IBAction func askNewQuestion(sender: AnyObject) {
-        var askQuestion = self.storyboard!.instantiateViewControllerWithIdentifier("AskQuestionViewController") as AskQuestionViewController
+        let askQuestion = self.storyboard!.instantiateViewControllerWithIdentifier("AskQuestionViewController") as! AskQuestionViewController
         askQuestion.delegate = self
 
-        var navigation = UINavigationController(rootViewController: askQuestion)
+        let navigation = UINavigationController(rootViewController: askQuestion)
 
         self.presentViewController(navigation, animated: true, completion: nil)
     }

@@ -42,23 +42,23 @@ class ModelController: NSObject, UIPageViewControllerDataSource {
 
         switch index {
         case 0:
-            var vc = storyboard.instantiateViewControllerWithIdentifier("AccountViewController") as AccountViewController
+            let vc = storyboard.instantiateViewControllerWithIdentifier("AccountViewController") as! AccountViewController
             vc.dataObject = 0
             return vc
         case 1:
-            var vc = storyboard.instantiateViewControllerWithIdentifier("MyQuestionsViewController") as MyQuestionsViewController
+            let vc = storyboard.instantiateViewControllerWithIdentifier("MyQuestionsViewController") as! MyQuestionsViewController
             vc.dataObject = 1
             return vc
         case 2:
-            var vc = storyboard.instantiateViewControllerWithIdentifier("QuestionsListViewController") as QuestionsListViewController
+            let vc = storyboard.instantiateViewControllerWithIdentifier("QuestionsListViewController") as! QuestionsListViewController
             vc.dataObject = 2
             return vc
         case 3:
-            var vc = storyboard.instantiateViewControllerWithIdentifier("SeeResultsViewController") as SeeResultsViewController
+            let vc = storyboard.instantiateViewControllerWithIdentifier("SeeResultsViewController") as! SeeResultsViewController
             vc.dataObject = 3
             return vc
         default:
-            let dataViewController = storyboard.instantiateViewControllerWithIdentifier("PollingViewControllerBase") as PollingViewControllerBase
+            let dataViewController = storyboard.instantiateViewControllerWithIdentifier("PollingViewControllerBase") as! PollingViewControllerBase
             dataViewController.dataObject = self.pageData[index]
             return dataViewController
         }
@@ -78,7 +78,7 @@ class ModelController: NSObject, UIPageViewControllerDataSource {
 
     func pageViewController(pageViewController: UIPageViewController, viewControllerBeforeViewController viewController: UIViewController) -> UIViewController? {
 
-        let dataObject: AnyObject = (viewController as PollingViewControllerBase).dataObject!
+        let dataObject: AnyObject = (viewController as! PollingViewControllerBase).dataObject!
         var index = dataObject.integerValue!
 
         if (index == 0){
@@ -91,7 +91,7 @@ class ModelController: NSObject, UIPageViewControllerDataSource {
     }
 
     func pageViewController(pageViewController: UIPageViewController, viewControllerAfterViewController viewController: UIViewController) -> UIViewController? {
-        let dataObject: AnyObject = (viewController as PollingViewControllerBase).dataObject!
+        let dataObject: AnyObject = (viewController as! PollingViewControllerBase).dataObject!
         var index = dataObject.integerValue!
 
     

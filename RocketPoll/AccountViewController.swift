@@ -45,7 +45,7 @@ class AccountViewController: PollingViewControllerBase, UINavigationControllerDe
             self.uploadProfilePictureButton.hidden = false
 
             if PFUser.currentUser().objectForKey("profile_picture") != nil {
-                let profilePictureFile = PFUser.currentUser().objectForKey("profile_picture") as PFFile
+                let profilePictureFile = PFUser.currentUser().objectForKey("profile_picture") as! PFFile
                 profilePictureFile.getDataInBackgroundWithBlock({ (profilePicData, error) -> Void in
                     if error == nil {
                         NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
@@ -62,7 +62,7 @@ class AccountViewController: PollingViewControllerBase, UINavigationControllerDe
             }
 
             // count questions asked
-            var questionsCountQuery = PFQuery(className: "Question")
+            let questionsCountQuery = PFQuery(className: "Question")
             questionsCountQuery.whereKey("askedBy", equalTo: PFUser.currentUser())
             questionsCountQuery.countObjectsInBackgroundWithBlock({ (count, error) -> Void in
                 if error == nil {
@@ -78,7 +78,7 @@ class AccountViewController: PollingViewControllerBase, UINavigationControllerDe
             })
 
             // count questions answered
-            var answersCountQuery = PFQuery(className: "Answer")
+            let answersCountQuery = PFQuery(className: "Answer")
             answersCountQuery.whereKey("answeredBy", equalTo: PFUser.currentUser())
             answersCountQuery.countObjectsInBackgroundWithBlock({ (count, error) -> Void in
                 if error == nil {
@@ -94,7 +94,7 @@ class AccountViewController: PollingViewControllerBase, UINavigationControllerDe
             })
 
             // count comments posted
-            var commentsCountQuery = PFQuery(className: "Comment")
+            let commentsCountQuery = PFQuery(className: "Comment")
             commentsCountQuery.whereKey("answeredBy", equalTo: PFUser.currentUser())
             commentsCountQuery.countObjectsInBackgroundWithBlock({ (count, error) -> Void in
                 if error == nil {
@@ -135,7 +135,7 @@ class AccountViewController: PollingViewControllerBase, UINavigationControllerDe
 
 
     @IBAction func uploadProfilePicture(sender: AnyObject) {
-        var imagePicker = UIImagePickerController()
+        let imagePicker = UIImagePickerController()
         imagePicker.delegate = self
         self.presentViewController(imagePicker, animated: true, completion: nil)
     }
@@ -163,7 +163,7 @@ class AccountViewController: PollingViewControllerBase, UINavigationControllerDe
 
     func resizeImgage(originalImage:UIImage, factor:CGFloat) -> UIImage
     {
-        var newSize = CGSizeMake(originalImage.size.width*factor, originalImage.size.height*factor);
+        let newSize = CGSizeMake(originalImage.size.width*factor, originalImage.size.height*factor);
 
         UIGraphicsBeginImageContext(newSize)
         originalImage.drawInRect(CGRectMake(0,0,newSize.width,newSize.height))

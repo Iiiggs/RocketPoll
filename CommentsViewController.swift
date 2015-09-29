@@ -58,16 +58,16 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
 
     func postComment() {
         if !self.commentTextView.text.isEmpty {
-            var comment = Comment()
+            let comment = Comment(className: "Comment")
             comment.text = self.commentTextView.text
             comment.by = PFUser.currentUser()
             comment.question = self.question
             comment.saveEventually()
 
             if self.question.askedBy != PFUser.currentUser() {
-                var data = ["alert":"Your question got a new comment from \(PFUser.currentUser().username): \"\(comment.text)\"",
+                let data = ["alert":"Your question got a new comment from \(PFUser.currentUser().username): \"\(comment.text)\"",
                     "badge":"Increment"]
-                var push = PFPush()
+                let push = PFPush()
                 push.setData(data)
                 push.setChannel("answers_to_\(question.askedBy.objectId)")
                 push.sendPushInBackgroundWithBlock(nil)
@@ -89,13 +89,13 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
     }
 
     func loadComments(){
-        var query = PFQuery(className: "Comment")
+        let query = PFQuery(className: "Comment")
         query.whereKey("question", equalTo: self.question!)
         query.includeKey("answeredBy")
         query.orderByDescending("createdAt")
         query.findObjectsInBackgroundWithBlock { (comments, error) -> Void in
             if error == nil {
-                self.comments = comments as [Comment]!
+                self.comments = comments as! [Comment]!
             }
             else {
                 NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
@@ -105,7 +105,7 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
 
             self.tableView.reloadData()
 
-            println("Found \(self.comments.count) comments")
+            print("Found \(self.comments.count) comments")
 
         }
     }
@@ -115,13 +115,17 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
     }
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        var cell = tableView.dequeueReusableCellWithIdentifier(self.cellIdentifier) as CommentsTableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier(self.cellIdentifier) as! CommentsTableViewCell
 
         cell.commentTextLabel.text = self.comments[indexPath.row].text
-        cell.commentDateLabel.text = self.comments[indexPath.row].createdAt?.timeAgo
+
+        // todo: re-implement 
+//        cell.commentDateLabel.text = self.comments[indexPath.row].createdAt?.timeAgo
+
+
         cell.byTextLabel.text = self.comments[indexPath.row].by.username
         if self.comments[indexPath.row].by.objectForKey("profile_picture") != nil {
-            let profilePictureFile = self.comments[indexPath.row].by.objectForKey("profile_picture") as PFFile
+            let profilePictureFile = self.comments[indexPath.row].by.objectForKey("profile_picture") as! PFFile
             profilePictureFile.getDataInBackgroundWithBlock({ (profilePicData, error) -> Void in
                 if error == nil {
                     NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in

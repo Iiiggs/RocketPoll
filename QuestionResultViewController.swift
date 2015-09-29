@@ -32,15 +32,15 @@ UITableViewDataSource, UITableViewDelegate
         super.viewDidLoad()
 
         askedByLabel.text = self.question!.askedBy.username
-        questionLabel.text = self.question!.text
+        questionLabel.text = self.question!.text as String
 
         PFCloud.callFunctionInBackground("responseCountForQuestion", withParameters: ["questionId":question!.objectId!], block: { (result, error) -> Void in
             if error == nil {
-                let resultDict = result as NSDictionary
-                self.totalAnswers = (resultDict.objectForKey("totalResponses") as NSNumber).intValue
+                let resultDict = result as! NSDictionary
+                self.totalAnswers = (resultDict.objectForKey("totalResponses") as! NSNumber).intValue
                 self.votesLabel.text = "\(self.totalAnswers) votes"
 
-                self.responseCounts = resultDict.objectForKey("responseCounts") as NSDictionary
+                self.responseCounts = resultDict.objectForKey("responseCounts") as! NSDictionary
 
                 self.tableView.reloadData()
             }
@@ -52,7 +52,7 @@ UITableViewDataSource, UITableViewDelegate
         })
 
         if self.question!.askedBy.objectForKey("profile_picture") != nil {
-            let profilePictureFile = self.question!.askedBy.objectForKey("profile_picture") as PFFile
+            let profilePictureFile = self.question!.askedBy.objectForKey("profile_picture") as! PFFile
             profilePictureFile.getDataInBackgroundWithBlock({ (profilePicData, error) -> Void in
                 if error == nil {
                     NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
@@ -68,7 +68,7 @@ UITableViewDataSource, UITableViewDelegate
 
         }
 
-        var totalCommentsQuery = PFQuery(className:"Comment")
+        let totalCommentsQuery = PFQuery(className:"Comment")
         totalCommentsQuery.whereKey("question", equalTo: question!)
         totalCommentsQuery.countObjectsInBackgroundWithBlock { (commentsCount, error) -> Void in
             if error == nil {
@@ -106,15 +106,15 @@ UITableViewDataSource, UITableViewDelegate
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell{
 
-        var cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier) as QuestionResultTableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier) as! QuestionResultTableViewCell
         cell.backgroundColor = UIColor.clearColor()
 
-        var label = cell.viewWithTag(2) as UILabel
+        let label = cell.viewWithTag(2) as! UILabel
         let option = self.question!.options[indexPath.row]
-        label.text = option
+        label.text = option as String
 
         if responseCounts.objectForKey(option) != nil {
-            let count = (responseCounts[option] as NSNumber).integerValue
+            let count = (responseCounts[option] as! NSNumber).integerValue
             if count == 1 {
                 label.text = "\(option): \(count)"
             }
@@ -132,7 +132,7 @@ UITableViewDataSource, UITableViewDelegate
 
         }
 
-        var constHeight = NSLayoutConstraint(item: cell.resultBar!, attribute: NSLayoutAttribute.Height, relatedBy: NSLayoutRelation.Equal, toItem: cell.contentView, attribute: NSLayoutAttribute.Height,                 multiplier: 0.5, constant:0)
+        let constHeight = NSLayoutConstraint(item: cell.resultBar!, attribute: NSLayoutAttribute.Height, relatedBy: NSLayoutRelation.Equal, toItem: cell.contentView, attribute: NSLayoutAttribute.Height,                 multiplier: 0.5, constant:0)
         cell.addConstraint(constHeight)
 
         return cell
@@ -144,7 +144,7 @@ UITableViewDataSource, UITableViewDelegate
 
     func comment() {
         // present comment view controller?
-        let comments = self.storyboard!.instantiateViewControllerWithIdentifier("CommentsViewController") as CommentsViewController
+        let comments = self.storyboard!.instantiateViewControllerWithIdentifier("CommentsViewController") as! CommentsViewController
         comments.question = self.question!
         // set the questoin?
 

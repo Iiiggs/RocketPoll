@@ -61,7 +61,7 @@ class QuestionsListViewController: PollingViewControllerBase, UITableViewDelegat
         let user = PFUser.currentUser()
         if user != nil {
             if (user.objectForKey("hiddenQuestions") != nil){
-                let hiddenQuestions =  user.objectForKey("hiddenQuestions") as [Question]
+                let hiddenQuestions =  user.objectForKey("hiddenQuestions") as! [Question]
                 self.hiddenQuestions = hiddenQuestions
 
                 NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
@@ -73,7 +73,7 @@ class QuestionsListViewController: PollingViewControllerBase, UITableViewDelegat
             PFCloud.callFunctionInBackground("unansweredQuestions", withParameters: [:], block: { (result, error) -> Void in
                 if error == nil {
                     // assign the results locally and flag that we're done
-                    self.unansweredQuestions = result as [Question]
+                    self.unansweredQuestions = result as! [Question]
                     self.fetchingUnansweredQuestions = false
 
                     // update the ui if we're done with both queries
@@ -95,7 +95,7 @@ class QuestionsListViewController: PollingViewControllerBase, UITableViewDelegat
             PFCloud.callFunctionInBackground("answeredQuestions", withParameters: [:], block: { (result, error) -> Void in
                 if error == nil {
                     // assign the results locally and flag that we're done
-                    self.answeredQuestions = result as [Question]
+                    self.answeredQuestions = result as! [Question]
                     self.fetchingAnsweredQuestions = false
 
                     // update the ui if we're done with both queries
@@ -135,13 +135,13 @@ class QuestionsListViewController: PollingViewControllerBase, UITableViewDelegat
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
     {
-        var cell = self.questionsTableView.dequeueReusableCellWithIdentifier("questionListCell") as QuestionListTableViewCell
+        let cell = self.questionsTableView.dequeueReusableCellWithIdentifier("questionListCell") as! QuestionListTableViewCell
 
         cell.backgroundColor = UIColor.clearColor()
 
         let question = combinedQuestions[indexPath.row]
 
-        cell.questionTextLabel.text = question.text
+        cell.questionTextLabel.text = question.text as String
         if indexPath.row < visibleUnansweredQuestoin.count {
             cell.accessoryType = .None
         }
@@ -149,7 +149,7 @@ class QuestionsListViewController: PollingViewControllerBase, UITableViewDelegat
             cell.accessoryType = .Checkmark
         }
         cell.askedByTextLabel.text = question.askedBy.username
-        cell.askedDateTextLabel.text = question.createdAt.timeAgo
+//        cell.askedDateTextLabel.text = question.createdAt.timeAgo
 
 
         return cell
@@ -159,14 +159,14 @@ class QuestionsListViewController: PollingViewControllerBase, UITableViewDelegat
         let question = self.combinedQuestions[indexPath.row]
 
         if indexPath.row < visibleUnansweredQuestoin.count {
-            var storyboard = self.storyboard!
-            var answerQuestionViewController = storyboard.instantiateViewControllerWithIdentifier("AnswerQuestionViewController") as AnswerQuestionViewController
+            let storyboard = self.storyboard!
+            let answerQuestionViewController = storyboard.instantiateViewControllerWithIdentifier("AnswerQuestionViewController") as! AnswerQuestionViewController
             answerQuestionViewController.question = question
             answerQuestionViewController.delegate = self
-            var navigation = UINavigationController(rootViewController: answerQuestionViewController)
+            let navigation = UINavigationController(rootViewController: answerQuestionViewController)
             self.presentViewController(navigation, animated: true, completion: nil)
         } else {
-            let questionResult = self.storyboard!.instantiateViewControllerWithIdentifier("QuestionResultViewController") as QuestionResultViewController
+            let questionResult = self.storyboard!.instantiateViewControllerWithIdentifier("QuestionResultViewController") as! QuestionResultViewController
             questionResult.question = question
             let navigation = UINavigationController(rootViewController: questionResult)
             self.presentViewController(navigation, animated: true, completion: nil)
@@ -174,9 +174,9 @@ class QuestionsListViewController: PollingViewControllerBase, UITableViewDelegat
         }
     }
 
-    func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [AnyObject]? {
+    func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
         return [
-            UITableViewRowAction(style: .Default, title: "Hide", handler: { (action: UITableViewRowAction!, indexPath: NSIndexPath!) -> Void in
+            UITableViewRowAction(style: .Default, title: "Hide", handler: { (action: UITableViewRowAction, indexPath: NSIndexPath) -> Void in
                 let question = self.combinedQuestions[indexPath.row]
                 self.hiddenQuestions.append(question)
 

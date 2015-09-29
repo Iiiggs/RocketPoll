@@ -13,7 +13,7 @@ class Comment : PFObject, PFSubclassing{
 
     var text: String {
         get {
-            return objectForKey("text") as String
+            return objectForKey("text") as! String
         }
         set {
             setObject(newValue, forKey: "text")
@@ -22,7 +22,7 @@ class Comment : PFObject, PFSubclassing{
 
     var question: Question {
         get {
-            return objectForKey("question") as Question
+            return objectForKey("question")as! Question
         }
         set {
             setObject(newValue, forKey: "question")
@@ -31,7 +31,7 @@ class Comment : PFObject, PFSubclassing{
 
     var by: PFUser {
         get {
-            return objectForKey("answeredBy") as PFUser
+            return objectForKey("answeredBy")as! PFUser
         }
         set {
             setObject(newValue, forKey: "answeredBy")
@@ -42,7 +42,7 @@ class Comment : PFObject, PFSubclassing{
         return "Comment"
     }
 
-    override class func load(){
+    override class func initialize(){
         self.registerSubclass()
     }
     
@@ -53,7 +53,7 @@ class Answer : PFObject, PFSubclassing{
 
     var selection: String {
         get {
-            return objectForKey("selection") as String
+            return objectForKey("selection")as! String
         }
         set {
             setObject(newValue, forKey: "selection")
@@ -62,7 +62,7 @@ class Answer : PFObject, PFSubclassing{
 
     var question: Question {
         get {
-            return objectForKey("question") as Question
+            return objectForKey("question")as! Question
         }
         set {
             setObject(newValue, forKey: "question")
@@ -71,7 +71,7 @@ class Answer : PFObject, PFSubclassing{
 
     var answeredBy: PFUser {
         get {
-            return objectForKey("answeredBy") as PFUser
+            return objectForKey("answeredBy")as! PFUser
         }
         set {
             setObject(newValue, forKey: "answeredBy")
@@ -82,7 +82,7 @@ class Answer : PFObject, PFSubclassing{
         return "Answer"
     }
 
-    override class func load(){
+    override class func initialize(){
         self.registerSubclass()
     }
 
@@ -92,7 +92,7 @@ class Question: PFObject, PFSubclassing{
 
     var text: NSString {
         get {
-            return objectForKey("text") as NSString
+            return objectForKey("text") as! NSString
         }
         set {
             setObject(newValue, forKey: "text")
@@ -101,7 +101,7 @@ class Question: PFObject, PFSubclassing{
 
     var options: Array<NSString> {
         get {
-            return objectForKey("options") as Array<NSString>
+            return objectForKey("options")as! Array<NSString>
         }
         set {
             setObject(newValue, forKey: "options")
@@ -110,7 +110,7 @@ class Question: PFObject, PFSubclassing{
 
     var askedOf: Array<PFUser> {
         get {
-            return objectForKey("askedOf") as Array<PFUser>
+            return objectForKey("askedOf")as! Array<PFUser>
         }
         set {
             setObject(newValue, forKey: "askedOf")
@@ -119,7 +119,7 @@ class Question: PFObject, PFSubclassing{
 
     var askedBy: PFUser {
         get {
-            return objectForKey("askedBy") as PFUser
+            return objectForKey("askedBy")as! PFUser
         }
         set {
             setObject(newValue, forKey: "askedBy")
@@ -149,7 +149,7 @@ class Question: PFObject, PFSubclassing{
         return "Question"
     }
 
-    override class func load(){
+    override class func initialize(){
         self.registerSubclass()
     }
 }

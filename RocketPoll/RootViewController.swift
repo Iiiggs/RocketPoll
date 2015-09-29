@@ -52,7 +52,7 @@ class RootViewController: UIViewController, UIPageViewControllerDelegate, FBLogi
         let rect = imageView.convertRect(imageView.bounds, toView: backgroundView)
         UIGraphicsBeginImageContext(imageView.frame.size)
         backgroundView.drawViewHierarchyInRect(rect, afterScreenUpdates: true)
-        var backgroundImage = UIGraphicsGetImageFromCurrentImageContext()
+        let backgroundImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
 
         let bluredImage = UIImageEffects.imageByApplyingExtraLightEffectToImage(backgroundImage)
@@ -63,7 +63,7 @@ class RootViewController: UIViewController, UIPageViewControllerDelegate, FBLogi
         foreGroundImage.drawInRect(CGRectMake(0,0,rect.size.width,rect.size.height))
 
 
-        var finalImage = UIGraphicsGetImageFromCurrentImageContext()
+        let finalImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
 
         imageView.image = finalImage
@@ -149,8 +149,8 @@ class RootViewController: UIViewController, UIPageViewControllerDelegate, FBLogi
     func pageViewController(pageViewController: UIPageViewController, spineLocationForInterfaceOrientation orientation: UIInterfaceOrientation) -> UIPageViewControllerSpineLocation {
         if (orientation == .Portrait) || (orientation == .PortraitUpsideDown) || (UIDevice.currentDevice().userInterfaceIdiom == .Phone) {
             // In portrait orientation or on iPhone: Set the spine position to "min" and the page view controller's view controllers array to contain just one view controller. Setting the spine position to 'UIPageViewControllerSpineLocationMid' in landscape orientation sets the doubleSided property to YES, so set it to NO here.
-            let currentViewController = self.pageViewController!.viewControllers[0] as UIViewController
-            let viewControllers: NSArray = [currentViewController]
+            let currentViewController = self.pageViewController!.viewControllers![0] as UIViewController
+            let viewControllers : [UIViewController] = [currentViewController]
             self.pageViewController!.setViewControllers(viewControllers, direction: .Forward, animated: true, completion: {done in })
 
             self.pageViewController!.doubleSided = false
@@ -158,8 +158,8 @@ class RootViewController: UIViewController, UIPageViewControllerDelegate, FBLogi
         }
 
         // In landscape orientation: Set set the spine location to "mid" and the page view controller's view controllers array to contain two view controllers. If the current page is even, set it to contain the current and next view controllers; if it is odd, set the array to contain the previous and current view controllers.
-        let currentViewController = self.pageViewController!.viewControllers[0] as PollingViewControllerBase
-        var viewControllers: NSArray
+        let currentViewController = self.pageViewController!.viewControllers![0] as! PollingViewControllerBase
+        var viewControllers: [UIViewController]
 
         let indexOfCurrentViewController = self.modelController.indexOfViewController(currentViewController)
         if (indexOfCurrentViewController == 0) || (indexOfCurrentViewController % 2 == 0) {
@@ -179,10 +179,23 @@ class RootViewController: UIViewController, UIPageViewControllerDelegate, FBLogi
 
         let vc = self.modelController.viewControllerAtIndex(i, storyboard: self.storyboard!)
 
-        self.pageViewController!.setViewControllers([vc!], direction: UIPageViewControllerNavigationDirection.Forward, animated: true, { (res) -> Void in
+        self.pageViewController!.setViewControllers([vc!], direction: UIPageViewControllerNavigationDirection.Forward, animated: true, completion: { (res) -> Void in
                                     })
     }
 
+    @IBAction func createAccountPressed(sender: AnyObject) {
+        let signupViewController = storyboard!.instantiateViewControllerWithIdentifier("SignupViewController") as! SignupViewController
+
+        self.navigationController?.presentViewController(signupViewController, animated: true, completion: nil)
+    }
+
+
+    @IBAction func loginWithEmailPressed(sender: AnyObject) {
+        let loginViewController = storyboard!.instantiateViewControllerWithIdentifier("LoginViewController")as! LoginViewController
+
+        self.navigationController?.presentViewController(loginViewController, animated: true, completion: nil)
+
+    }
 
 }
 
